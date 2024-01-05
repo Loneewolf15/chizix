@@ -1,0 +1,7 @@
+{
+  "name": "velux_pay",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
