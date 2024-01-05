@@ -1,0 +1,113 @@
+.md {
+    ion-segment {
+        width: 60%;
+        margin: auto;
+    }
+}
+
+ion-header {
+    ion-toolbar {
+        --background: var(--ion-color-secondary);
+        ion-segment {
+            --background: var(--ion-color-primary);
+            ion-segment-button {
+                --color: var(--ion-color-white);
+                --color-checked: var(--ion-color-primary);
+            }
+        }
+    }
+}
+
+ion-modal {
+    --height: 50%;
+    --border-radius: 16px;
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --width: fit-content;
+    --min-width: 90%;
+  }
+
+  ion-modal::part(backdrop) {
+    background: rgba(209, 213, 219);
+    opacity: 1;
+  }
+  
+  ion-modal ion-toolbar {
+    --background:white;
+    --color: white;
+  }
+  
+  table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  th,
+  td {
+    padding-bottom: 10px;
+    border: 1px solid transparent;
+  }
+
+  td:first-child {
+    text-align: left;
+    font-size: 15px;
+  }
+
+  td:last-child {
+    text-align: right;
+    font-size: 15px;
+  }
+
+
+ion-content {
+    ion-list {
+        margin-top: 1rem;
+    }
+    ion-list.transactions {
+        border-radius: 8vh 8vh 0 0;
+
+        background: var(--ion-color-secondary);
+        padding-bottom: 10vh;
+      
+        ion-list-header {
+            padding-inline-start: 7.5vh;
+        }
+        ion-list-header, ion-item {
+            ion-label {
+                font-size: 1.1rem;
+            }
+        }
+
+        ion-item-group {
+            padding: 0 4.5vh;
+            ion-item {
+                font-weight: bold;
+                --background: transparent;
+                --border-style: dashed;
+                --border-color: var(--ion-color-tertiary);
+                --padding-bottom: 1rem;
+                --padding-top: 1rem;
+                --padding-start: 0;
+                ion-text[slot="end"] {
+                    font-size: 1rem;
+                }
+                p {
+                    font-size: 0.9rem;
+                    font-weight: normal;
+                    margin-top: 3px;
+                }
+                ion-thumbnail {
+                    height: 6vh;
+                    width: 6vh;
+                    border-radius: 10px;
+                    background: var(--ion-color-white);
+                    box-shadow: 0px 3px 6px rgb(3 181 170 / 4%);
+                    img {
+                        height: 4vh;
+                        width: 4vh;
+                        transform: translateY(25%);
+                    }
+                }
+            }
+        }
+    }
+}

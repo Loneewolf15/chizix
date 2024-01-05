@@ -1,0 +1,82 @@
+.profile-container{
+    height: 95vh;
+    padding-top: 2rem;
+}
+
+.profile-header-margin{
+    margin-right: 2.3rem;
+}
+.profile-header{
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+.user-img-size{
+    width: 6vh;
+    height: 6vh;
+}
+.ion-item-gap{
+    margin-bottom: 1rem;
+}
+.user-name-size{
+    font-size: 1rem;
+}
+.user-tag-size{
+    font-size: 0.8rem;
+}
+.heading-bold{
+    font-weight: bold;
+}
+
+ion-content {
+   --ion-background-color:var(--ion-color-dark);
+   --ion-text-color: #ffffff 
+ 
+    div {
+        margin-top: 2rem;
+        ion-avatar {
+            border-radius: 50%;
+            border: 1px solid var(--ion-color-medium);
+            height: 4.5rem;
+            width: 4.5rem;
+        }
+        ion-label {
+            display: transparent;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            margin-top: 0.6rem;
+        }
+    }
+
+    ion-note{
+        color: #7E219E;
+    }
+
+    ion-icon{
+        color: #7E219E;
+        border-radius: 25px;
+    }
+
+    ion-list {
+        background: transparent;
+        padding: 2rem 1.5rem 1rem 1.5rem;
+        ion-item {
+            --background: transparent;
+            --border-style: dashed;
+            --border-color: var(--ion-color-tertiary);
+            --padding-bottom: 1rem;
+            --padding-top: 1rem;
+            --padding-start: 0;
+            --padding-end: 0;
+            ion-toggle {
+                margin-right: -0.6rem;
+            }
+        }
+    }
+
+    ion-button {
+        margin-bottom: 10vh;
+    }
+
+
+}

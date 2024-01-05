@@ -1,0 +1,45 @@
+
+  <ion-content [fullscreen]="true" mode="md" >
+    <ion-card >
+      <div class="ion-img-container">
+       <ion-img src="assets/images/logindesign.png" ></ion-img>
+      </div>
+      
+  <!--   
+    <div align="center">
+      <img src="assets/imgs/logo.png" />
+    </div> -->
+    
+  
+  <ion-card-content class="card-content">  
+    <div class="push">
+      <ion-list>
+        <div class="ion-margin marginBottom" (ionChange)="segmentChanged($event)">
+          <ion-segment mode="ios" [value]="segmentValue">
+            <ion-segment-button value="1">
+              <ion-label>Main Account</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="2">
+              <ion-label>Sub Account</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+  
+        <section class="signin">
+          <div class="textt">
+            <ion-text>Sign in</ion-text>
+          </div>
+          <div >
+            <app-sign-in *ngIf="segmentValue == '1'"></app-sign-in>
+            <app-sign-in-sub *ngIf="segmentValue == '2'"></app-sign-in-sub>
+          </div>
+        </section>
+        
+    
+      </ion-list>
+    </div>
+  </ion-card-content>
+  </ion-card>
+  
+  </ion-content>
+  

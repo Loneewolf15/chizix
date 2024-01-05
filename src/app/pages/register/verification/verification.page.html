@@ -1,0 +1,47 @@
+
+<ion-content>
+<div class="topRight">
+   <ion-button  fill="clear" color="medium" (click)="goToLogin()">Skip</ion-button>
+</div>
+ 
+  
+<ion-label>
+  <h2 class="ion-text-center ion-padding ion-margin-vertical">Let's get started</h2>
+</ion-label>
+<ion-list lines="none">
+  
+  
+  <div>
+    <ion-item (click)="scan()">
+      <ion-icon slot="start" name="document-text"></ion-icon>
+     
+       <ion-label>
+        <h2>Scan ID</h2>
+        <ion-text>NIMC Slip</ion-text>
+      </ion-label>
+
+  <!-- <ion-icon slot="end" name="checkmark-circle"></ion-icon> -->
+    </ion-item>
+  
+  </div>
+  
+  <div>
+  <ion-item (click)="selfie()" detail="true">
+    <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+    
+      <ion-label>
+       <h2 class="ion-text-left">Take Selfie</h2>
+     <p class="ion-text-justify no-wrap">
+      A clear picture of you on<br> a plain background
+     </p>
+     </ion-label>
+  
+  
+  </ion-item>
+   
+  </div>
+   
+  </ion-list>
+
+</ion-content>
+

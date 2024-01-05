@@ -1,0 +1,166 @@
+<ion-toggle slot="end" mode="ios" [checked]="darkMode"
+        (ionChange)="toggleDarkMode()">
+      </ion-toggle>
+<form [formGroup]="form" class="ion-margin"> 
+  <div class="ion-margin-vertical">
+    <ion-item lines="none">
+      <ion-input label="Email*" label-placement="floating" [counter]="true" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Please enter email or tag" formControlName="email" type="text" placeholder="Enter email"></ion-input>
+    </ion-item>
+  </div>
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="none">
+      <ion-icon 
+        [name]="type ? 'eye' : 'eye-off'" 
+        slot="end" 
+        color="dark" 
+        (click)="changeType()">
+      </ion-icon>
+      <ion-input label="Password*" label-placement="floating" errorText="* Please enter your password" formControlName="password" [type]="type ? 'password' : 'text'" 
+        placeholder="Enter password" [counter]="true" minlength="6" [counterFormatter]="customCounterFormatter"></ion-input>
+    </ion-item>
+  </div>
+</form>
+
+<div class="ion-margin-horizontal">
+<ion-grid>
+  <ion-row>
+    <ion-col size-sm="3" >
+      <p class="ion-text-right ion-no-margin forgotpass" id="open-modalx">
+        <ion-text color="warning"> Forgot password?</ion-text>
+      </p>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</div>
+
+<ion-modal class="ion-modal" trigger="open-modalx" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template color="dark"> 
+    <h2 class="blockx ion-text-center">Reset Password</h2>
+
+    <div *ngIf="!showForgotPassForm">
+    <form [formGroup]="emailForm" class="ion-margin">
+      <div class="ion-margin-vertical">
+        <ion-item lines="full">
+          <ion-input formControlName="emailx" name = "emailx" type="email" placeholder="Enter your registered Email" [(ngModel)]="sendData.email"></ion-input>
+        </ion-item>
+        <ion-text  
+          color="danger" 
+          *ngIf="!emailForm.get('emailx').valid && emailForm.get('emailx').touched">
+          <ion-text
+            class="error" 
+            *ngIf="emailForm.get('emailx').hasError('required')">
+            * Please enter your registered email
+          </ion-text>
+        </ion-text>
+      </div>
+      <ion-button
+      class="logIn"
+       size="medium" 
+       expand="block" 
+       shape="round" 
+       color="warning"
+       (click)="resetP()">
+       <ion-text>Reset Password</ion-text>
+     </ion-button>
+    </form> 
+  </div>
+   
+  <div *ngIf="showForgotPassForm">
+    <form [formGroup]="form1" class="ion-margin">
+
+      <div class="ion-margin-vertical">
+        
+      <ion-item>
+        <ion-label position="floating" color="warning">OTP:</ion-label>
+        <ion-input formControlName="otp" name = "otp" type="text" placeholder="OTP from Email address" [(ngModel)]="sendData2.otp"></ion-input>
+    </ion-item>
+        <ion-text  
+          color="danger" 
+          *ngIf="!form1.get('otp').valid && form1.get('otp').touched">
+          <ion-text
+            class="error" 
+            *ngIf="form1.get('otp').hasError('required')">
+            * Please enter the OTP sent to your registered email
+          </ion-text>
+        </ion-text>
+      </div>
+
+
+      <div class="ion-margin-vertical">
+        <ion-item lines="full">
+          <ion-label position="floating" color="warning">New Password:</ion-label>
+          <ion-input formControlName="password" name = "password" type="text" placeholder="Enter your preferred password" [(ngModel)]="sendData2.password"></ion-input>
+        </ion-item>
+        <ion-text  
+          color="danger" 
+          *ngIf="!form1.get('password').valid && form1.get('password').touched">
+          <ion-text
+            class="error" 
+            *ngIf="form1.get('password').hasError('required')">
+            * Please enter your preferred new password
+          </ion-text>
+        </ion-text>
+      </div>
+
+<!-- 
+      <ion-item [class.valid]="form1.get('confirm_password').valid" [class.invalid]="form1.get('confirm_password').invalid">
+        <ion-label position="floating" color="medium">Confirm New Password:</ion-label>
+        <ion-input formControlName="confirm_password" name = "confirm_password" type="text" placeholder="Confirm your preffered password" [(ngModel)]="sendData2.confirm_password"></ion-input>
+        <div class="validation-message" *ngIf="form1.get('confirm_password').invalid && (form1.get('confirm_password').dirty || form1.get('confirm_password').touched)">
+          Passwords do not match.
+        </div>
+      </ion-item> -->
+
+      <div class="ion-margin-vertical">
+        <ion-item lines="full" [class.valid]="form1.get('confirm_password').valid" [class.invalid]="form1.get('confirm_password').invalid">
+          <ion-label position="floating" color="warning">Confirm New Password:</ion-label>
+          <ion-input formControlName="confirm_password" name = "confirm_password" type="text" placeholder="Confirm your preffered password" [(ngModel)]="sendData2.cpassword"></ion-input>
+        </ion-item>
+        <ion-text  
+          color="danger" 
+          *ngIf="!form1.get('confirm_password').valid && form1.get('confirm_password').touched">
+          <ion-text
+            class="error" 
+            *ngIf="form1.get('confirm_password').hasError('required')">
+            * Please confirm your preferred new password
+          </ion-text>
+        </ion-text>
+      </div>
+
+
+  
+      <ion-button
+      class="logIn"
+       size="medium" 
+       expand="block" 
+       shape="round" 
+       color="warning"
+       (click)="resetPx()">
+       <ion-text>Change Password</ion-text>
+     </ion-button>
+    </form>
+    </div>
+  </ng-template>
+</ion-modal>
+
+
+
+
+        <ion-button
+        class="logIn"
+         size="large" 
+         expand="block" 
+         shape="round" 
+         color="warning"
+         (click)="loginfunc()" [disabled]="form.invalid">
+         <ion-text>Log In</ion-text>
+       </ion-button>
+
+
+
+
+<div class="ion-footer ion-text-center ion-no-margin ion-padding-horizontal">
+  <!-- <span>Don't have an account? <a href="/register" color="medium" class="ion-no-padding">Sign up</a></span> -->
+  <span>Don't have an account? <ion-text  fill="clear" color="white" (click)="register()">Sign up</ion-text></span>
+  </div>  

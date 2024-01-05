@@ -1,0 +1,119 @@
+<ion-content>
+  <ion-header *ngIf="showContent">
+    <ion-toolbar color="dark">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/wallets"></ion-back-button>
+  
+      </ion-buttons>
+      <ion-title>Data</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-header *ngIf="!showContent">
+    <ion-toolbar color="dark">
+      <ion-buttons slot="start" (click)="showContent = true">
+        <ion-back-button defaultHref=""></ion-back-button>
+      </ion-buttons>
+      <ion-title>Data</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  
+  
+  <ion-content *ngIf="showContent" color="dark">
+    <!-- Content 1 to be shown/hidden goes here -->
+    <ion-button expand="block" color="dark" class="ion-padding-vertical">
+      <ion-text>Choose service Providers</ion-text>
+    </ion-button> 
+      <br>
+    <!-- <ion-item color="tertiary" class="bundle-items" lines="none" value="MTN" (click)="logCardValuex('mtncg'); showContent = false">
+      <ion-img src="assets/images/mtn-logo-img.png" alt="Mtn"></ion-img>
+      <ion-label class="ion-llabel" font-size="16px;"> MTN </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item> -->
+
+
+    <ion-item  color="tertiary" class="bundle-items" lines="none"value="MTNSME" (click)="logCardValue('mtn'); showContent = false">
+      <ion-img src="assets/images/mtn-logo-img.png" alt="Mtn"></ion-img>
+      <ion-label class="ion-llabel"> MTN </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    
+    </ion-item>
+    
+    
+      <ion-item color="tertiary" class="bundle-items" lines="none"  value="Airtel"(click)="logCardValuey('airtel'); showContent = false">
+        <ion-img src="assets/images/airtel-logo-img.png" alt="Mtn"></ion-img>
+        <ion-label class="ion-llabel"> Airtel</ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      
+      </ion-item>
+    
+      <ion-item  color="tertiary" class="bundle-items" lines="none" value="GLO"  (click)="logCardValuez('glo'); showContent = false" >
+        <ion-img src="assets/images/glo-logo-img.png" alt="Mtn"></ion-img>
+        <ion-label class="ion-llabel"> GLO </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      
+      </ion-item>
+    
+      <ion-item color="tertiary" class="bundle-items" lines="none" value="9mobile" (click)="logCardValuea('9mobile'); showContent = false" >
+        <ion-img src="assets/images/9mobile-logo-img.png" alt="Mtn"></ion-img>
+        <ion-label class="ion-llabel"> 9mobile </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    
+      </ion-item>
+      
+  
+    
+  
+    
+  </ion-content>
+  
+  <ion-content *ngIf="!showContent" class="airt" color="dark">
+    <ion-list>
+      
+  
+        
+    <ion-item color="dark">
+      <ion-label  position="stacked" color="medium">Packages</ion-label>
+      <ion-select  interface="action-sheet" [(ngModel)]="selectedOption" (ionChange)="onOptionSelected()" placeholder="Choose A Package">
+        
+  
+        <ion-select-option *ngFor="let plan of plans"[value]="plan" (click)="logCardValued(plan.value)">
+          {{ plan.datapsck }} 
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    
+  
+  
+  
+        <ion-item  *ngIf="selectedOption" color="dark">
+          <ion-label position="stacked">Phone Number</ion-label>
+          <ion-input type="tel" minlength="11" maxlength="11" message="Phone Number must be 11 characters long" [(ngModel)]="phone" name="phone"></ion-input>
+        </ion-item>
+        
+  
+        <ion-item  *ngIf="selectedOption" color="dark">
+          <ion-label position="stacked">Amount</ion-label>
+          <ion-input type="number" class="bold-disabled" [readonly]="true" [(ngModel)]="selectedOption.newprice"  name="amountx">₦  </ion-input>
+        </ion-item>
+  
+        <ion-item *ngIf="selectedOption" color="dark">
+          <ion-label position="floating">PIN</ion-label>
+          <ion-input type="password" [(ngModel)]="pin" name="pin" class="pin-input"></ion-input>
+        </ion-item>
+        <div style="background: #000000;">
+          <br>
+          <ion-button class="top-upx" expand="block" width="50%" color="medium" (click)="dataX()"> <ion-icon name="reload-circle-outline"></ion-icon>Top Up</ion-button>
+        
+        </div>
+       
+      
+  
+      </ion-list>
+    
+  </ion-content>
+  
+</ion-content>

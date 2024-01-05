@@ -1,0 +1,132 @@
+
+<ion-content [style.visibility]="content_visibility" color="white">
+
+  <div class="loadbg">
+     <ion-card class="ion-text-center ion-margin ion-padding" color="dark">
+      <ion-card-header>
+  
+        <div class="backbutton">
+          <ion-buttons (click)="logout()">
+            <ion-back-button defaultHref=""></ion-back-button>
+          </ion-buttons>
+        </div>
+        
+        <ion-buttons>
+          <ion-menu-button auto-hide="false" id="click-trigger"></ion-menu-button>
+  
+          <ion-popover trigger="click-trigger" triggerAction="click">
+            <ng-template>
+              <ion-content class="ion-padding">
+  
+                <ion-list>
+  
+  
+                  <ion-item>
+                    <!-- <ion-label position="floating" color="primary">A partir</ion-label>
+                    <ion-input formControlName="timeStarts" (ionFocus)="presentTimeStartsPicker()"> -->
+                      <ion-label>Date</ion-label>
+                    <!-- </ion-input> -->
+  
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Print</ion-label>
+                  </ion-item>
+  
+                </ion-list>
+  
+              </ion-content>
+            </ng-template>
+          </ion-popover>
+        </ion-buttons>
+  
+      
+  
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="date"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+  
+      </ion-card-header>
+  
+      <ion-card-content>
+        
+      
+       <img [src]="qrCodeDataUrl" size="572" alt="QR code" class="qrCode">
+       
+        
+    
+  
+        <ion-button width="70px" class="ion-margin" color="secondary" (click)="writeToClipboard(userData?.loginData.user_tag)">
+          @{{ userData?.user_tag }}
+          <ion-icon name="copy" slot="end"></ion-icon>
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+   
+  
+   
+  <!-- Add this code inside your <ion-content> element -->
+    <ion-modal>
+      <ion-header>
+        <ion-title>Transaction Details</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="dismissModal()">Close</ion-button>
+        </ion-buttons>
+      </ion-header>
+    
+      <ion-content>
+        <!-- Add your transaction details here -->
+        <ion-list>
+          <ion-item>
+            <ion-label>To:</ion-label>
+            <ion-text>{{selectedTransaction?.to}}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Date:</ion-label>
+            <ion-text>{{selectedTransaction?.date | date: 'MMM d, y'}}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Amount:</ion-label>
+            <ion-text>{{selectedTransaction?.amount >= 0 ? '₦' + selectedTransaction?.amount : '-₦' + (selectedTransaction?.amount * (-1))}}</ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-modal>
+    
+    <!-- Add this code to your <ion-item> element to open the modal when the item is clicked -->
+    <!-- <ion-item lines="full" *ngFor="let transaction of transactions" (click)="openModal(transaction)">
+      -- Your ion-item content here 
+    </ion-item> -->
+  
+    <ion-list class="transactions" *ngIf="transactions?.length > 0">
+  
+      <ion-list-header>
+        <ion-label color="medium">Transaction History</ion-label>
+      </ion-list-header>
+    
+      <ion-item-group>
+        <ion-item lines="full" *ngFor="let transaction of transactions" (click)="openModal(transaction)">
+          <ion-thumbnail slot="start" class="ion-text-center">
+            <img [src]="'assets/imgs/' + (transaction?.amount >= 0 ? 'received.png' : 'sent.png')" />
+          </ion-thumbnail>
+          <ion-label>
+            <ion-text>{{transaction?.to}}</ion-text>
+            <p>
+              <ion-text>
+                {{transaction?.date | date: 'MMM d, y'}}
+              </ion-text>
+            </p>
+          </ion-label>
+          <ion-text slot="end" color="primary">
+            {{transaction?.amount >= 0 ? '₦' + transaction?.amount : '-₦' + (transaction?.amount * (-1))}}
+          </ion-text>
+        </ion-item>
+      </ion-item-group>
+    
+    </ion-list>
+    
+  
+  
+  </ion-content>

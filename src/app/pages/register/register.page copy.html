@@ -1,0 +1,196 @@
+<ion-content class="ion-padding" >
+  
+<ion-card class="ion-no-margin" color="dark">
+
+  <ion-card-content style="color: black;" class="">
+
+
+
+
+
+
+
+    <div *ngIf="!showOtpForm" style="background: black;">
+    <ion-list lines="none" style="color: inherit;" color="dark">
+      
+      <div  style="background: black;">
+        <ion-list-header class="ion-text-center">
+          <ion-label class="ion-text-center" color="warning">
+            <h3 class="ion-text-center">REGISTER</h3>
+          </ion-label>
+        </ion-list-header>
+        <div  style="background: black;">
+        <p class="ion-text-center">
+          <ion-text class="ion-text-center">Create an Account</ion-text>
+
+        </p>
+        </div>
+      </div>
+
+        <form [formGroup]="form" style="color: black;">
+          <ion-item color="dark" [class.valid]="form.get('fullname').valid" [class.invalid]="form.get('fullname').invalid">
+            <ion-label position="floating" color="white">Full Name:</ion-label>
+            <ion-input type="text" formControlName="fullname"></ion-input>
+            <div class="validation-message"
+              *ngIf="form.get('fullname').invalid && (form.get('fullname').dirty || form.get('fullname').touched)">
+              Full Name is required and must be a valid Name.
+            </div>
+          </ion-item>
+
+          <ion-item color="dark" [class.valid]="form.get('tagname').valid" [class.invalid]="form.get('tagname').invalid">
+            <ion-label position="floating" color="white">User Tag:</ion-label>
+            <ion-input type="text" minlength="4" maxlength="8" message="Phone Number must be 11 characters long"
+              formControlName="tagname"></ion-input>
+            <div class="validation-message"
+              *ngIf="form.get('tagname').invalid && (form.get('tagname').dirty || form.get('tagname').touched)">
+              Tag name is required.
+            </div>
+          </ion-item>
+
+          <ion-item color="dark" [class.valid]="form.get('email').valid" [class.invalid]="form.get('email').invalid">
+            <ion-label position="floating" color="white">Email:</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+            <div class="validation-message"
+              *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)">
+              Email is required and must be a valid email address.
+            </div>
+          </ion-item>
+
+
+          <ion-item color="dark" [class.valid]="form.get('phone').valid" [class.invalid]="form.get('phone').invalid">
+            <ion-label position="floating" color="white">Phone Number:</ion-label>
+            <ion-input type="number" formControlName="phone" placeholder="Mobile Number" type="tel" minlength="11" maxlength="11"
+              name="phone" (ionChange)="changeNumber($event)">
+            </ion-input>
+            <div class="validation-message"
+              *ngIf="form.get('phone').invalid && (form.get('phone').dirty || form.get('phone').touched)">
+              Phone Number is required and must be valid.
+            </div>
+          </ion-item>
+
+
+          <ion-item color="dark" [class.valid]="form.get('password').valid" [class.invalid]="form.get('password').invalid">
+            <ion-label position="floating" color="white">Password:</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+            <div class="validation-message"
+              *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)">
+              Password is required and must be at least 6 characters long.
+            </div>
+          </ion-item>
+
+          <ion-item color="dark" [class.valid]="form.get('confirm_password').valid"
+            [class.invalid]="form.get('confirm_password').invalid">
+            <ion-label position="floating" color="white">Confirm Password:</ion-label>
+            <ion-input type="password" formControlName="confirm_password"></ion-input>
+            <div class="validation-message"
+              *ngIf="form.get('confirm_password').invalid && (form.get('confirm_password').dirty || form.get('confirm_password').touched)">
+              Passwords do not match.
+            </div>
+          </ion-item>
+          <!-- <ion-spinner mode="ios" type="crescent" *ngIf="showSpinner"></ion-spinner> -->
+          <!-- <ion-spinner type="bubbles" color="primary"></ion-spinner> -->
+
+        </form>
+
+
+
+
+
+        <ion-loading [message]="'Please wait...'" [duration]="10000" [showBackdrop]="true" [translucent]="true"
+          [spinner]="'crescent'"></ion-loading>
+
+
+        <div class="pre">
+          <br><br>
+          <ion-button type="submit" class="ion-margin-horizontal" size="large" expand="block" shape="round"
+            color="warning" (click)="signup()" [disabled]="form.invalid">
+            <ion-text>Register</ion-text>
+          </ion-button>
+          <br>
+        </div>
+
+        <div class="ion-footer ion-text-center ion-no-margin ion-padding-horizontal pre">
+          <span><ion-text color="light" slot="start">
+              Already have an account?
+            </ion-text>
+            <!-- <ion-text fill="clear" color="medium" (click)="goToLogin()"> -->
+              <a href="/auth-screen">
+             <ion-text fill="clear" color="warning">
+                <strong>Sign In</strong>
+            </ion-text>
+           </a>
+          </span>
+        </div>
+      
+
+
+
+
+
+    </ion-list>
+
+    </div>
+
+    <div *ngIf="showOtpForm" class="otpForm">
+      <ion-card color="dark">
+
+        <ion-card-content style="display: block;">
+          <ion-list-header class="ion-margin">
+            <ion-label>
+              <h3 class="ion-text-center" color="warning">Verify OTP</h3>
+            </ion-label>
+          </ion-list-header>
+
+          <p class="ion-text-center">
+            <ion-text class="ion-text-center">Enter the OTP sent to your Email Address </ion-text>
+          </p>
+
+          <!--   
+      <h2>Verify OTP</h2> -->
+
+          <form [formGroup]="otpForm" (ngSubmit)="onVerifyOTP()">
+
+            <!-- <div class="form-group">
+          <label for="otp">OTP</label>
+          <input type="text" formControlName="otp" class="form-control" placeholder="Enter OTP">
+        </div> -->
+            <div class="form-group">
+              <ion-item color="dark" [class.valid]="otpForm.get('otp').valid" [class.invalid]="otpForm.get('otp').invalid">
+                <ion-label position="floating" color="medium">OTP:</ion-label>
+
+
+                <ion-input formControlName="otp" placeholder="OTP Code" type="number" minlength="4" maxlength="4"
+                  message="OTP must be 4 characters long" name="otp" (ionChange)="changeNumber($event)">
+                </ion-input>
+
+                <!-- 
+          <ion-input type="text" formControlName="otp"></ion-input> -->
+
+                <div class="validation-message" style="color:black"
+                  *ngIf="otpForm.get('otp').invalid && (otpForm.get('otp').dirty || otpForm.get('otp').touched)">
+                  Enter the OTP we sent to your Email {{form.email}}.
+                </div>
+              </ion-item> <br><br>
+            </div>
+            <div class="pree" id="otp">
+              <ion-button type="submit" class="ion-margin-horizontal " size="large" expand="block" shape="round"
+                color="medium" [disabled]="otpForm.invalid">
+                <ion-text>Verify OTP</ion-text>
+              </ion-button>
+
+            </div>
+            <!-- 
+        <ion-button type="submit" [disabled]="otpForm.invalid">Verify OTP</ion-button> -->
+
+
+          </form>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+  </ion-card-content>
+
+</ion-card>
+
+
+</ion-content>

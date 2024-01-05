@@ -1,0 +1,88 @@
+ion-content{
+    .topRight{
+    align-items: initial;
+    justify-content: flex-end;
+    align-self: flex-end;
+ //  margin: 0px 0px 0px 150px
+    }
+    h2{
+        font-weight: bolder;
+        font-size: 1em;
+    }
+    ion-checkbox {
+    --size: 22px;
+    --background-checked: #7E219E;
+  }
+
+  .check {
+    //font-size: 1.9rem;
+    color: var(--ion-color-warning);;
+}
+
+.txt{
+    font-size: 12px;
+}
+  
+  ion-checkbox::part(container) {
+    border-radius: 6px;
+    border: 2px solid #7E219E;
+  }
+
+    p{
+        display: transparent;
+            font-weight: bold;
+            font-size: 1.0rem;
+            margin-bottom: 1rem;
+            margin-top: 0.6rem;
+            color: black;
+            text-align: justify;
+    }
+    div {
+        margin-top: 2rem;
+        .topRight{
+            align-items: initial;
+            justify-content: flex-end;
+            align-self: flex-end;
+         //  margin: 0px 0px 0px 150px
+            }
+        ion-avatar {
+            border-radius: 50%;
+            border: 1px solid var(--ion-color-tertiary);
+            height: 4.5rem;
+            width: 4.5rem;
+        }
+        ion-label {
+            display: transparent;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            margin-top: 0.6rem;
+        }
+    }
+
+    ion-list {
+        background: transparent;
+        padding: 2rem 1.5rem 1rem 1.5rem;
+        ion-item {
+            --background: transparent;
+            --border-style: dashed;
+            --border-color: var(--ion-color-tertiary);
+            --padding-bottom: 1rem;
+            --padding-top: 1rem;
+            --padding-start: 0;
+            --padding-end: 0;
+            ion-toggle {
+                margin-right: -0.6rem;
+            }
+        }
+    }
+
+    ion-button {
+       // margin-top: 67vh;
+        //color:#7E219E;
+         margin-right: 2%;
+         margin-left: 4%;
+        height: auto;
+        --border-radius: 4px !important;
+    }
+}

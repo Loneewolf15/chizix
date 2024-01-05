@@ -1,0 +1,116 @@
+ion-content {ion-checkbox {
+    --size: 22px;
+    --background-checked: #7E219E;
+  }
+  
+  ion-checkbox::part(container) {
+    border-radius: 6px;
+    border: 2px solid #7E219E;
+  }
+
+    p{
+        display: transparent;
+            font-weight: 70;
+            font-size: 15px;
+            // margin-bottom: 1rem;
+            // margin-top: 0.6rem;
+    }
+    h1{
+       
+        font-family: 'B Proportional Bold';
+            font-style: 32px;
+            font-weight: bolder;
+    }
+ion-col{
+    padding: 2px;
+}h3{
+font-family: 'B Proportional Bold';
+font-style: normal;
+font-weight: bolder;
+
+}
+.bullet-point ion-icon {
+    font-size: 8px; /* Adjust the size of the bullet point */
+    color: #000; /* Adjust the color of the bullet point */
+  }
+  .email-link {
+    color: #7E219E;
+  }
+    p{
+        font-family: 'Avenir Next';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 16px;
+    }
+    div {
+        margin-top: 2rem;
+        ion-avatar {
+            border-radius: 50%;
+            border: 1px solid var(--ion-color-tertiary);
+            height: 4.5rem;
+            width: 4.5rem;
+        }
+        ion-label {
+            display: transparent;
+            font-weight: 500;
+            font-size: 16px;
+            margin-bottom:1px;
+            margin-top: 0.6rem;
+        }
+    }
+
+    ion-list {
+        background: transparent;
+        ion-item {
+            --background: transparent;
+            --border-style: dashed;
+            --border-color: var(--ion-color-tertiary);
+            --padding-start: 0;
+            --padding-end: 0;
+            ion-text {
+                display: transparent;
+                font-weight: 500;
+                font-size: 16px;
+                margin-bottom:1px;
+                margin-top: 0.6rem;
+            }
+            ion-toggle {
+                margin-right: -0.6rem;
+            }
+        }
+    }
+
+    ion-button {
+        margin-top: 15%;
+     
+        margin-right: 25%;
+        margin-left: 25%;
+        --border-radius: 10px;
+    }
+    .signout{
+        color:var(--ion-color-danger);
+       // margin-top: 5vh;
+       ion-img{
+        padding-bottom:2px;
+       }
+    }
+
+   .ion{
+    padding-top: 3%;
+    padding-bottom: 1%;
+   }
+
+   ion-input[type="file"]{
+    color:aliceblue;
+    background-color: #fff;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding:10px;
+    font-size: 16px;
+    width: 200px;
+   }
+
+   ion-input[type="file"]::part(native) {
+    color:#fff;
+   }
+}

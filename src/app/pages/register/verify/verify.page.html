@@ -1,0 +1,43 @@
+
+<ion-content color="dark">
+  <div class="topRight">
+     <ion-button  fill="clear" color="warning" (click)="goToLogin()">Skip</ion-button>
+  </div>
+<ion-content scroll-y="false" class="wallet-container">
+  <ion-header  translucent={true} color="dark">
+    <ion-toolbar color="dark">
+      <ion-title mode="ios" >Let's get started</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  
+
+  
+  <ion-content id="zone" color="dark" fullscreen>
+    
+    <ion-item color="tertiary"  lines="none" (click)="selfie()" detail="false">
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      <ion-label>
+        <h2 class="ion-text-left">Take Selfie</h2>
+      <p class="ion-text-justify no-wrap">
+       A clear picture of you on<br> a plain background
+      </p>
+      </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item>
+  
+  
+    <ion-item color="tertiary"  lines="none" (click)="scan()" detail="false" >
+      <ion-icon slot="start" name="document-text"></ion-icon>
+       
+      <ion-label>
+       <h2>Scan ID</h2>
+       <ion-text>NIMC Slip</ion-text>
+     </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    
+    </ion-item>
+  </ion-content>
+  
+</ion-content >
+</ion-content>

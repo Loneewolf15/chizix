@@ -1,0 +1,231 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark" class="ion-padding">
+  
+    <ion-buttons>
+      <ion-back-button defaultHref="/tabs"></ion-back-button>
+      <!-- <ion-icon name="chevron-back-outline"></ion-icon> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [style.visibility]="content_visibility" color="dark">
+
+
+  <ion-card class="ion-text-center ion-padding" color="dark">
+
+    <ion-card-content [style.--background]="scanActive ? '#00000000' : '#fff'">
+      
+ 
+       <ion-button *ngIf="scanActive" (click)="stopScan()" expand="full" color="danger">
+      Stop Scan
+    </ion-button>
+
+    
+    <ion-text color="white" *ngIf="formattedPrice">₦{{formattedPrice}}</ion-text>
+    <ion-text color="white" *ngIf="!formattedPrice">₦0</ion-text>
+  
+    <ion-item lines="full" text-wrap class="item" color="dark">      
+      <ion-input readonly #inputField [(ngModel)]="amount" min="50" type="" class="cp mt-input" id="amount"></ion-input>
+    </ion-item>
+
+
+    
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-item lines="none" inset="true" color="dark" class="container">
+
+      <ion-grid>
+        <ion-row>
+          <ng-container *ngFor="let selectedTag of selectedTags.slice(-4); let i = index;">
+            <ion-col size="3" (click)="onSelectedTagClick(selectedTag)">
+              <ion-avatar>
+                <ion-img [src]="'https://api.veluxpay.com/' + selectedTag.image"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <ion-text>{{ selectedTag.full_name }}</ion-text><br>
+                <ion-note>{{ selectedTag.user_tag }}</ion-note>
+              </ion-label>
+            </ion-col>
+          </ng-container>
+        </ion-row>
+      </ion-grid>
+
+    <div class="add" id="open-modal">
+      <div class="addition">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </div>
+      <ion-label>New</ion-label>
+    </div>
+
+  </ion-item>
+  
+  <!-- <app-keyboard (keyPress)="onKeyPress($event, inputField)"></app-keyboard>
+   -->
+   <ion-modal #modal trigger="open-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+    <ng-template>
+      <ion-content>
+        <ion-searchbar placeholder="Search user tagname" [(ngModel)]="searchTerm" (ionChange)="filterTag()" (click)="modal.setCurrentBreakpoint(0.75)"></ion-searchbar>
+        <!-- Display the list of filtered tags -->
+<ion-list *ngIf="filteredTags && filteredTags.length > 0">
+  <ion-item *ngFor="let tag of filteredTags" (click)="onTagSelect(tag)">
+    <ion-label>
+      <h2>{{ tag.full_name }}</h2>
+      <p>{{ tag.user_tag }}</p>
+    </ion-label>
+    <ion-checkbox slot="end" [(ngModel)]="tag.selected"></ion-checkbox>
+  </ion-item>
+</ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  
+  <!-- <ion-text>{{ selectedUser }}</ion-text> -->
+  
+<br><br>
+
+<ion-list >
+  
+ <ion-grid class="buttons ion-padding" color="dark">
+  <ion-row color="dark">
+    <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="set('1')">1</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="set('2')">2</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="set('3')">3</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="set('4')">4</ion-button>
+    </ion-col>
+     <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="set('5')">5</ion-button>
+    </ion-col>
+     <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="set('6')">6</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="set('7')">7</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="set('8')">8</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="set('9')">9</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <!-- <ion-button fill="clear" class="button" (click)="clear()">Clear</ion-button> -->
+    </ion-col>
+    <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="set('0')">0</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button fill="clear" class="button" (click)="back()"><ion-icon name="backspace"></ion-icon></ion-button>
+    </ion-col>
+  </ion-row>
+
+ </ion-grid>
+
+</ion-list>  
+
+<ion-button class="sendB" shape="block" (click)="setOpen(true)" color="warning"
+[disabled]="!inputField.value || !selectedTags || selectedTags.length === 0">
+<ion-text color="white">Send</ion-text>
+</ion-button>
+
+
+  <ion-modal [isOpen]="isModalOpen" color="dark">
+    <ng-template>
+      <ion-card class="ion-text-center ion-no-margin" color="dark">
+        <ion-card-header>
+          <ion-buttons  (click)="setOpen(false)">
+            <ion-back-button defaultHref=""></ion-back-button>
+
+            <!-- <ion-button (click)="setOpen(false)">Close</ion-button> -->
+            <ion-card-title class="tit" mode="ios" >Enter PIN code</ion-card-title>
+          </ion-buttons>
+       
+            <!-- <ion-card-title mode="ios" >Accounts</ion-card-title> -->
+           
+        
+    
+    
+        </ion-card-header>
+        
+        <ion-card-content>
+
+      
+          <div align="center" >
+            <ion-avatar class="avatar-large">
+              <img *ngIf="userImage" [src]="'https://api.veluxpay.com/' + userImage" alt=""/>
+              <img *ngIf="!userImage" src="assets/images/avatar.png" alt="Dummy Image"/>
+            </ion-avatar>
+          </div>
+        <div class="numberBox">
+          <div class="ion-text-center ion-padding" id="pin1">
+            <ion-input type="password" id="pin1" readonly autocomplete="off" class="ion-text-center ion-padding" value="{{pin.substring(0,1)}}"></ion-input>
+          </div>
+          <div class="ion-text-center ion-padding" id="pin2">
+            <ion-input type="password" id="pin2" readonly autocomplete="off" class="ion-text-center ion-padding" value="{{pin.substring(1,2)}}"></ion-input>
+          </div>
+          <div class="ion-text-center ion-padding" id="pin3">
+            <ion-input type="password" id="pin3" readonly autocomplete="off" class="ion-text-center ion-padding" value="{{pin.substring(2,3)}}"></ion-input>
+          </div>
+          <div class="ion-text-center ion-padding" id="pin4">
+            <ion-input type="password" id="pin4" readonly autocomplete="off" class="ion-text-center ion-padding" value="{{pin.substring(3,4)}}"></ion-input>
+          </div>
+        </div>
+          
+          <ion-list class="pinL">
+        
+            <ion-grid class="buttons">
+              <ion-row>
+                <ion-col size="4">
+                  <ion-button fill="clear" class="pinB" (click)="sett('1')">1</ion-button>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button fill="clear" class="pinB" (click)="sett('2')">2</ion-button>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button fill="clear" class="pinB" (click)="sett('3')">3</ion-button>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button fill="clear" class="pinB" (click)="sett('4')">4</ion-button>
+                </ion-col>
+                 <ion-col size="4">
+                  <ion-button fill="clear" class="pinB" (click)="sett('5')">5</ion-button>
+                </ion-col>
+                 <ion-col size="4">
+                  <ion-button fill="clear" class="pinB" (click)="sett('6')">6</ion-button>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button fill="clear" class="pinB" (click)="sett('7')">7</ion-button>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button fill="clear" class="pinB" (click)="sett('8')">8</ion-button>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button fill="clear" class="pinB" (click)="sett('9')">9</ion-button>
+                </ion-col>
+                <ion-col size="4">
+                  <!-- <ion-button fill="clear" class="pinB" (click)="clear1()"><ion-icon color="light" name="finger-print"></ion-icon></ion-button>
+                --></ion-col> 
+                <ion-col size="4">
+                  <ion-button fill="clear" class="pinB" (click)="sett('0')">0</ion-button>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button fill="clear" class="button" (click)="back1()"><ion-icon color="light" name="backspace"></ion-icon></ion-button>
+                 </ion-col>
+              </ion-row>
+            
+             </ion-grid>
+      
+          </ion-list>
+        </ion-card-content>
+
+      </ion-card>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

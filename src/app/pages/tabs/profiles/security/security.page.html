@@ -1,0 +1,61 @@
+<ion-header translucent={true} class="ion-no-header" color="dark">
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/profiles"></ion-back-button>
+
+    </ion-buttons>
+    <ion-title mode="ios">Security</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+  <ion-list [inset]="true">
+    <ion-text class="ion-no-margin ion-padding-horizontal">Signing into Velux</ion-text>
+    <ion-item color="dark" lines="none" (click)="changePin()" detail="false" text-wrap>
+      <ion-icon name="mail-unread" slot="start"></ion-icon>
+      <ion-label> <h2>
+        Pin
+      </h2>
+      <ion-text text-wrap>Set A New Transaction Pin </ion-text></ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item>
+    <!-- <ion-item lines="none" href="security/notification" detail="false" >
+      <ion-icon name="lock-closed" slot="start" ></ion-icon>
+     
+      <ion-label>
+        <h2>
+          Two factor authentication
+        </h2>
+        <ion-text>Disabled</ion-text>
+      </ion-label>
+      <ion-toggle slot="end" (ionChange)="toggleTheme($event)"></ion-toggle>
+      
+    </ion-item> -->
+  </ion-list>
+
+  <!-- <ion-list [inset]="true">
+    <ion-text class="ion-no-margin ion-padding-horizontal">Acessing account</ion-text>
+    <ion-item lines="none" detail="false" text-wrap>
+      <ion-icon name="finger-print" slot="start"></ion-icon>
+    
+      <ion-label> <h2>
+        Biometrics
+      </h2>
+      <ion-text class="ion-no-margin ion-no-padding ion-word-wrap" text-wrap>Unlock apps and confirm transactions</ion-text>
+    </ion-label>
+      <ion-toggle slot="end" disabled (ionChange)="toggle2Fa($event)"></ion-toggle>
+    </ion-item>
+    <ion-item lines="none" text-wrap  >
+      <ion-icon name="notifications" slot="start" ></ion-icon>
+      <ion-label>
+        <h2>
+          App lock
+        </h2>
+        <ion-text class="ion-no-margin ion-no-padding ion-word-wrap" text-wrap>Password or Biometrics to unlock app </ion-text>
+      </ion-label>
+<ion-toggle slot="end" disabled (ionChange)="toggleTheme($event)"></ion-toggle>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon> 
+    </ion-item>
+  </ion-list> -->
+
+</ion-content>

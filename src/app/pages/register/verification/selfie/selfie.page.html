@@ -1,0 +1,24 @@
+<ion-header  translucent={true}>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/profiles" mode="ios"></ion-back-button>
+      
+    </ion-buttons>
+    <ion-title mode="ios" >Selfie</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-input class="elipse"></ion-input>
+  </ion-item>
+
+  <ion-button shape="block" color="medium" color="medium" (click)="selectImage()">
+    <ion-icon slot="start" name="camera"></ion-icon> Capture Image
+
+ 
+  </ion-button>
+
+</ion-content>
+
