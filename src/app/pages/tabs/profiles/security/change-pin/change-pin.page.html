@@ -1,0 +1,96 @@
+<ion-header  >
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="profiles/security"></ion-back-button>
+
+    </ion-buttons>
+    <ion-title mode="ios">Change Pin</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  >
+  <ion-button expand="block" color="secondary" class="ion-padding">
+    set a new Pin
+  </ion-button> 
+
+    <ion-card  class="ion-no-margin" >
+  <ion-card-content >
+  
+  
+  
+    <ion-list lines="full">
+      <div *ngIf="!showOtpForm" >
+      
+<form [formGroup]="form" >
+ 
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="none">
+        <ion-input label="Pin*" label-placement="floating" [counter]="true" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Entry not valid" formControlName="pin" placeholder="Default pin from email" type="password" ></ion-input>
+
+  </ion-item>
+  </div>
+
+
+  
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="none">
+    <ion-input label="New Pin*" label-placement="floating"  maxlength="4" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Entry not valid" formControlName="pin2" type="password" ></ion-input>
+  
+  </ion-item>
+  </div>
+
+  
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="none">
+      <ion-input label="Confirm Pin*" label-placement="floating" maxlength="4" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Entry do not match" formControlName="confirm_pin2" type="password" ></ion-input>
+
+  </ion-item>
+  </div>
+
+</form>
+
+
+
+
+
+<ion-loading
+[message]="'Please wait...'"
+[duration]="10000"
+[showBackdrop]="true"
+[translucent]="true"
+
+[spinner]="'crescent'"
+
+></ion-loading>
+
+  
+<div class="purr" >
+  <br><br>
+    <ion-button type="submit"
+     class="ion-margin"
+      size="large" 
+      expand="block" 
+      shape="round" 
+      color="warning"
+      (click)="changeP()" [disabled]="form.invalid">
+      <ion-text>Save</ion-text>
+    </ion-button>
+     <br>
+  </div>
+ 
+  
+  </div>
+
+
+
+
+    
+    </ion-list>
+  
+  </ion-card-content>
+
+  </ion-card>
+  </ion-content> 

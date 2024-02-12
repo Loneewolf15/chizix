@@ -1,0 +1,207 @@
+ion-card {
+  box-shadow: none !important;
+  padding-top: 3vh;
+  padding-bottom: 150%;
+  
+  ion-input {
+    font-size: 1rem;
+    //color: #ffffff;
+  }
+  ion-item.invalid ion-input {
+    --border-color: var(--ion-color-danger);
+  }
+
+  ion-item.valid ion-input {
+    --border-color: var(--ion-color-success);
+  }
+  // ion-card-content {
+  //   background: #000000;
+  // }
+  // .purrr {
+  //   background: #000000;
+  // }
+
+  .validation-message {
+    font-size: 0.8rem;
+    color: var(--ion-color-danger);
+    margin-top: 0.2rem;
+  }
+
+  ion-label {
+    h2 {
+      text-align: center;
+      position: center;
+
+      font-family: "Irish Grover";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      //line-height: 29px;
+      /* identical to box height */
+
+      color: #9f27ca;
+    }
+    .tit {
+      // font-family: 'Inter';
+      // font-style: normal;
+      margin-left: 50%;
+      text-align: center;
+      justify-content: center;
+      //font-weight: 500;
+      //font-size:20px;
+
+      font-family: "Irish Grover";
+      font-style: normal;
+      font-weight: bold;
+      font-size: 24px;
+      margin-left: 300px;
+      justify-content: center;
+      align-content: center;
+      color: #9f27ca;
+    }
+    h3 {
+      margin-left: 50%;
+      text-align: center;
+      justify-content: center;
+      text-align: center;
+      padding-left: 5%;
+      font-family: "Irish Grover";
+      font-style: normal;
+      font-weight: bold;
+      font-size: 24px;
+      margin-left: -30px;
+      justify-content: center;
+
+      color: #9f27ca;
+    }
+    ion-text {
+      //  width: 145px;
+      //  height: 18px;
+      //  margin-right:25%;
+      //  margin-left: 25%;
+
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 18px;
+    }
+  }
+  ion-toolbar {
+    --background: transparent;
+  }
+  ion-grid {
+    // transform: translateY(7vh);
+    ion-label,
+    p {
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 0.8px;
+    }
+  }
+
+  ion-row {
+    background: transparent;
+    display: block;
+    ion-fab-button {
+      margin-right: 2.5vh;
+    }
+    ion-list {
+      border-radius: 20px 20px 0 0;
+      ion-list-header {
+        ion-label {
+          font-weight: bold;
+          font-size: 1.8em;
+        }
+      }
+      ion-input,
+      ion-text {
+        font-size: 0.9em;
+      }
+
+      .error {
+        font-size: 0.75em !important;
+      }
+
+      ion-button {
+        margin-top: 1.5vh;
+        margin-bottom: 3px;
+      }
+    }
+    #otp {
+      margin-top: 3vh;
+      margin-bottom: 5px;
+    }
+  }
+
+  select {
+    border: none;
+    outline: none;
+    appearance: none;
+  }
+}
+
+ion-footer {
+  height: 88%;
+  ion-list {
+    height: 100%;
+    border-radius: 20px 20px 0 0;
+    ion-list-header {
+      ion-label {
+        font-weight: bold;
+        font-size: 1.8em;
+      }
+    }
+    ion-item {
+      ion-label {
+        font-size: 0.9em;
+        overflow: visible;
+        ion-row {
+          ion-col {
+            ion-input {
+              font-size: 1.5em;
+             
+              display: inline-block;
+              width: 8vh;
+              height: 8vh;
+              border-radius: 5px;
+            }
+            .marginLeft {
+              margin-left: 3vh;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.form-container{
+  background-color: #000000;
+}
+
+.form-input-field{
+  text-align: center;
+  position: relative;
+  border: 1px solid rgba(69, 69, 69, 0.5);
+  border-radius: 1rem;
+
+  ion-label {
+    position: absolute;
+    top: 10%;
+    left: 38%;
+    transform: translateY(-50%);
+    transition: transform 0.2s, font-size 0.2s;
+    color: #FFFFFF66;
+  }
+
+  ion-input {
+    margin-top: 3rem; /* Add some space between the label and the input */
+    padding: 2rem;
+  }
+
+  ion-input:active {
+    transform: translateY(-100%) scale(0.8);
+  }
+}

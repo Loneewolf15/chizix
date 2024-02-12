@@ -1,0 +1,22 @@
+ion-item{
+  
+ion-text{
+    font-size: large;
+    font-weight: bold;
+    color: var(--ion-color-base);
+}
+      ion-note{
+    padding-left: 5px;
+    margin-right: 3px;
+    color:var(--ion-color-base);
+    font-size: medium;
+    font-weight: 200;
+}
+}
+ion-button {
+    margin-top: 30vh;
+    //color:#7E219E;
+    margin-right: 15%;
+    margin-left: 15%;
+    --border-radius: 6px;
+}

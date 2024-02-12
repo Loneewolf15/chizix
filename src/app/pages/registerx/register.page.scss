@@ -1,0 +1,393 @@
+ion-content{
+    --background: var(--ion-color-dark) !important
+}
+
+ion-card {
+    box-shadow: none !important;
+    padding-top: 2vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+ion-card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.ion-no-margin {
+    height: 100%;
+}
+
+
+.otpForm {
+    height: 100%;
+    padding-bottom: 45vh;
+}
+
+ion-input {
+    font-size: 0.9rem;
+    color: var(--ion-color-base);
+}
+
+ion-item.invalid ion-input {
+    --border-color: var(--ion-color-danger);
+}
+
+ion-item.valid ion-input {
+    --border-color: var(--ion-color-success);
+}
+
+.validation-message {
+    font-size: 0.8rem;
+    color: var(--ion-color-danger);
+    margin-top: 0.2rem;
+}
+
+ion-label {
+    h2 {
+        margin-right: 50%;
+        margin-left: 50%;
+        margin: auto;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Irish Grover';
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+
+
+        color: #9F27CA;
+    }
+
+    h3 {
+
+        text-align: center;
+
+        font-family: 'Irish Grover';
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        margin-left: -50px;
+        justify-content: center;
+
+        color: #9F27CA;
+    }
+
+    //     h3{
+
+    //  text-align: center;
+
+    //  font-family: 'Irish Grover';
+    //  font-style: normal;
+    //  font-weight: bold;
+    //  font-size: 34px;
+
+
+
+    //  color: #9F27CA;
+    //     }
+    ion-text {
+
+        //  width: 145px;
+        //  height: 18px;
+        //  margin-right:25%;
+        //  margin-left: 25%;
+
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 18px;
+
+
+    }
+}
+
+ion-toolbar {
+    --background: transparent;
+}
+
+ion-grid {
+
+    // transform: translateY(7vh);
+    ion-label,
+    p {
+        font-size: 1.8rem;
+        font-weight: bold;
+        letter-spacing: 0.8px;
+    }
+}
+
+ion-row {
+
+    background: transparent;
+    display: block;
+
+    ion-fab-button {
+        margin-right: 2.5vh;
+    }
+
+    ion-list {
+        border-radius: 20px 20px 0 0;
+
+        ion-list-header {
+            ion-label {
+                font-weight: bold;
+                font-size: 1.8em;
+            }
+        }
+
+        ion-input,
+        ion-text {
+            font-size: 0.9em;
+        }
+
+        .error {
+            font-size: 0.75em !important;
+        }
+
+        ion-button {
+            margin-top: 0.2vh;
+            margin-bottom: 30px;
+
+
+        }
+    }
+
+    #otp {
+        margin-top: 3vh;
+        margin-bottom: 5px;
+    }
+}
+
+
+ion-footer {
+    max-height: fit-content;
+    height: 100%;
+    margin-bottom: 10vh;
+
+    ion-list {
+        --background:var(--ion-color-dark);
+        height: 100%;
+        //border-radius: 20px 20px 0 0;
+
+        ion-list-header {
+            ion-label {
+                font-weight: bold;
+                font-size: 1.5em;
+            }
+        }
+
+        ion-item {
+            padding-left: 5%;
+            ion-label {
+                font-size: 0.9em;
+                overflow: visible;
+
+                ion-row {
+                    ion-col {
+                        ion-input {
+                            font-size: 1.5em;
+                           // --background: var(--ion-color-dark);
+                            display: inline-block;
+                            width: 8vh;
+                            height: 8vh;
+                        }
+
+                        .marginLeft {
+                            margin-left: 3vh;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+@media only screen and (fit-width: 680px) {
+    
+
+
+    ion-card {
+        box-shadow: none !important;
+        padding-top: .2vh;
+        height: 10%;
+        min-height: fit-content;
+        margin-bottom: 100vh;
+
+        .otpForm {
+            min-height: fit-content;
+            height: 100%;
+            padding-bottom: 25vh;
+        }
+
+        ion-input {
+            font-size: 0.8rem;
+            color: var(--ion-color-base);
+        }
+
+        ion-item.invalid ion-input {
+            --border-color: var(--ion-color-danger);
+        }
+
+        ion-item.valid ion-input {
+            --border-color: var(--ion-color-success);
+        }
+
+        .validation-message {
+            font-size: 0.7rem;
+            color: var(--ion-color-danger);
+            margin-top: 0.1rem;
+        }
+
+        ion-label {
+            h2 {
+                margin-right: 30%;
+                margin-left: 30%;
+                margin: auto;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                font-family: 'Irish Grover';
+                font-style: normal;
+                font-weight: bold;
+                font-size: 20px;
+                color: #9F27CA;
+            }
+
+            h3 {
+                text-align: center;
+                font-family: 'Irish Grover';
+                font-style: normal;
+                font-weight: bold;
+                font-size: 20px;
+                margin-left: -50px;
+                justify-content: center;
+                color: #9F27CA;
+            }
+
+            ion-text {
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 13px;
+                line-height: 16px;
+            }
+        }
+
+        ion-toolbar {
+            --background: transparent;
+        }
+
+        ion-grid {
+
+            ion-label,
+            p {
+                font-size: 1.5rem;
+                font-weight: bold;
+                letter-spacing: 0.6px;
+            }
+        }
+
+        ion-row {
+            background: transparent;
+            display: block;
+
+            ion-fab-button {
+                margin-right: 2vh;
+            }
+
+            ion-list {
+                border-radius: 15px 15px 0 0;
+
+                ion-list-header {
+                    ion-label {
+                        font-weight: bold;
+                        font-size: 1.5em;
+                    }
+                }
+
+                ion-input,
+                ion-text {
+                    font-size: 0.8em;
+                }
+
+                .error {
+                    font-size: 0.7em !important;
+                }
+
+                ion-button {
+                    margin-top: 0.2vh;
+                    margin-bottom: 20px;
+                }
+            }
+
+            #otp {
+                margin-top: 2vh;
+                margin-bottom: 3px;
+            }
+        }
+    }
+
+    ion-footer {
+        height: 100%;
+        min-height: fit-content;
+        margin-bottom: 10vh;
+
+        ion-list {
+            height: 100%;
+            border-radius: 15px 15px 0 0;
+
+            ion-list-header {
+                ion-label {
+                    font-weight: bold;
+                    font-size: 1.5em;
+                }
+            }
+.pree{
+    
+    padding: auto;
+}
+.prex{
+    padding-bottom: 3rem;
+}
+            ion-item {
+                ion-label {
+                    font-size: 0.8em;
+                    overflow: visible;
+
+                    ion-row {
+                        ion-col {
+                            ion-input {
+                                font-size: 1.2em;
+                                // --background: var(--ion-color-base);
+                                display: inline-block;
+                                width: 6vh;
+                                height: 6vh;
+                               
+                            }
+
+                            .marginLeft {
+                                margin-left: 2vh;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+}

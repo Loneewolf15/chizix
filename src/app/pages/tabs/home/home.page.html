@@ -1,0 +1,345 @@
+<ion-content class="home-page-container">
+  
+  <ion-header class="ion-no-border" mode="ios">
+    <ion-toolbar >
+
+      <ion-title mode="md" class="ion-no-padding">
+        <ion-label>
+          <!-- <ion-text color="tertiary">Hello</ion-text> -->
+          <p><ion-text >Hello <strong> {{ userData?.loginData.user_tag }}!</strong></ion-text></p>
+        </ion-label>
+      </ion-title>
+
+      <ion-avatar slot="end" (click)="setOpenN(true)">
+        <img src="assets/icon/notification-icon.png" alt="notification icon">
+      </ion-avatar>
+
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="card">
+    <ion-card-content>
+      <h3 class="biggy">
+        Account Balance
+      </h3>
+      <div class="balance1">
+        <ion-text color="white" *ngIf="showBalance && formattedPrice">₦{{formattedPrice}}</ion-text>
+        <ion-text color="white" *ngIf="showBalance && !formattedPrice">₦0</ion-text>
+        <ion-text color="white" *ngIf="!showBalance">₦ ****</ion-text>
+        <ion-icon name="eye" *ngIf="showBalance" (click)="toggleBalance()" class="big-icon"></ion-icon>
+        <ion-icon name="eye-off" *ngIf="!showBalance" (click)="toggleBalance()" class="big-ico"></ion-icon>
+      </div>
+      <div class="bttn">
+        <div class="bttn1">
+          <div class="icc">
+            <ion-avatar slot="icon-only" class="avatar-icon" (click)="featureClick2()">
+              <img src="assets/icon/recieve.png" alt="" class="icoon">
+            </ion-avatar>
+          </div>
+          <div class="label">Receive</div>
+        </div>
+
+        <div class="bttn2">
+          <div class="icc">
+            <ion-avatar slot="icon-only" class="avatar-icon" (click)="featureClick1()">
+              <ion-icon name="send"></ion-icon>
+            </ion-avatar>
+          </div>
+          <div class="label">Send</div>
+        </div>
+      </div>
+    </ion-card-content>
+  </div>
+
+
+  <ion-modal [isOpen]="isModalOpeN" [backdropDismiss]="false" [enterAnimation]="enterAnimation"
+  [leaveAnimation]="leaveAnimation" class="ion-modal fullscreen-modal">
+    <ng-template>
+      <ion-content>
+        <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+          <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+        <ion-header>
+          <ion-toolbar >
+            <ion-icon classs="noti" [color]="isDarkMode ? 'light' : 'dark'" (click)="closeModalN()" slot="start" name="chevron-back-outline"></ion-icon>
+            <ion-title classs="noti" [color]="isDarkMode ? 'light' : 'dark'" mode="ios" >Notification</ion-title>
+          </ion-toolbar>
+        </ion-header>
+      
+        <ion-list>
+          <ion-item [button]="true" *ngFor="let item of items">
+            <ion-icon slot="start" color="primary" [name]="item.unread ? 'ellipse' : ''"></ion-icon>
+            <ion-label>
+              <h2>{{ item.name }}</h2>
+              <p>New message from {{ item.name }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+  <ion-content class="transaction-wrapper" >
+    <ion-list class="transactions" *ngIf="transactionx?.length >= 1" [inset]="false">
+      <ion-list-header>
+        <ion-label color="secondary">Recent Transaction</ion-label> 
+      </ion-list-header>
+
+      <ion-item-group lines="none">
+        <ng-container *ngFor="let transaction of transactionx.slice(0, 10)">
+
+          <!-- Inapp and withdrawal list items -->
+          <ion-item lines="full" (click)="setOpen(transaction)" lines="none">
+            <!-- Inapp transaction -->
+            <ion-thumbnail slot="start" class="ion-text-center" *ngIf="transaction.transaction_type === 'inapp'">
+              <img
+                [src]="'assets/imgs/' + (transaction?.sender_tagname === userData?.loginData.user_tag ? 'sent.png' : 'received.png')" />
+            </ion-thumbnail>
+
+            <!-- Withdrawal transaction -->
+            <ion-thumbnail slot="start" class="ion-text-center" *ngIf="transaction.transaction_type === 'withdrawal'">
+              <img
+                [src]="'assets/imgs/' + (transaction?.fullname === userData?.loginData.fullname ? 'received.png' : 'sent.png')" />
+            </ion-thumbnail>
+
+            <!-- Deposit transaction -->
+            <ion-thumbnail slot="start" class="ion-text-center" *ngIf="transaction.transaction_type === 'credit'">
+              <img
+                [src]="'assets/imgs/' + (transaction?.full_name === userData?.loginData.fullname ? 'sent.png' : 'received.png')" />
+            </ion-thumbnail>
+
+            <!-- VTU transaction -->
+            <ion-thumbnail slot="start" class="ion-text-center" *ngIf="transaction.transaction_type === 'debit'">
+              <img src="assets/imgs/sent.png" />
+            </ion-thumbnail>
+
+            <ion-label class="transaction-text">
+              <ion-text>
+                <!-- Common label content for both transaction types -->
+                {{ transaction?.sender_tagname === userData?.loginData.user_tag ? transaction?.receiver_name :
+                transaction?.sender_name }}
+                <!-- or -->
+                {{ transaction?.accountname }}
+                <!-- or -->
+                {{ transaction?.user_tag }}
+                <!-- or -->
+                 {{ transaction?.vtupackage }} 
+              </ion-text>
+              <p class="transaction-time">
+                <ion-text >
+                  {{ transaction?.date | date: 'MMM d, y' }}
+                </ion-text>
+              </p>
+            </ion-label>
+
+            <!-- Inapp transaction amount and time -->
+            <ion-text class="transaction-text amount-text-right" slot="end"
+              *ngIf="transaction?.sender_tagname === userData?.loginData.user_tag && transaction.transaction_type === 'inapp'"
+              color="danger">
+              {{ '-₦' + formatAmountWithCommas(transaction.amount) }} <br>
+              <ion-note color="white">{{ transaction?.date | date: 'hh:mm a' }}</ion-note>
+            </ion-text>
+            <ion-text class="transaction-text amount-text-right" slot="end"
+              *ngIf="transaction.sender_tagname !== userData?.loginData.user_tag && transaction.transaction_type === 'inapp'"
+              color="success">
+              {{ '₦' + formatAmountWithCommas(transaction.amount) }} <br>
+              <ion-note color="white">{{ transaction?.date | date: 'hh:mm a' }}</ion-note>
+            </ion-text>
+
+            <!-- Withdrawal transaction amount and time -->
+            <ion-text class="transaction-text amount-text-right" slot="end"
+              *ngIf="transaction?.transaction_type === 'withdrawal'" color="danger">
+              {{ '-₦' + formatAmountWithCommas(transaction.amount) }} <br>
+              <ion-note color="white">{{ transaction?.date | date: 'hh:mm a' }}</ion-note>
+            </ion-text>
+
+            <!-- Deposit transaction amount and time -->
+            <ion-text class="transaction-text amount-text-right" slot="end"
+              *ngIf="transaction?.transaction_type === 'credit'" color="success">
+              {{ '+₦' + formatAmountWithCommas(transaction.amount) }} <br>
+              <ion-note color="white">{{ transaction?.date | date: 'hh:mm a' }}</ion-note>
+            </ion-text>
+            <!-- or -->
+            <!-- Deposit transaction amount and time -->
+            <ion-text class="transaction-text amount-text-right" slot="end"
+              *ngIf="transaction?.transaction_type === 'debit'" color="danger">
+              {{ '-₦' + formatAmountWithCommas(transaction.amount) }} <br>
+              <ion-note color="white">{{ transaction?.date | date: 'hh:mm a' }}</ion-note>
+            </ion-text>
+
+          </ion-item>
+
+
+
+
+        </ng-container>
+      </ion-item-group>
+    </ion-list>
+
+
+
+
+ 
+    <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="true" [enterAnimation]="enterAnimation"
+      [leaveAnimation]="leaveAnimation">
+      <ng-template>
+        <ion-content >
+          <ion-toolbar >
+            <ion-buttons slot="end">
+              <ion-button color="danger" (click)="closeModal()" class="close-btn"><b><strong>X</strong></b></ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+
+          <ion-item  class="ion-receipt-header" lines="'none">
+            <ion-label class="receipt-header">
+              <img src="assets/images/pay_success.png" alt="Transaction receipt">
+              <!-- sent to another user -->
+              <ng-container
+                *ngIf="selectedTransaction?.sender_tagname === userData?.loginData.user_tag 
+                && selectedTransaction.transaction_type === 'inapp'">
+                <h3>Payment Successful</h3>
+              </ng-container>
+              <!-- received from another user -->
+              <ng-container
+                *ngIf="selectedTransaction?.sender_tagname !== userData?.loginData.user_tag 
+                && selectedTransaction.transaction_type === 'inapp'">
+                <h3>Received </h3>
+              </ng-container>
+              <!-- withdrawal done here -->
+              <ng-container *ngIf="selectedTransaction?.transaction_type === 'withdrawal'">
+                <h3>Withdrawal Successful</h3>
+              </ng-container>
+                <!-- withdrawal done here -->
+                <ng-container *ngIf="selectedTransaction?.transaction_type === 'credit'">
+                  <h3>Deposit Successful</h3>
+                </ng-container>
+
+                <ng-container
+                *ngIf="selectedTransaction?.sender_tagname === userData?.loginData.user_tag 
+                && selectedTransaction.transaction_type === 'inapp'">
+                <p>Your payment has been successfully done.</p>
+                </ng-container>
+
+                <ng-container
+                *ngIf="selectedTransaction?.sender_tagname !== userData?.loginData.user_tag 
+                && selectedTransaction.transaction_type === 'inapp'">
+                <p>Your payment has been successfully received.</p>
+                </ng-container>
+
+                <ng-container *ngIf="selectedTransaction?.transaction_type === 'withdrawal'">
+                  <p>Your withdrawal request is successful.</p>
+                </ng-container>
+
+                <ng-container *ngIf="selectedTransaction?.transaction_type === 'credit'">
+                  <p>Your deposit is successful.</p>
+                </ng-container>
+            </ion-label>
+          </ion-item>
+
+          <ion-item >
+            <ion-label class="payment">
+              <p>Total Payment</p>
+              <p class="payment-amount">₦{{ formatAmountWithCommas(selectedTransaction.amount) }}</p>
+            </ion-label>
+          </ion-item>
+
+          <ion-list  class="payment-table">
+            <ion-item  lines="none">
+              <table>
+                <tbody>
+                  <tr class="transac-details">
+                    <td>Ref Number</td>
+                    <td>{{ selectedTransaction?.transaction_id }} 
+                      {{ selectedTransaction?.tr_id }}
+                    </td>
+                  </tr>
+
+                  <tr class="transac-details">
+                    <td>Date and Time</td>
+                    <td>{{ selectedTransaction?.date | date: 'dd-MM-yyyy' }} {{ selectedTransaction?.date | date:
+                      'HH:mm:ss' }}</td>
+                  </tr>
+
+                  <!-- Conditionally show/hide based on transaction_type -->
+                  <ng-container
+                    *ngIf="selectedTransaction?.sender_tagname === userData?.loginData.user_tag && selectedTransaction.transaction_type === 'inapp'">
+                    <tr class="transac-details">
+                      <td>Recipient Name</td>
+                      <td>{{ selectedTransaction.receiver_tagname !== userData?.loginData.user_tag ?
+                        selectedTransaction.receiver_name : selectedTransaction.receiver_name }}</td>
+                    </tr>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="selectedTransaction?.sender_tagname !== userData?.loginData.user_tag && selectedTransaction.transaction_type === 'inapp'">
+                    <tr class="transac-details">
+                      <td>Sender Name</td>
+                      <td>{{ selectedTransaction.receiver_tagname === userData?.loginData.user_tag ?
+                        selectedTransaction.receiver_name : selectedTransaction.receiver_name }}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container
+                    *ngIf="selectedTransaction.transaction_type === 'withdrawal'">
+                    <tr class="transac-details">
+                      <td>Bank Name</td>
+                      <td>{{ selectedTransaction.bankname }}</td>
+                    </tr>
+                  </ng-container>
+
+                  <ng-container
+                  *ngIf="selectedTransaction.transaction_type === 'withdrawal'">
+                  <tr class="transac-details">
+                    <td>Account Name</td>
+                    <td>{{ selectedTransaction.accountname }}</td>
+                  </tr>
+                </ng-container>
+
+                  <ng-container
+                  *ngIf="selectedTransaction.transaction_type === 'withdrawal'">
+                  <tr class="transac-details">
+                    <td>Account Number</td>
+                    <td>{{ selectedTransaction.receiver_tagname === userData?.loginData.user_tag ?
+                      selectedTransaction.receiver_name : selectedTransaction.receiver_name }}</td>
+                  </tr>
+                </ng-container>
+
+                  <!-- Add more conditionals for other transaction types -->
+
+                </tbody>
+              </table>
+            </ion-item>
+          </ion-list>
+
+          <ion-item  class="sm-velux-logo">
+            <ion-label>
+              <img src="assets/images/sm-velux-logo.png" alt="VeluxPay logo">
+            </ion-label>
+          </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+
+    <ion-list class="transactions" *ngIf="transactionx?.length == 0">
+      <ion-list-header>
+        <ion-label color="secondary">Recent Transaction</ion-label>
+      </ion-list-header>
+      <ion-item-group>
+        <ion-item lines="full">
+
+          <ion-label class="ion-text-center">
+            <ion-text>No Transaction Found!</ion-text>
+          </ion-label>
+
+        </ion-item>
+      </ion-item-group>
+
+
+    </ion-list>
+  </ion-content>
+</ion-content>

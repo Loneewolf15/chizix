@@ -1,0 +1,185 @@
+<ion-card class="ion-no-margin" >
+<ion-card-header>
+
+  
+  <ion-card-title >
+    <ion-buttons>
+      <ion-back-button defaultHref="/tabs/home" ></ion-back-button>
+      
+    </ion-buttons>
+    <h3 class="ion-text-center" style="color: #7E219E;">Withdrawal Form   <ion-icon class="scan" size="small"  name="help" id="open-modalq" expand="block" style="float: right;"></ion-icon></h3>
+    
+  </ion-card-title>
+  
+</ion-card-header>
+  <ion-card-content >
+  
+    <ion-modal class="ion-modal" trigger="open-modalq" [initialBreakpoint]="1" [breakpoints]="[0, 1]" >
+      <ng-template > 
+        <h2 class="blockx">When Will I get my funds?</h2>
+         <h3  class="blocky ion-padding">
+       
+          Withdrawals will reach your bank account within a few minutes. Some Withdrawals may take 1-2 days, depending on delays at our banking partners.
+         </h3>
+
+
+      </ng-template>
+    </ion-modal>
+  
+  
+    <ion-list lines="full" >
+     
+    
+<form [formGroup]="form" >
+
+
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="none" id="open-bankL">
+    <ion-input label="Bank Name:"  label-placement="stacked"   minlength="3"  errorText="*Bank Name is required."  formControlName="bankName" type="text" ></ion-input>
+
+  </ion-item>
+  </div>
+
+  
+<!-- 
+  <ion-item  [class.valid]="form.get('accountNumber').valid" [class.invalid]="form.get('accountNumber').invalid">
+    <ion-label position="floating" >Account Number:</ion-label>
+    <ion-input 
+      type="tel" 
+      (ionInput)="onNumberChange($event)"
+      formControlName="accountNumber"
+      minlength="10"
+      maxlength="10">
+    </ion-input>
+    <div class="validation-message" *ngIf="form.get('accountNumber').invalid && (form.get('accountNumber').dirty || form.get('accountNumber').touched)">
+      Account Number is required and must be valid.
+    </div>
+  </ion-item> -->
+  
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="none">
+    <ion-input label="Account Number:" label-placement="floating"   minlength="10"
+    maxlength="10" (ionInput)="onNumberChange($event)" errorText="* Account Number is required and must be valid." formControlName="accountNumber" type="text" ></ion-input>
+  
+  </ion-item>
+  </div>
+
+
+  <ion-item  [class.valid]="form.get('accountName').valid" [class.invalid]="form.get('accountName').invalid">
+    <ion-label position="floating" >Account Name:</ion-label>
+    <ion-input *ngIf="accountName"
+                formControlName="accountName" 
+               
+                type="text"
+                value="{{ accountName }}"
+                readonly
+              
+                name="accountName"
+                [ngStyle]="{'color': accountName === 'Invalid Account number or bank' ? 'red' : ''}"
+               >
+             
+              </ion-input>
+
+    
+    <div class="validation-message" *ngIf="!validationMessage && form.get('accountName').invalid && (form.get('accountName').dirty || form.get('accountName').touched)">
+      Account Name is required and must be valid.
+      <ion-note  color="danger" *ngIf="validationMessage">
+        {{ validationMessage }}
+      </ion-note>
+    </div>
+    
+  </ion-item>
+
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="none">
+    <ion-input label="Amount*" label-placement="floating"   minlength="3"  errorText="* Amount is required and must be greater than or equal to ₦100." [counterFormatter]="customCounterFormatterE" formControlName="amountx" type="number" ></ion-input>
+
+  </ion-item>
+  </div>
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="none">
+    <ion-textarea label="Description:" errorText="* Payment Description is required and must be a valid email address."formControlName="email" labelPlacement="floating" fill="outline" placeholder="Enter payment description"></ion-textarea>
+    
+  </ion-item> 
+  </div>
+  <div > 
+    <br>
+<ion-note  class="ion-padding balx">Available Balance: <b >₦ {{aBalance}}</b></ion-note>
+</div>
+  
+
+
+
+
+
+</form>
+
+
+<ion-modal #modal1 trigger="open-bankL" class="search-bar"  [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+  <ng-template>
+    <ion-content>
+      <ion-searchbar placeholder="Search Banks"  [(ngModel)]="searchTerm" (ionInput)="filterBank()" ></ion-searchbar>
+      <ion-list *ngIf="banks?.length >= 1">
+        <ng-container *ngFor="let bank of filteredBanks">
+        <ion-item  (click)="onBankSelect(bank)">
+          <!-- <ion-avatar slot="start">
+            <ion-img src="'https://i.pravatar.cc/300?u=' + tag?.id"></ion-img>
+          </ion-avatar> -->
+          <ion-label >
+            <h2>{{bank?.name}}</h2>
+            <!-- <p>{{tag?.user_tag}}</p> -->
+          </ion-label>
+        </ion-item>
+      </ng-container>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<ion-loading
+[message]="'Please wait...'"
+[duration]="10000"
+[showBackdrop]="true"
+[translucent]="true"
+
+[spinner]="'crescent'"
+
+></ion-loading>
+
+<div >
+  <br>  
+  <ion-button  color="secondary" disabled class="ion-padding tf">
+  <ion-text>This transaction has a fee of 50 NGN </ion-text>
+</ion-button> 
+</div>
+
+
+  
+  
+    <ion-button type="submit"
+     class="ion-margin-horizontal"
+      size="large" 
+      expand="block" 
+      shape="round" 
+      color="warning"
+      (click)="submit()" [disabled]="form.invalid">
+      <ion-text>Review withdrawal</ion-text>
+    </ion-button>
+     <br><br>
+  
+
+
+
+
+
+    
+    </ion-list>
+
+  </ion-card-content>
+
+  </ion-card>

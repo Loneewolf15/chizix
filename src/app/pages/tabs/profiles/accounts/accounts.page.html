@@ -1,0 +1,69 @@
+<ion-header  >
+  <ion-toolbar class="toolbar-padding" >
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/profiles"></ion-back-button>
+      
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+ 
+  <ion-item lines="none" >
+    <ion-title mode="ios" >Accounts</ion-title>
+  </ion-item>
+
+  <div align="center" (click)="takePicturex()">
+    <ion-avatar (click)="takePicturex()">
+      <img *ngIf="userImage && !image" [src]="'https://api.veluxpay.com/' + userImage" alt=""/>
+      <img *ngIf="!userImage && image" [src]="image" alt=""/>
+      <img *ngIf="!userImage && !image" src="assets/images/avatar.png" alt="Dummy Image"/>
+      <img *ngIf="userImage && image" [src]="image" alt=""/>
+    </ion-avatar>
+  </div>
+  
+  
+
+
+  <ion-list [inset]="true">
+    
+  
+    <ion-item lines="none" (click)="tag()" detail="false" >
+      <ion-icon name="pricetag-outline" slot="start"></ion-icon>
+      <ion-label> <h2>
+          Tag Name:
+        </h2>
+        <ion-text> {{ userData?.loginData.user_tag }}</ion-text>
+      </ion-label>
+      
+    </ion-item>
+
+    <ion-item lines="none" (click)="name()" > 
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-label>
+        <h2>
+         Full Name
+        </h2>
+        {{ userData?.loginData.full_name }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="none" (click)="email()" detail="false" >
+      <ion-icon name="mail-unread" slot="start"></ion-icon>
+      <ion-label> <h2>
+        Email Address
+      </h2>
+     <ion-text>{{ emailx }}</ion-text>
+    </ion-label>
+      
+    </ion-item>
+
+    <ion-item lines="none" (click)="deleteAccount()" >
+      <ion-label class="ion-text-center" color="danger">
+        <ion-text>Delete account</ion-text>
+      </ion-label>
+    </ion-item>
+  
+  </ion-list>
+
+</ion-content>

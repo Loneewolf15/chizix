@@ -1,0 +1,112 @@
+<ion-header  >
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/profiles"></ion-back-button>
+    </ion-buttons>
+    <ion-title mode="ios" >Help</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding"  *ngIf="!isTawkChatLoaded">
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <h1>Welcome,</h1>
+  <!-- <h6>To the help page</h6> -->
+</ion-col>
+      <ion-col size="6" class="signout">
+        <ion-img src="assets/images/help.png"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <p>We understand that using a fintech app can sometimes be overwhelming, but do not worry. We are here to provide you with all information you will need to make the most out of the app. Below, you will find a detailed guide on <b>VELUXPAY</b>, including sub-accounts, scan to-go, airtime and data recharge.</p>
+<!-- <br> -->
+  <h3>Sending and Receiving:</h3>
+  <div>
+  <p><big><strong>Money are received</strong></big> in two ways in <b>VELUXPAY</b>, using the <b>Scan-to-go</b> or <b>Tag Name</b> features.
+    <ion-list>
+      <ion-item class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Navigate to <b>RECEIVE</b> on your dashboard</ion-text>
+      </ion-item>
+      <ion-item  class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Scan your QR code overs the senders camera or asked the user to copy your tag name </ion-text>
+      </ion-item>
+      <ion-item  class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Sent money is received immediately</ion-text>
+      </ion-item>
+    </ion-list>
+    <big><strong>To send money</strong></big>
+    <ion-list>
+      <ion-item class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Navigate to <b>SEND</b> on your dashboard</ion-text>
+      </ion-item>
+      <ion-item  class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>To send money use the scanner button located at the top right corner of the screen and scan a QR code</ion-text>
+      </ion-item>
+      <ion-item  class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>You can also click the add receiver button to type a user tag name and select the right one</ion-text>
+      </ion-item>
+      <ion-item  class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Enter the desired amount to be sent</ion-text>
+      </ion-item>
+      <ion-item  class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Proceed to input your PIN which was sent to your email on creation of your VELUXPAY account or the new one you created when prompted to.</ion-text>
+      </ion-item>
+    </ion-list>
+  </p>
+</div>
+
+  <h3>Sub-Account:</h3>
+  <div>
+  <p>Sub-accounts are convenient feature that allow you to create and manage multiple accounts within your main account. You can use sub-account to separate your income just to help know the total money coming from an angle. <big><strong>To create a sub-account: </strong></big>
+    <ion-list>
+      <ion-item class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Navigate to your profile located at the bottom right of your screen</ion-text>
+      </ion-item>
+      <ion-item  class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Click on Account</ion-text>
+      </ion-item>
+      <ion-item  class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Locate sub accounts and click on it</ion-text>
+      </ion-item>
+      <ion-item  class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Click on “create new sub account”</ion-text>
+      </ion-item>
+      <ion-item  class="bullet-point" lines="none">
+        <ion-icon name="ellipse" slot="start"></ion-icon>
+        <ion-text>Your sub account tag name and password will be generated for you.</ion-text>
+      </ion-item>
+    </ion-list>
+  </p>
+</div>
+  <ion-text >
+    For more assistance, 
+    <b><a (click)="loadTawkScript()" class="email-link">Chat with customer service:</a></b>
+  </ion-text>
+
+  
+ 
+</ion-content>
+
+
+ <!-- Tawk.to chat iframe -->
+ <!-- <div *ngIf="isTawkChatLoaded" class="tawk-chat-container">
+  <iframe src="https://tawk.to/chat/653fb259f2439e1631e9e9f3/1he0d1bm0" frameborder="0"></iframe>
+</div> -->
+
+<ion-content *ngIf="isTawkChatLoaded" >
+  <iframe src="https://tawk.to/chat/653fb259f2439e1631e9e9f3/1he0d1bm0" frameborder="0"></iframe>
+</ion-content>

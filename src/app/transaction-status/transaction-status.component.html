@@ -1,0 +1,34 @@
+<!-- <ion-content class="transaction-modal">
+ 
+      
+    <div class="ion-padding">
+      <ion-title>{{ header }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="goBack()">Close</ion-button>
+      </ion-buttons>
+    
+      <div class="sub-header">{{ subHeader }}</div>
+      <div class="message-container">
+        <img [src]="imgSrc" alt="Status Image" class="status-image">
+        <div [innerHTML]="message" class="message"></div>
+      </div>
+    </div>
+
+</ion-content> -->
+<div class="container" >
+
+  <!-- <ion-content class="container"> -->
+  
+    <h3>{{ header }}</h3>
+   
+
+    <div class="sub-header">{{ subHeader }}</div>
+    <div class="message-container">
+      <img [src]="imgSrc" alt="Status Image" class="status-image">
+      <div [innerHTML]="message" class="message"></div>
+    </div>
+  
+    
+    <button expand="block" (click)="goBack()">Go Back</button>
+<!-- </ion-content> -->
+</div>

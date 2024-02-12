@@ -1,0 +1,136 @@
+<ion-header class="ion-no-border" translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs" ></ion-back-button>
+      
+    </ion-buttons>
+    <ion-title color="warning" mode="ios">Transaction History</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment mode="ios" [value]="segmentValue" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="in">
+        <ion-label>In-flow</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="out">
+        <ion-label>Out-flow</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen>
+
+ 
+
+  
+  <ion-list class="transactions" *ngIf="transactionx?.length >= 1">
+    <ion-item-group>
+      <ng-container *ngFor="let transaction of transactionx">
+        <ion-item lines="full" (click)="setOpen(transaction)">
+          <ion-thumbnail slot="start" class="ion-text-center">
+            <img [src]="getThumbnailImage(transaction)" />
+          </ion-thumbnail>
+          
+          <ion-label>
+            <ion-text>
+              {{ getTransactionName(transaction) }}
+            </ion-text>
+            <p>
+              <ion-text>
+                {{ transaction?.date | date: 'MMM d, y' }} <br>
+                <ion-note>{{ transaction?.date | date: 'hh:mm a' }}</ion-note>
+              </ion-text>
+            </p>
+          </ion-label>
+          
+          <ion-text slot="end" *ngIf="segmentValue === 'out' " color="primary">
+            {{ '-₦' + transaction.amount }}
+          </ion-text>
+          <ion-text slot="end" *ngIf="segmentValue === 'in' && transaction.sender_tagname !== userData?.loginData.user_tag">
+            {{ '₦' + transaction.amount }} 
+          </ion-text>
+          
+          
+        </ion-item>
+      </ng-container>
+    </ion-item-group>
+  </ion-list>
+  
+ 
+<ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false">
+    <ng-template>
+      <ion-content>
+        <ion-toolbar>
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="end">
+            <ion-button color="danger" (click)="closeModal()"><b><strong>X</strong></b></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+          <ion-item>
+            <table>
+              <thead>
+                <tr>
+                  <th colspan="2" class="table-title">Wallet Transfer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Date</td>
+                  <td>{{ selectedTransaction?.date | date: 'dd-MM-yyyy' }}</td>
+                </tr>
+                <tr>
+                  <td>Time</td>
+                  <td>{{ selectedTransaction?.date | date: 'HH:mm:ss' }}</td>
+                </tr>
+                <tr>
+                  <td>Transaction ID</td>
+                  <td>{{ selectedTransaction?.transaction_id }}</td>
+                </tr>
+                <tr>
+                  <td>Velux Charge</td>
+                  <td>₦0.00</td>
+                </tr>
+                <tr>
+                  <td>Transaction Status</td>
+                  <td>{{ selectedTransaction?.transaction_status }}</td>
+                </tr>
+                <tr>
+                  <td>Amount</td>
+                  <td>₦{{ selectedTransaction?.amount }}</td>
+                </tr>
+                <tr>
+                  <td>Recipient Name</td>
+                  <td>{{ selectedTransaction?.sender_tagname === userData?.loginData.user_tag ? selectedTransaction?.sender_name : selectedTransaction?.receiver_name }}</td>
+                </tr>
+                <tr>
+                  <td>Sender Name</td>
+                  <td>{{ selectedTransaction?.sender_tagname === userData?.loginData.user_tag ? selectedTransaction?.receiver_name : selectedTransaction?.sender_name }}</td>
+                
+                </tr>
+              </tbody>
+            </table>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  
+  
+  
+<ion-list  class="transactions" *ngIf="transactionx?.length == 0">
+<ion-item-group>
+    <ion-item lines="full">
+   
+    <ion-label  class="ion-text-center">
+      <ion-text >No Transaction Found!</ion-text>
+    </ion-label>
+ 
+  </ion-item>
+</ion-item-group>
+
+
+</ion-list>
+
+</ion-content>

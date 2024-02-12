@@ -1,0 +1,33 @@
+ion-card-header.ios {
+    display: flex;
+    flex-flow: column-reverse;
+  }
+
+  ion-card-title {
+    --color: #cbff52;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: auto;
+    ion-icon{
+      display: block;
+      margin-left : auto;
+      margin-right: auto;
+    }
+  }
+  .amt{
+    
+    white-space: nowrap;
+      text-align: center;
+    
+  }
+
+  @media only screen and (max-width: 280px) {
+    .amt {
+      font-size: 14px;
+    }
+    ion-card-content {
+      height: 40px;
+    }
+  }
+  

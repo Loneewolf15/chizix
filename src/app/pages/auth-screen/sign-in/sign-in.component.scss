@@ -1,0 +1,217 @@
+ion-input{
+    font-size: 0.9rem;
+    color:#ffffff;
+}
+
+ ion-text {
+    font-size: 0.9rem;
+    //color:#ffffff;
+}
+.error {
+    font-size: 0.7rem !important;
+}
+p {
+    ion-icon {
+        font-size: 1.8rem;
+        margin: 1vh 2vh;
+    }
+}
+ion-button {
+    margin: 5vh 0;
+    color:white;
+}
+
+
+
+
+.forgotpass{
+    text-align: right;
+    ion-button{
+        font-size: 2px;
+       // position: absolute;
+        // width: 85px;
+        // height: 12px;
+        left: 260px;
+        top: 505px;
+
+        font-family: 'aria';
+        font-style: normal;
+        font-weight: 100;
+
+        //line-height: 12px;
+    }
+
+    
+}
+
+.remember{
+
+    ion-checkbox{
+        margin-right: 1px;
+        padding: 0px 2px 2px 0px;
+    }
+    text-align: justify;
+    ion-button{
+        font-size: 2px;
+       // position: absolute;
+        // width: 65px;
+        // height: 10px;
+       
+position: center;
+  text-align: center;
+  justify-items: center;
+  padding: auto;
+  display: block;
+  margin: 0 auto;
+        font-family: 'aria';
+        font-style: normal;
+        font-weight: bold;
+        padding: 5px 2px 2px 5px;
+        //line-height: 12px;
+    }
+}
+
+
+
+ion-grid{
+    margin: 0.2vh;
+    ion-checkbox {
+        --size: 18px;
+        --background-checked: #7E219E;
+      }
+      .remember{
+        text-align: justify;
+      }
+      
+      ion-checkbox::part(container) {
+        border-radius: 6px;
+       border: solid #7E219E;
+      }
+}
+
+ion-alert.custom-alert {
+    --backdrop-opacity: 0.7;
+  }
+  
+  .custom-alert .alert-button-group {
+    padding: 8px;
+  }
+  
+  button.alert-button.alert-button-confirm {
+    background-color: var(--ion-color-success);
+    color: var(--ion-color-success-contrast);
+  }
+  
+  .md button.alert-button.alert-button-confirm {
+    border-radius: 4px;
+  }
+  
+  .ios .custom-alert button.alert-button {
+    border: 0.55px solid rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.2)
+  }
+  
+  .ios button.alert-button.alert-button-cancel {
+    border-right: 0;
+    border-bottom-left-radius: 13px;
+    border-top-left-radius: 13px;
+  }
+  
+  .ios button.alert-button.alert-button-confirm {
+    border-bottom-right-radius: 13px;
+    border-top-right-radius: 13px;
+  }
+  .ion-modal {
+    --height: auto;
+  }
+  .blockx{
+ 
+    margin-top: 10%;
+    align-items: center;
+    color:#ffffff;
+   //justify-content: center;
+}
+
+/* Styles for screens below 768px */
+
+  @media screen and (max-height: 768px) {
+    ion-input{
+    font-size: 0.7rem;
+    }
+    
+    ion-text {
+    font-size: 0.7rem;
+    }
+    
+    .error {
+    font-size: 0.5rem !important;
+    }
+    
+    p ion-icon {
+    font-size: 1.5rem;
+    margin: 0.5vh 1vh;
+    }
+    
+    ion-button {
+    margin: 3vh 0;
+    font-size: 0.8rem;
+    }
+    
+    .forgotpass ion-button {
+    font-size: 1px;
+    left: 160px;
+    top: 365px;
+    }
+    
+    .remember ion-checkbox {
+    margin-right: 1px;
+    padding: 0px 2px 2px 0px;
+    }
+    
+    .remember ion-button {
+    font-size: 1px;
+    padding: 3px 2px 2px 3px;
+    }
+    
+    ion-grid {
+    margin: 0.1vh;
+    ion-checkbox {
+    --size: 16px;
+    }
+    ion-checkbox::part(container) {
+    border-radius: 4px;
+    border: solid #7E219E;
+    }
+    }
+    
+    ion-alert.custom-alert {
+    --backdrop-opacity: 0.7;
+    }
+    
+    .custom-alert .alert-button-group {
+    padding: 4px;
+    }
+    
+    button.alert-button.alert-button-confirm {
+    background-color: var(--ion-color-success);
+    color: var(--ion-color-success-contrast);
+    }
+    
+    .md button.alert-button.alert-button-confirm {
+    border-radius: 4px;
+    }
+    
+    .ios .custom-alert button.alert-button {
+    border: 0.55px solid rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.2)
+    }
+    
+    .ios button.alert-button.alert-button-cancel {
+    border-right: 0;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    }
+    
+    .ios button.alert-button.alert-button-confirm {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    }
+    }

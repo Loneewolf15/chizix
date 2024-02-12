@@ -1,0 +1,48 @@
+<ion-content scroll-y="false" class="wallet-container">
+  <ion-header  translucent={true} >
+    <ion-toolbar >
+      <ion-title mode="ios" >Wallet</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content id="zone" scroll-y="false" fullscreen>
+    
+    <ion-item color="tertiary"  lines="none" (click)="deposit()" detail="false">
+      <ion-icon class="ion-iicon" name="card" slot="start"></ion-icon>
+      <ion-label class="ion-llabel" font-size="16px;"> Deposit </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item>
+  
+  
+    <ion-item color="tertiary"  lines="none" (click)="withdrawal()" detail="false" >
+      <ion-icon class="ion-iicon" name="cash" slot="start"></ion-icon>
+      <ion-label class="ion-llabel"> Withdraw Cash </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    
+    </ion-item>
+  
+    <ion-item  color="tertiary" lines="none" (click)="airtime()" detail="false" >
+      <ion-icon class="ion-iicon" name="paper-plane-outline" slot="start"></ion-icon>
+      <ion-label class="ion-llabel"> Buy Airtime </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    
+    </ion-item>
+  
+    <ion-item color="tertiary"  lines="none" (click)="data()" detail="false" >
+      <ion-icon class="ion-iicon" name="wifi-outline" slot="start"></ion-icon>
+      <ion-label class="ion-llabel"> Buy Data </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+  
+    </ion-item>
+    
+    <ion-item  color="tertiary" lines="none" (click)="vtu()" detail="false" >
+      <ion-icon class="ion-iicon" name="flash-outline" slot="start"></ion-icon>
+      <ion-label class="ion-llabel"> Pay Electricity </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    
+    </ion-item>
+
+    
+  </ion-content>
+  
+</ion-content >

@@ -1,0 +1,69 @@
+<ion-card class="ion-no-margin" >
+
+  <ion-card-header>
+    <ion-buttons>
+      <ion-back-button defaultHref="/tabs/home" mode="md"></ion-back-button>
+      <ion-card-title color="medium" class="tit" mode="ios">
+        <h3 class="tit" >Deposit</h3>
+      </ion-card-title>
+    </ion-buttons>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list lines="full">
+      <div *ngIf="!showOtpForm">
+       
+        <form [formGroup]="form" class="form-container">
+          <div class="ion-margin-vertical">
+            <ion-item lines="none">
+              <ion-input
+                label="Amount*"
+                label-placement="floating"
+                minlength="3"
+                errorText="* Amount is required and must be greater than or equal to ₦100."
+                [counterFormatter]="customCounterFormatterE"
+                formControlName="amountx"
+                type="number"
+                (ionInput)="checkAmount()"
+              ></ion-input>
+            </ion-item>
+          </div>
+          
+        </form>
+
+
+
+
+
+        <ion-loading
+        [message]="'Please wait...'"
+        [duration]="10000"
+        [showBackdrop]="true"
+        [translucent]="true"
+
+        [spinner]="'crescent'"
+
+        ></ion-loading>
+
+          
+          <div class="purrr" > 
+          <br><br>
+            <ion-button type="submit"
+              class="ion-margin"
+              size="medium" 
+              expand="block" 
+              shape="round" 
+              color="warning"
+              (click)="deposit()" [disabled]="form.invalid">
+              <ion-text>Deposit now</ion-text>
+            </ion-button>
+              <br>
+          </div>
+
+      </div>
+    
+    </ion-list>
+
+  </ion-card-content>
+  
+</ion-card>

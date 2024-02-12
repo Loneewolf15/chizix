@@ -1,0 +1,46 @@
+
+<ion-content >
+  <div class="topRight">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="profiles/accounts" mode="ios"></ion-back-button>
+        
+      </ion-buttons>
+      <ion-title>Verification</ion-title>
+    </ion-toolbar>
+  </div>
+<br>
+<ion-content scroll-y="false" class="wallet-container">
+ 
+
+  
+
+  
+  <ion-content id="zone"  fullscreen>
+    
+    <ion-item color="tertiary"  lines="none" (click)="selfie()" detail="false">
+      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+      <ion-label>
+        <h2 class="ion-text-left">Take Selfie</h2>
+      <p class="ion-text-justify no-wrap">
+       A clear picture of you on<br> a plain background
+      </p>
+      </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item>
+  
+  
+    <ion-item color="tertiary"  lines="none" (click)="scan()" detail="false" >
+      <ion-icon slot="start" name="document-text"></ion-icon>
+       
+      <ion-label>
+       <h2>Scan ID</h2>
+       <ion-text>NIMC Slip</ion-text>
+     </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    
+    </ion-item>
+  </ion-content>
+  
+</ion-content >
+</ion-content>

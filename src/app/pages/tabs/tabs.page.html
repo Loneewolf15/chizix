@@ -1,0 +1,26 @@
+<ion-tabs #tabs (ionTabsDidChange)="setCurrentTab()">
+  <ion-tab-bar class="bart" slot="bottom">
+    
+    
+     <ion-tab-button tab="home">
+      <ion-icon [name]="selectedTab == 'home' ? 'home' : 'home-outline'" [style.color]="selectedTab == 'home' ? '#7e2193' : 'grey'"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="mt">
+      <ion-icon [name]="selectedTab == 'mt' ? 'people' : 'people-outline'" [style.color]="selectedTab == 'mt' ? '#7e2193' : 'grey'"></ion-icon>
+    </ion-tab-button>
+
+   <ion-tab-button tab="wallets">
+      <ion-icon [name]="selectedTab == 'wallets' ? 'wallet' : 'wallet-outline'" [style.color]="selectedTab == 'wallets' ? '#7e2193' : 'grey'"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="profiles">
+      <ion-icon [name]="selectedTab == 'profiles' ? 'person-circle' : 'person-circle-outline'" [style.color]="selectedTab == 'profiles' ? '#7e2193' : 'grey'"></ion-icon>
+    </ion-tab-button>
+    
+  </ion-tab-bar>
+</ion-tabs>
+
+    <!-- <ion-tab-button tab="card">
+      <ion-icon [name]="selectedTab == 'card' ? 'card' : 'card-outline'"></ion-icon>
+    </ion-tab-button> -->
+   

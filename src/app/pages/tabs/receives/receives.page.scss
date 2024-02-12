@@ -1,0 +1,182 @@
+ion-header {
+    
+    ion-toolbar {
+        --padding-start: 16px;
+        --padding-end: 16px;
+        //--ion-background-color:transparent;
+         // opacity: 0;
+        ion-title {
+            max-width: 40vh;
+            ion-label {
+                ion-text {
+                    font-size: 1rem;
+                }
+                p {
+                    ion-text {
+                        font-size: 1.3rem !important;
+                    }
+                }
+            }
+        }
+        ion-avatar {
+            height: 2.5rem;
+            width: 2.5rem;
+            border: 1px solid var(--ion-color-tertiary);
+            img {
+                max-width: 100%;
+            }
+        }
+    }
+}
+
+ion-content {
+    ion-menu-button {
+        margin-left: 90%;
+    }
+    ion-menu::part(backdrop) {
+        background-color: rgba(255, 0, 255, 0.5);
+      }
+      
+      ion-menu::part(container) {
+       // border-radius: 0 20px 20px 0;
+      
+        box-shadow: 4px 0px 16px rgba(255, 0, 255, 0.18);
+      }
+      ion-datetime-button{
+        --ion-background-color:transparent;
+        box-shadow: none !important;
+      }
+    ion-row.banners {
+        position: relative;
+        padding: 0.5rem;
+        height: auto;
+       // background: linear-gradient(120.67deg, #03b5aa 17.45%, #f080ff 105.58%);
+      //  border-radius: 0.5rem;
+        margin: 6vh 1rem 0 1rem;
+        swiper {
+            div {
+                ion-label {
+                    p.acc-amt {
+                        margin: 1rem 0;
+                        // padding: auto;
+                        font-size: 2.2rem;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+
+/* Set the maximum width and height of the QR code */
+img.qr-code {
+    max-width: 300px;
+    max-height: 300px;
+  }
+  img{
+    display: block;
+    margin-left : auto;
+    margin-right: auto;
+}
+  img.qrCode{
+    position: center;
+    max-width: 50%;
+    max-height: 15%;
+  }
+  
+  /* Add a border around the QR code */
+  img.qr-code {
+    border: 2px solid black;
+  }
+  
+  /* Add a background color to the QR code */
+  img.qr-code {
+    background-color: #f2f2f2;
+  }
+  
+  /* Center the QR code horizontally */
+  img.qr-code {
+    display: block;
+    margin: 0 auto;
+  }
+  
+
+  ion-button {
+    /* Add a box shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+    color: var(--ion-color-base);
+    /* Add a subtle lift effect */
+    transform: translate3d(0, 0, 0);
+  
+    /* You can customize the transition for a smoother effect */
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  
+  ion-button:hover {
+    /* Adjust box shadow and lift on hover for a more interactive feel */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translate3d(0, -2px, 0);
+    color: var(--ion-color-base);
+  }
+  
+
+    ion-row.banners::after {
+        content: "";
+        position: justify;
+        //  top: 1px;
+        //  left: 1px;
+        //  right: 1px;
+        //  bottom: 1px;
+        background: #7E219E;
+      //  border-radius: 0.5rem;
+        //z-index: 0;
+        border: 2px solid transparent;
+    }
+    ion-list.transactions {
+        //border-radius: 1.2vh 1.2vh 0 0;
+        background: var(--ion-color-secondary);
+        //padding-bottom: 10vh;
+        ion-list-header {
+            padding-inline-start: 3.5vh;
+        }
+        ion-list-header, ion-item {
+            ion-label {
+                font-size: 1.1rem;
+            }
+        }
+
+        ion-item-group {
+            padding: 0 3.5vh;
+            ion-item {
+                font-weight: bold;
+                --background: transparent;
+                --border-style: dashed;
+                --border-color: var(--ion-color-tertiary);
+                --padding-bottom: 1rem;
+                --padding-top: 1rem;
+                --padding-start: 0;
+                ion-text[slot="end"] {
+                    font-size: 1rem;
+                }
+                p {
+                    font-size: 0.9rem;
+                    font-weight: normal;
+                    margin-top: 3px;
+                }
+                ion-thumbnail {
+                    height: 6vh;
+                    width: 6vh;
+                    border-radius: 10px;
+                    background: var(--ion-color-white);
+                    box-shadow: 0px 3px 6px rgb(3 181 170 / 4%);
+                    img {
+                        height: 4vh;
+                        width: 4vh;
+                        transform: translateY(25%);
+                    }
+                }
+            }
+        }
+    }
+
+}
