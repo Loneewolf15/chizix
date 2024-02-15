@@ -179,8 +179,17 @@ enroll(){
 
 
 
-  deleteSubUser(){
-    this.authService.deleteSub().subscribe(
+  deleteSubUser(user_tag: string, veluxite_id: string){
+    const formData = new FormData();
+    formData.append('veluxite_id', veluxite_id);
+    formData.append('user_tag', user_tag);
+    console.log(formData)
+    const sub = {
+      veluxite_id: veluxite_id,
+      user_tag: user_tag,
+    }
+    console.log(sub)
+    this.authService.deleteSub(sub).subscribe(
       (response: any) => {
         if(response.message === "Signature verification failed" && this.router.url !== '/auth-screen' && this.router.url === '/subaccount'){
           localStorage.removeItem('userData');
@@ -193,7 +202,7 @@ enroll(){
         else{
   console.log(response)
   if(response.message === "deleted sucessfully"){
-    this.toastService.showToast('Sub Account successfully deleted');
+    this.showToastx('Sub Account successfully deleted');
     this.router.navigateByUrl('/subaccount');
     this.getSubUser();
   }

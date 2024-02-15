@@ -34,7 +34,12 @@ export class LoginStatusComponent implements OnInit {
 
   yes() {
     this.modalController.dismiss();
-    this.authService.logout()
+    this.authService.logout();
+  }
+
+  no(){
+    //this.modalController,dismiss();
+    this.modalController.dismiss();
   }
 
   enterAnimation = (baseEl: HTMLElement) => {

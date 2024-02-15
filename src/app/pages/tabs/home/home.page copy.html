@@ -57,7 +57,7 @@
   </div>
 
 
-  <ion-modal [isOpen]="isModalOpeN" [backdropDismiss]="false"  class="fullscreen-modal">
+  <ion-modal [isOpen]="isModalOpeN" [backdropDismiss]="false"  class="ion-modal fullscreen-modal">
     <ng-template>
       <ion-header>
         <ion-toolbar [color]="isDarkMode ? 'dark' : 'light'">
@@ -73,14 +73,13 @@
       
         <ion-list>
           <ion-item [button]="true" *ngFor="let item of items">
-            <ion-icon *ngIf="item.unread" slot="start" color="primary" name="ellipse"></ion-icon>
+            <ion-icon slot="start" color="primary" [name]="item.unread ? 'ellipse' : ''"></ion-icon>
             <ion-label>
               <h2>{{ item.name }}</h2>
               <p>New message from {{ item.name }}</p>
             </ion-label>
           </ion-item>
         </ion-list>
-        
       </ion-content>
     </ng-template>
   </ion-modal>

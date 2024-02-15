@@ -174,62 +174,13 @@ showLoader(msg) {
   .catch(e => console.log(e));
   }
 
-
-  async presentAirtimeAlertx(status: string,  amount: any, title?: string, subtitle?: string) {
-
-    let message: string;
-    switch (status) {
-      case 'successful':
-        message = `You have successfully purchased airtime of ${amount} `;
-        break;
-      case 'insuficient funds':
-        message = `Transaction amount greater than wallet balance. <br> ${amount}`;
-        break;
-      case 'transaction failed':
-        message = `We could not complete your request at this moment, please try again shortly.`;
-        break;
-      default:
-        message = 'An unknown error occurred.';
-        break;
-    }
-
-    const alert = await this.alertController.create({
-      header: title,
-      //subHeader: subtitle,
-      message: message,
-      buttons: [{
-        text: 'OK',
-        cssClass: 'purple-button',
-        handler: () => {
-          if (status !== 'failed') {
-            this.router.navigateByUrl('/tabs');
-          }
-        }
-      }],
-      backdropDismiss: false,
-      cssClass: 'custom-alert',
-      animated: true,
-      mode: 'ios',
-      //translucent: true,
-      // Add the image to the alert
-      // inputs: [
-      //   {
-      //     type: 'image',
-      //     src: status === 'successful' ? 'assets/imgs/received.png' : 'assets/imgs/sent.png'
-      //   }
-      // ]
-    });
-    await alert.present();
-  }
-
-
   async presentAirtimeAlert(status: string, amount: any, title?: string, subtitle?: string) {
     let message: string;
     let imgSrc: string;
     // let subHeader : string;
   
     switch (status) {
-        case 'successful':
+        case 'transaction successful':
         message = `You have successfully purchased airtime of ₦${amount} `;
         imgSrc = 'assets/imgs/success.png';
         break;
@@ -283,10 +234,6 @@ showLoader(msg) {
  topUp() {
   console.log(this.serviceIDx = this.cardValue + ' i am here');
   // Validate form input
-  // if (!this.provider || !this.phoneNumber || !this.amount) {
-  //   this.provider, this.phoneNumber, this.amount
-  //   return   console.log(this.serviceIDx = this.cardValue + ' i am herey');;
-  // }
   const vtuData = {
     network_id: this.cardValue ,
     phone: this.phone,
@@ -329,10 +276,9 @@ this.loadingCtl.dismiss();
 
       this.hideLoader();
   this.modalCtrl.dismiss(response);
-  //this.showToastx(response.status);
-  // this.router.navigateByUrl('/register/verify')
   ///proceed to buy the data plan
   this.presentLoading('Processing your request...', 'circular')
+  console.log(vtuData)
   this.authService.airtime(vtuData).subscribe(
     (data: any) => {
       console.log(JSON.stringify(data))
@@ -357,6 +303,13 @@ this.loadingCtl.dismiss();
           //this.presentToast('Session Expired.....Logging out', 'danger');
           this.loadingCtl.dismiss();
         }
+        else if(data.message === "transaction succesful"){
+          this.toastController.create()
+          this.presentToast(data.message + ', An unknown error occured please try again shortly.', 'danger');
+          this.presentAirtimeAlert('transaction successful', ` ₦${vtuData.amount}`, 'Transaction Successful');
+          //this.presentToast('Session Expired.....Logging out', 'danger');
+          this.loadingCtl.dismiss();
+        }
         else if(data.message === "AMOUNT_BELOW_MIN"){
           this.toastController.create()
           this.presentToast('Amount entered below minimum value.', 'danger');
@@ -364,9 +317,16 @@ this.loadingCtl.dismiss();
           //this.presentToast('Session Expired.....Logging out', 'danger');
           this.loadingCtl.dismiss();
         }
+        else if(data.message === "airtime purchase failed"){
+          this.toastController.create()
+          this.presentToast('An unknown error occured please try again shortly.', 'danger');
+          this.presentAirtimeAlert('transaction failed', ` ₦${vtuData.amount}`, 'Incomplete Request');
+          //this.presentToast('Session Expired.....Logging out', 'danger');
+          this.loadingCtl.dismiss();
+        }
          else{
           this.toastController.create()
-          this.presentToast(data, 'success');
+          this.presentToast(data.message, 'success');
           this.loadingCtl.dismiss();
         }
       

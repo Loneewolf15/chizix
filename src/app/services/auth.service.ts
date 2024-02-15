@@ -153,6 +153,12 @@ register(data: any): Observable<any> {
   return this.httpService.post('/users/register_Veluxite', data);
 }
 
+
+registerF(data: any): Observable<any> {
+  return this.httpService.post('/users/register_Veluxite2', data);
+}
+
+
 ///place withdrawal
 withdraw(data){
   return this.httpService.postr('/reports/implementTransfer', data);
@@ -210,9 +216,9 @@ getRecent(): Observable<any>{
 }
 
 
-deleteSub(): Observable<any>{
+deleteSub(data): Observable<any>{
 
-  return this.httpService.getr('/reports/deleteSubuser');
+  return this.httpService.postr('/reports/deleteSubuser', data);
 }
 
 ///register veluxite sub user
@@ -261,6 +267,12 @@ getTransactions(): Observable<any>{
 
   return this.httpService.getr('/reports/getUserTransactions');
 }
+////Transactions information fetcher
+getSubTransactions(): Observable<any>{
+
+  return this.httpService.getr('/reports/getSubUserTransactions');
+}
+
 
 ////Image fetcher
 getUserImage(): Observable<any>{

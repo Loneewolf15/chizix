@@ -11,8 +11,10 @@
   
   <ion-header *ngIf="!showContent">
     <ion-toolbar >
-      <ion-buttons slot="start" (click)="showContent = true">
-        <ion-back-button defaultHref=""></ion-back-button>
+      <ion-buttons slot="start">
+        <ion-button (click)="showContent = true">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
       </ion-buttons>
       <ion-title>Data</ion-title>
     </ion-toolbar>
@@ -22,15 +24,8 @@
   
   
   <ion-content *ngIf="showContent" >
-    <!-- Content 1 to be shown/hidden goes here -->
-    
-    <!-- <ion-item color="tertiary" class="bundle-items" lines="none" value="MTN" (click)="logCardValuex('mtncg'); showContent = false">
-      <ion-img src="assets/images/mtn-logo-img.png" alt="Mtn"></ion-img>
-      <ion-label class="ion-llabel" font-size="16px;"> MTN </ion-label>
-      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-    </ion-item> -->
-
-
+    <br>
+   
     <ion-item  color="tertiary" class="bundle-items" lines="none"value="MTNSME" (click)="logCardValue('mtn'); showContent = false">
       <ion-img src="assets/images/mtn-logo-img.png" alt="Mtn"></ion-img>
       <ion-label class="ion-llabel"> MTN </ion-label>
@@ -77,7 +72,7 @@
         
   
         <ion-select-option *ngFor="let plan of plans"[value]="plan" (click)="logCardValued(plan.value)">
-          {{ plan.datapsck }} 
+          {{ plan.plan_name }} 
         </ion-select-option>
       </ion-select>
     </ion-item>
@@ -94,14 +89,14 @@
   
         <ion-item  *ngIf="selectedOption" >
           <ion-label position="stacked">Amount</ion-label>
-          <ion-input type="number" class="bold-disabled" [readonly]="true" [(ngModel)]="selectedOption.newprice"  name="amountx">₦  </ion-input>
+          <ion-input type="number" class="bold-disabled" [readonly]="true" [(ngModel)]="selectedOption.veluxprice"  name="amountx">₦  </ion-input>
         </ion-item>
   
         <ion-item *ngIf="selectedOption" >
           <ion-label position="floating">PIN</ion-label>
           <ion-input type="password" [(ngModel)]="pin" name="pin" class="pin-input"></ion-input>
         </ion-item>
-        <div style="background: #000000;">
+        <div>
           <br>
           <ion-button class="top-upx" expand="block" width="50%" color="medium" (click)="dataX()"> <ion-icon name="reload-circle-outline"></ion-icon>Top Up</ion-button>
         

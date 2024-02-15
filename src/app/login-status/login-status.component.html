@@ -15,16 +15,20 @@
     </div>
 
 </ion-content> -->
-<div class="container" >
+
+<div class="container">
 
   <!-- <ion-content class="container"> -->
-  
-    <div class="message-container">
-      <img [src]="imgSrc" alt="Status Image" class="status-image">
-      <div [innerHTML]="message" class="message"></div>
-    </div>
-  
-    
-    <button expand="block" (click)="yes()">Go Back</button>
-<!-- </ion-content> -->
+
+  <div class="message-container">
+    <img [src]="imgSrc" alt="Status Image" class="status-image">
+    <div [innerHTML]="message" class="message"></div>
+  </div>
+
+  <div class="button-container">
+    <button expand="block" (click)="yes()" class="yes-button">Yes</button>
+    <button expand="block" (click)="no()" class="no-button">No</button>
+  </div>
+  <!-- </ion-content> -->
 </div>
+

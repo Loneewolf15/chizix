@@ -6,7 +6,7 @@ ion-card {
     box-shadow: none !important;
     padding-top: 2vh;
     min-height: 100vh;
-    display: flex;
+    //display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,7 @@ ion-card {
 
 ion-card-content {
     flex-grow: 1;
-    display: flex;
+    //display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -33,10 +33,10 @@ ion-card-content {
    max-width: fit-content;
 }
 
-.otpForm {
-    height: 100%;
-    padding-bottom: 45vh;
-}
+// .otpForm {
+//     height: 100%;
+//     padding-bottom: 45vh;
+// }
 
 ion-input {
     font-size: 0.9rem;

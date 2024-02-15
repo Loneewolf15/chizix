@@ -62,7 +62,7 @@ export class DataPage implements OnInit {
   price: string;
   selectedPlanx: any;  
   selectedPlan: any = { displayName: '', value: '', price: '' };
-  selectedOption: { displayName: string, newprice: number, datapsck: string, initialprice: any, variationid: any };
+  selectedOption: { displayName: string, veluxprice: number, plan_name: string, vtuprice: any, variation_id: any };
   constructor(
     //  private registrationService: RegistrationService, 
     private loadingCtrl: LoadingController,
@@ -102,16 +102,17 @@ export class DataPage implements OnInit {
     onOptionSelected() {
     // Here you can define the logic to retrieve the price related to the selected option
     // For example, you can use Array.find() to get the selected option from the options array
-    this.selectedOption = this.plans.find(plan => plan.datapsck === this.selectedOption.datapsck);
-    console.log(this.selectedOption.datapsck)
+    this.selectedOption = this.plans.find(plan => plan.plan_name === this.selectedOption.plan_name);
+    console.log(this.selectedOption.plan_name)
+    console.log(this.selectedOption.veluxprice)
     console.log(this.selectedOption);
-    this.variationid = this.selectedOption.variationid;
-    this.ip = this.selectedOption.initialprice;
+    this.variationid = this.selectedOption.variation_id;
+    this.ip = this.selectedOption.vtuprice;
 
   }
 
   onValueChange(value) {
-    this.price = this.plans.find(plan => plan.value === this.selectedPlan)?.price;
+    this.price = this.plans.find(plan => plan.value === this.selectedPlan)?.veluxprice;
     console.log(this.selectedPlan)
     console.log(this.price)
   }
@@ -186,14 +187,14 @@ export class DataPage implements OnInit {
          this.plans = response;
          
           for (const item of response) {
-            this.variationid = item.variationid;
-            this.ip = item.initialprice;
+            this.variationid = item.variation_id;
+            this.ip = item.vtuprice;
             console.log(this.variationid, this.ip);
           }
           
  // Save values to local storage
  localStorage.setItem('variationid', this.variationid);
- localStorage.setItem('initialprice', this.ip);
+ localStorage.setItem('vtuprice', this.ip);
 
           
 //this.arrayData = JSON.parse(response);
@@ -235,12 +236,12 @@ console.log(data + 'are you good?')
         else{
 
          this.plans = response;
-          this.variationid = response.variationid;
-          this.ip = response.initialprice;
+          this.variationid = response.variation_id;
+          this.ip = response.vtuprice;
 
           for (const item of response) {
             this.variationid = item.variationid;
-            this.ip = item.initialprice;
+            this.ip = item.vtuprice;
             console.log(this.variationid, this.ip);
           }
           
@@ -290,8 +291,8 @@ console.log(data + 'are you good?')
          this.plans = response;
          
          for (const item of response) {
-            this.variationid = item.variationid;
-            this.ip = item.initialprice;
+            this.variationid = item.variation_id;
+            this.ip = item.vtuprice;
             console.log(this.variationid, this.ip);
           }
           
@@ -342,12 +343,12 @@ console.log(data + 'are you good?')
         else{
 
          this.plans = response;
-          this.variationid = response.variationid;
-          this.ip = response.initialprice;
+          this.variationid = response.variation_id;
+          this.ip = response.vtuprice;
         
           for (const item of response) {
-            this.variationid = item.variationid;
-            this.ip = item.initialprice;
+            this.variationid = item.variation_id;
+            this.ip = item.vtuprice;
             console.log(this.variationid, this.ip);
           }
           
@@ -398,11 +399,11 @@ console.log(data + 'are you good?')
 
          this.plans = response;
           this.variationid = response.variationid;
-          this.ip = response.initialprice;
+          this.ip = response.vtuprice;
 
           for (const item of this.plans) {
-            this.variationid = item.variationid;
-            this.ip = item.initialprice;
+            this.variationid = item.variation_id;
+            this.ip = item.vtuprice;
             console.log(this.variationid, this.ip);
           }
           
@@ -528,7 +529,7 @@ dataX(){
     phone: this.phone,
     variation_id: this.variationid,
     initialprice: this.ip,
-    amount: this.selectedOption.newprice,
+    amount: this.selectedOption.veluxprice,
   
   }
   const requestData = {

@@ -104,14 +104,14 @@ export class SignInComponent implements OnInit {
     this.form1 = new FormGroup({
       otp: new FormControl(null, {validators: [Validators.required, Validators.minLength(4), Validators.maxLength(6)]}),
       password: new FormControl(null, {validators: [Validators.required, Validators.minLength(6)]}),
-      confirm_password: new FormControl(null, {validators: [Validators.required, this.matchingPasswords.bind(this)]}),
+      cpassword: new FormControl(null, {validators:  [Validators.required, this.matchingPasswords.bind(this)]}),
 
     });
   }
 
   matchingPasswords(control: any) {
-    if (this.form) {
-      if (control.value !== this.form.controls['password'].value) {
+    if (this.form1) {
+      if (control.value !== this.form1.controls['password'].value) {
         return { mismatchedPasswords: true };
       }
     }
@@ -291,8 +291,8 @@ export class SignInComponent implements OnInit {
  
 
   resetP() {
-    if(this.validateDatax() && !this.form.valid){
-      this.form.markAllAsTouched();
+    if(this.validateDatax() && !this.emailForm.valid){
+      this.emailForm.markAllAsTouched();
       return(
         this.sendData.email &&
         this.sendData.email.length > 0
@@ -342,7 +342,7 @@ this.showForgotPassForm = true;
      } 
      
      this.presentLoading('Processing...', 'dots')
-    this.authService.forgotPx(this.sendData2)
+    this.authService.forgotPx(this.form1.value)
     .pipe(
       finalize(() => {
         this.loadingCtl.dismiss();

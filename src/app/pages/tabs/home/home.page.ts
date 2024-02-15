@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { CommonModule, DatePipe } from '@angular/common';
+import { Preferences } from '@capacitor/preferences';
 
 
 const IMAGE_DIR = 'stored-images';
@@ -44,7 +45,8 @@ swiperModules = [IonicSlides];
   userImage: any;
   getBalance: any;
   showBalance = false;
-  isDarkMode =  localStorage.getItem('darkMode');
+  // isDarkMode =  localStorage.getItem('darkMode');
+  isDarkMode =  true;
   selectedTransaction: any;
   isModalOpen = false;
   isModalOpeN = false;
@@ -72,6 +74,7 @@ swiperModules = [IonicSlides];
     public router : Router,
     private toastController: ToastController,
     private str: PreferencesService,
+    private preferences: PreferencesService,
     private toastService: ToastService,
     private datePipe: DatePipe,
     private animationCtrl: AnimationController,
@@ -170,6 +173,8 @@ swiperModules = [IonicSlides];
   receive(){
     this.router.navigateByUrl('/tabs/receive')
   }
+
+  
 
   send(){
     this.router.navigateByUrl('/deposit')
@@ -280,7 +285,14 @@ formatAmountWithCommas(amount: number): string {
 }
 
 
-
+async checkAppMode() {
+  const checkIsDarkMode = await Preferences.get({key: 'darkModeActivated'});
+  console.log(checkIsDarkMode);
+  checkIsDarkMode?.value == 'true'
+    ? (this.isDarkMode = true)
+    : (this.isDarkMode = false);
+  document.body.classList.toggle('dark', this.isDarkMode);
+}
 
 toggleBalance() {
   this.showBalance = !this.showBalance;
@@ -295,7 +307,7 @@ changeType() {
     
     this.addItems(5);
 
-
+    this.checkAppMode();
   
 
 

@@ -44,42 +44,11 @@ ion-header {
 }
 
 .fullscreen-modal .modal-wrapper {
-  display: flex;
+  //display: flex;
   align-items: center;
   justify-content: center;
 }
 
-
-/* For light mode */
-ion-title.color-mode-light {
-  color: black; /* Set the color for light mode */
-}
-
-ion-icon.color-mode-light {
-  color: black; /* Set the color for light mode */
-}
-
-/* For dark mode */
-ion-title.color-mode-dark {
-  color: white; /* Set the color for dark mode */
-}
-
-ion-icon.color-mode-dark {
-  color: white; /* Set the color for dark mode */
-}
-
-
-/* For light mode */
-ion-title[color="light"],
-ion-icon[color="light"] {
-  color: white; /* Set the color for light mode */
-}
-
-/* For dark mode */
-ion-title[color="dark"],
-ion-icon[color="dark"] {
-  color: black; /* Set the color for dark mode */
-}
 
 
 ion-dash {

@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { PreferencesService } from 'src/app/services/storage.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
-import { IonicModule, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { AuthConstants } from 'src/app/config/auth-constants';
 import { EmailModalComponent } from 'src/app/email-modal/email-modal.component';
 import { LoadingController } from '@ionic/angular';
@@ -48,7 +48,9 @@ resendDisabled: boolean = false;
   verifiedEmail: boolean;
   showSpinner = false;
   otpForm: FormGroup;
+  c_form: FormGroup;
   showOtpForm = false;
+  showForm2 = false;
 
   public postData = {
     fullname: '',
@@ -68,6 +70,7 @@ resendDisabled: boolean = false;
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
     private storage: PreferencesService,
+    private alertController : AlertController,
     private authService: AuthService,
     private modalController: ModalController,
     private toastService: ToastService,
@@ -130,6 +133,13 @@ startOTPTimer() {
       otp: new FormControl(null, {validators: [Validators.required]}),
     });
     
+    this.c_form = new FormGroup({
+      fullname: new FormControl(null, {validators: [Validators.required]}),
+      tagname: new FormControl(null, {validators: [Validators.required, Validators.minLength(4)]}),
+      address: new FormControl(null, {validators: [Validators.required]}),
+      phone: new FormControl(null, {validators: [Validators.required, Validators.minLength(11), Validators.maxLength(12)]}),
+      
+    });
 
     
   }
@@ -170,6 +180,16 @@ startOTPTimer() {
     }
   }
 
+  async showAlert(message) {
+    const alert = await this.alertController.create({
+      header: 'Registration Failed',
+      message,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+  
 
   
   async  signup() {
@@ -193,10 +213,17 @@ startOTPTimer() {
 
       this.authService.register(formData).subscribe(
         async (response) => {
-          console.log('Registration successful!', response);
+          console.log(response);
 
             if(response.message === "registeration successful" ){
               this.showOtpForm = true;
+              localStorage.setItem('veluxite_id', response.data.veluxite_id);
+            }
+
+            if(response.status === "there is an error"){
+              let msg = response.data.email_err;
+              
+              this.showAlert(msg);
             }
            
              console.log('Email:', formData.email);
@@ -211,6 +238,56 @@ startOTPTimer() {
         }
       );
       console.log(formData);
+
+      console.log('I got Here')
+    }
+    
+    await loading.dismiss();
+  
+    
+  }
+
+
+  async  signupC() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+    // perform form submission here
+
+    if (this.form.valid) {
+      const formDataC = {
+        fullname: this.c_form.get('fullname').value,
+        email: this.form.get('email').value,
+         tagname: this.c_form.get('tagname').value,
+         phone: this.c_form.get('phone').value,
+        address: this.c_form.get('address').value,
+        veluxite_id: localStorage.getItem('veluxite_id'),
+      };
+
+     
+
+      this.authService.registerF(formDataC).subscribe(
+        async (response) => {
+          console.log('Registration successful!', response);
+
+            if(response.message === "registeration successful" ){
+             // this.showOtpForm = true;
+             this.emailPr('account activated successfully', 'Transaction Successful');
+            }
+           
+             console.log('Email:', formDataC.email);
+         // this.router.navigateByUrl('/otp');
+
+
+        },
+        (error) => {
+          console.error('Registration failed!', error);
+        //  this.showOtpForm = true;
+          //this.toastService.showToast('Check your internet connection || Network connection failed')
+        }
+      );
+      console.log(formDataC);
 
       console.log('I got Here')
     }
@@ -246,7 +323,10 @@ this.showOtpForm = true;
   }
 
   onVerifyOTPx(){
-    this.emailPr('account activated successfully', 'Transaction Successful');
+   // this.emailPr('account activated successfully', 'Transaction Successful');
+
+    this.showOtpForm = false;
+    this.showForm2 = true;
   }
   
 
@@ -266,6 +346,7 @@ async showToastx( infoMessage: string){
     toasty.present();
   }
 
+
   onVerifyOTP() {
     this.showLoader('Verifying...');
     if (this.otpForm.valid) {
@@ -275,8 +356,9 @@ async showToastx( infoMessage: string){
           console.log(response);
           
 if(response.status === "account activated successfully" ){
-  this.emailPr('account activated successfully', 'Transaction Successful');
-       
+  
+  this.showOtpForm = false;
+  this.showForm2 = true;
   const toasty = await this.toastCtrl.create({
     message: 'OTP verified successfully.',
     duration: 3000,
@@ -299,7 +381,7 @@ if(response.status === "account activated successfully" ){
             color: 'danger'
           });
           toast.present();
-          this.emailPr('error ocurred', 'Transaction Successful');
+          //this.emailPr('error ocurred', 'Transaction Successful');
           //this.router.navigateByUrl('/tabs')
           this.hideLoader();
           this.modalCtrl.dismiss(data);
@@ -319,7 +401,7 @@ if(response.status === "account activated successfully" ){
   
     switch (status) {
       case 'account activated successfully':
-        message = `Hello Veluxite! Here's a short message thank you for picking VeluxPay. Your Transfer pin has been sent to your mail, you can choose to change it in settings.`;
+        message = `Hello Veluxite! Thank you for picking VeluxPay. Your Transfer pin has been sent to your mail, you can choose to change it in settings.`;
         // subHeader = 'Transaction SuccessFul'
         imgSrc = 'assets/images/em.png';
         break;

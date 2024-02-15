@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
-import { ActionSheetController, AlertController, IonicModule, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, AnimationController, IonicModule, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -32,6 +32,7 @@ export class ReceivesubPage implements OnInit {
   text: string="";
    qrCodeData: string;
    qrCodeUrl : '';
+   isModalOpen = false;
    qrCodeDataUrl : string;
    userData: any;
    selectedTransaction: any;
@@ -42,6 +43,7 @@ export class ReceivesubPage implements OnInit {
     private modalController: ModalController,
     private toastController: ToastController,
     private storage: PreferencesService,
+    private animationCtrl: AnimationController,
     private actionSheetCtrl: ActionSheetController,
   ) { 
 
@@ -51,6 +53,16 @@ export class ReceivesubPage implements OnInit {
       this.fetchQRCodeData(this.qrCodeData);
 
   }
+
+  setOpen(transaction: any) {
+    this.selectedTransaction = transaction;
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
 
   fetchQRCodeData(qrCodeData: string) {
     
@@ -100,14 +112,19 @@ export class ReceivesubPage implements OnInit {
     if (userDataString) {
       this.userData = JSON.parse(userDataString);
     }
-    this.transactions = [
-      { id: 1, to: 'Jahs Will', date: '2022-05-22', amount: 5000 },
-      { id: 2, to: 'Aniekan Dickson', date: '2022-03-02', amount: 7000 },
-      { id: 3, to: 'Yahayah Hephzibah', date: '2022-07-28', amount: -3250 },
-      { id: 4, to: '-Mechatronics 3', date: '2022-01-09', amount: 1000 },
-      { id: 5, to: 'Godwin Gheli', date: '2022-04-13', amount: -800 },
-    ];
+    this.getTransactions();
+    // this.transactions = [
+    //   { id: 1, to: 'Jahs Will', date: '2022-05-22', amount: 5000 },
+    //   { id: 2, to: 'Aniekan Dickson', date: '2022-03-02', amount: 7000 },
+    //   { id: 3, to: 'Yahayah Hephzibah', date: '2022-07-28', amount: -3250 },
+    //   { id: 4, to: '-Mechatronics 3', date: '2022-01-09', amount: 1000 },
+    //   { id: 5, to: 'Godwin Gheli', date: '2022-04-13', amount: -800 },
+    // ];
   }
+// Helper function to format amount with commas
+formatAmountWithCommas(amount: number): string {
+  return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
   async logout() {
     const alert = await this.actionSheetCtrl.create({
@@ -208,5 +225,68 @@ dismissModal() {
     toast.present();
   }
   
+
+
+
+  ////////////////////Animation was done here//////////////////////////
+
+  enterAnimation = (baseEl: HTMLElement) => {
+    const root = baseEl.shadowRoot;
+
+    const backdropAnimation = this.animationCtrl
+      .create()
+      .addElement(root.querySelector('ion-backdrop')!)
+      .fromTo('opacity', '0', 'var(--backdrop-opacity)');
+
+    const wrapperAnimation = this.animationCtrl
+      .create()
+      .addElement(root.querySelector('.modal-wrapper')!)
+      .keyframes([
+        { offset: 0, opacity: '0', transform: 'scale(0)' },
+        { offset: 1, opacity: '1.0', transform: 'scale(1)' },
+      ]);
+
+    return this.animationCtrl
+      .create()
+      .addElement(baseEl)
+      .easing('ease-out')
+      .duration(500)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+
+  leaveAnimation = (baseEl: HTMLElement) => {
+    return this.enterAnimation(baseEl).direction('reverse');
+  };
+
+
+  ////////////////////Animation ends here//////////////////////////
+
+  getTransactions() {
+    this.authService.getSubTransactions().subscribe((res: any) => {
+   
+      if (res.message === "Signature verification failed" && this.router.url !== '/auth-screen') {
+        localStorage.removeItem('userData');
+        localStorage.removeItem('res');
+        localStorage.removeItem('accessT');
+        this.toastController.create();
+        this.presentToast('Session Expired.....Logging out', 'danger');
+        this.router.navigateByUrl('/auth-screen');
+      } else {
+        
+        
+        // const mergedArray = [...res.inapp, ...res.vtu, ...res.deposit, ...res.withdrawal];
+        // console.log(mergedArray);
+  
+        this.transactions = res;
+        }
+        
+        console.log(this.transactions);
+      
+    });
+  }
+
+
+
+
 
 }

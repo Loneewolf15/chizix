@@ -6,7 +6,7 @@
 
 
 
-    <div *ngIf="!showOtpForm" >
+    <div *ngIf="!showOtpForm && !showForm2" >
     <ion-list lines="none"  >
       
       <div  >
@@ -25,20 +25,6 @@
 
         <form [formGroup]="form" >
           
-<!-- 
-          <div class="ion-margin-vertical">
-           
-              <ion-input label="Full Name:" label-placement="floating" fill="outline" [counter]="true" [counterFormatter]="customCounterFormatterE" errorText="* Full Name is required and must be a valid Name." formControlName="fullname" type="text" placeholder="Enter email"></ion-input>
-            
-          </div>
-
-
-
-          <div class="ion-margin-vertical">
-          
-              <ion-input label="User Tag:" label-placement="floating" fill="outline" minlength="4" maxlength="8" [counter]="true" [counterFormatter]="customCounterFormatterE" errorText="* Tag Name is required" formControlName="tagname" type="text" placeholder="Enter email"></ion-input>
-        
-          </div> -->
 
 
           <div class="ion-vertical">
@@ -47,13 +33,6 @@
           
           </div>
         
-
-<!-- 
-          <div class="ion-margin-vertical">
-           
-              <ion-input label="Phone Number:" [counter]="true" fill="outline" label-placement="floating" minlength="11" maxlength="11" (ionInput)="changeNumber($event)" [counterFormatter]="customCounterFormatterE" errorText="* Phone Number is required and must be valid." formControlName="phone" type="tel" placeholder="Enter email"></ion-input>
-        
-          </div> -->
 
 
           <div class="ion-margin-vertical">
@@ -115,49 +94,127 @@
 
     </div>
 
-    <div *ngIf="showOtpForm" class="otpForm">
-      <ion-card >
-        <ion-card-header>
-          <ion-toolbar >
-            <ion-buttons>
-              <ion-back-button defaultHref="showOtpForm(false)"></ion-back-button>
-           </ion-buttons>
-           <ion-title mode="ios" >OTP</ion-title>
-          </ion-toolbar>
-        </ion-card-header>
-        <ion-card-content style="display: block;">
-          <!-- <ion-list-header class="ion-margin">
-            <ion-label>
-              <h3 class="ion-text-center" color="warning">Verify OTP</h3>
-            </ion-label>
-          </ion-list-header> -->
+    <section *ngIf="showOtpForm" class="otpForm">
 
+      <ion-header translucent={true} class="ion-no-header" >
+        <ion-toolbar>
+          <!-- Use a custom handler for the back button -->
+          <ion-buttons slot="start">
+            <ion-button (click)="showOtpForm = false; showForm2 = false;">
+              <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title mode="ios">OTP</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-card>
+
+        
+
+        <ion-card-content style="display: block;">
           <p class="ion-text-center">
             <ion-text class="ion-text-center">Enter the OTP sent to your Email Address </ion-text>
           </p>
-
-
           <form [formGroup]="otpForm" (ngSubmit)="onVerifyOTP()">
-
             <div class="ion-margin-vertical">
-            
-              <ion-input label="OTP:"  fill="outline" [counter]="true" label-placement="floating" maxlength="6" minlength="6" [counterFormatter]="customCounterFormatterE" errorText="* Enter the OTP we sent to your Email." formControlName="otp" type="text" ></ion-input>
-        
-        
-          </div>
+              <ion-input label="OTP:" fill="outline" [counter]="true" label-placement="floating" maxlength="6"
+                minlength="6" [counterFormatter]="customCounterFormatterE" errorText="* Enter the OTP we sent to your Email."
+                formControlName="otp" type="text"></ion-input>
+            </div>
             <div class="pree" id="otp">
               <ion-button type="submit" class="ion-margin-horizontal " size="large" expand="block" shape="round"
                 color="medium" [disabled]="otpForm.invalid">
                 <ion-text>Verify OTP</ion-text>
               </ion-button>
-
             </div>
-
           </form>
         </ion-card-content>
       </ion-card>
+    </section>
 
+    
+    <div *ngIf="showForm2">
+
+      <ion-header>
+        <ion-toolbar>
+          <!-- Use a custom handler for the back button -->
+          <ion-buttons slot="start">
+            <ion-button (click)="showOtpForm = true">
+              <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title mode="ios">Complete Registration</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-card>
+
+        
+
+        <ion-card-content >
+          <ion-list lines="none"  >
+        <form [formGroup]="c_form" >
+          
+          
+                    <div class="ion-margin-vertical">
+                     
+                        <ion-input label="Full Name:" label-placement="floating" fill="outline" [counter]="true" [counterFormatter]="customCounterFormatterE" errorText="* Full Name is required and must be a valid Name." formControlName="fullname" type="text" placeholder="Enter email"></ion-input>
+                      
+                    </div>
+          
+          
+          
+                    <div class="ion-margin-vertical">
+                    
+                        <ion-input label="User Tag:" label-placement="floating" fill="outline" minlength="4" maxlength="8" [counter]="true" [counterFormatter]="customCounterFormatterE" errorText="* Tag Name is required" formControlName="tagname" type="text" placeholder="Enter email"></ion-input>
+                  
+                    </div>
+          
+          
+                  
+                  
+          
+          
+                    <div class="ion-margin-vertical">
+                     
+                        <ion-input label="Phone Number:" [counter]="true" fill="outline" label-placement="floating" minlength="11" maxlength="11" (ionInput)="changeNumber($event)" [counterFormatter]="customCounterFormatterE" errorText="* Phone Number is required and must be valid." formControlName="phone" type="tel" placeholder="Enter email"></ion-input>
+                  
+                    </div>
+          
+                    <div class="ion-margin-vertical">
+                     
+                      <ion-textarea label="Address:" label-placement="floating" fill="outline" [counter]="true" [counterFormatter]="customCounterFormatterE" errorText="* This is a required field." formControlName="address" type="text" placeholder="Enter your address"></ion-textarea>
+                    
+                  </div>
+        
+                  
+                  
+          
+          
+                  </form>
+
+
+
+        <ion-loading [message]="'Please wait...'" [duration]="10000" [showBackdrop]="true" [translucent]="true"
+        [spinner]="'crescent'"></ion-loading>
+
+
+      <div class="pre">
+        <br><br>
+        <ion-button type="submit" class="ion-margin-horizontal" size="large" expand="block" shape="round"
+          color="warning" (click)="signupC()" >
+          <ion-text>Submit</ion-text>
+        </ion-button>
+        <br>
+      </div>
+
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
     </div>
+
+
   </ion-card-content>
 
 </ion-card>

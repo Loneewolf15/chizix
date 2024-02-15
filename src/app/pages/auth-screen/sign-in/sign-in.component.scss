@@ -1,6 +1,6 @@
 ion-input{
     font-size: 0.9rem;
-    color:#ffffff;
+    color:var(--ion-color-base);
 }
 
  ion-text {
@@ -127,7 +127,7 @@ ion-alert.custom-alert {
  
     margin-top: 10%;
     align-items: center;
-    color:#ffffff;
+    color:var(--ion-color-base);
    //justify-content: center;
 }
 

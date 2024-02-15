@@ -36,8 +36,6 @@ export class SelfiePage implements OnInit {
     images: LocalFile[] = []; 
     image:any;
     constructor(
-        private plt: Platform,
-        private http: HttpClient,
         private loadingCtrl: LoadingController,
         private toastCtrl: ToastController,
         private authService: AuthService,
@@ -121,7 +119,7 @@ async uploadData(imageData: any) {
       console.log(res);
       if (res.message === 'selfie successfully uploaded') {
                 this.presentToast('File upload complete.');
-                this.router.navigateByUrl('/tabs')
+                this.router.navigateByUrl('/register/veri')
             } else {
                 this.presentToast('File upload failed.')
             }
@@ -146,14 +144,6 @@ async presentToast(text) {
 }
 
 
-// async deleteImage(image: any) {
-//   await Filesystem.deleteFile({
-//       directory: Directory.Data,
-//       path: File.path
-//   });
-//   //this.loadFiles();
-//   this.presentToast('File removed.');
-// }
 
 
 }
