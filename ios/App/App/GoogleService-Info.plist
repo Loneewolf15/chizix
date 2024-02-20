@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDlb_e4VJ1VKOVsOWiIjzE7J2cydOm5Dbs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>358906029713</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.veluxpay.VeluxPay</string>
+	<key>PROJECT_ID</key>
+	<string>veluxpay</string>
+	<key>STORAGE_BUCKET</key>
+	<string>veluxpay.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:358906029713:ios:e47dc52fb581a6323fc130</string>
+</dict>
+</plist>
