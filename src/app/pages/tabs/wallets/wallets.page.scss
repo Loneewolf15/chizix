@@ -6,7 +6,7 @@ ion-toolbar{
     }
 }
 ion-item{
-    background-color: #1F1F1F;//added code
+   // background-color: #1F1F1F;//added code
     border-radius: 0.5rem;
     padding: 1rem; //added code
     font-weight: bold;//added code
@@ -31,16 +31,17 @@ ion-icon{
     border-radius: 25px;
 }
 
-.dent{
-    border: 2px;
-    border-radius: 10px;
-    border-color: black;
-    background-color: blue;
-    padding-top: 25px;
-}
+// .dent{
+//     border: 2px;
+//     border-radius: 10px;
+//     border-color: black;
+//     background-color: blue;
+//     padding-top: 25px;
+// }
 
-.ion-llabel {
+ion-label {
     font-size: 1rem; //corrected to reduce size
+    color: var(--ion-color-dark)
 }
 
 .ion-sign {

@@ -17,10 +17,10 @@ import { PreferencesService } from "src/app/services/storage.service";
 import { ToastService } from "src/app/services/toast.service";
 import { IonicModule, IonicSlides } from "@ionic/angular";
 import { AlertController } from "@ionic/angular";
-import { NotificationModalComponent } from "src/app/notification-modal/notification-modal.component";
+import { NotificationModalComponent } from 'src/app/notification-modal/notification-modal.component';
 import { HttpClient } from "@angular/common/http";
 import { finalize } from "rxjs/operators";
-import { filter } from "rxjs/operators";
+import { filter } from 'rxjs/operators';
 import {
   Camera,
   CameraResultType,
@@ -118,15 +118,15 @@ export class HomePage implements OnInit {
     //   .catch((e) => {
     //     console.log(e);
     //   });
-
-    this.platform
-      .ready()
-      .then(() => {
-        this.fcm.initPush();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    
+       this.platform.ready().then(() => {
+      this.fcm.initPush();
+       
+      
+       
+    }).catch(e =>{
+      console.log(e)
+    });
 
     const now = new Date();
     const currentHour = Number(this.datePipe.transform(now, "HH"));
@@ -170,7 +170,7 @@ export class HomePage implements OnInit {
   }
 
   chooseRandomName() {
-    return this.names[Math.floor(Math.random() * this.names.length)];
+return this.names[Math.floor(Math.random() * this.names.length)];
   }
 
   addItems(count, unread = false) {
@@ -182,11 +182,12 @@ export class HomePage implements OnInit {
     }
   }
 
+
   receive() {
     this.router.navigateByUrl("/tabs/receive");
   }
 
-  async fetchNotification() {
+  fetchNotification() {
     this.authService.getNotification().subscribe((res: any) => {
       //this.displayUserData = res;
 
@@ -203,14 +204,23 @@ export class HomePage implements OnInit {
       } else {
         console.log(res);
 
-        // Store the data in Capacitor storage
-        this.storage.setNotify("notifications", JSON.stringify(res));
+    //     const notificationsData = res;
+    //     //this.notifications = res.map(notification => ({ ...notification, unread: true }));
 
-        // Perform functions on the retrieved data
-        this.notifications = res.map((notification) => {
+    //      // Mark notifications as unread if they are in the unread set
+    //      notificationsData.forEach(notification => {
+    //       notification.unread = this.unreadNotifications.has(notification.id);
+    //       if (!notification.unread) {
+    //         // If the notification is read, set a timestamp for when it was read
+    //         notification.readTime = new Date().toLocaleString();
+    //       }
+    //     });
+
+    // this.notifications = notificationsData;
+        //console.log(res)
+        this.notifications = res.map(notification => {
           const unread = !this.unreadNotifications.has(notification.id); // Check if notification is unread
-          if (!unread && !notification.readTime) {
-            // Check if notification is read for the first time
+          if (!unread && !notification.readTime) { // Check if notification is read for the first time
             notification.readTime = new Date().toLocaleString(); // Set read time
           }
           return { ...notification, unread };
@@ -219,40 +229,38 @@ export class HomePage implements OnInit {
     });
   }
 
+
   async notifyPr(notificationText: string, title: string) {
-    const imgSrc = "assets/svgs/default.svg";
-
-    const modal = await this.modalController.create({
-      component: NotificationModalComponent,
-      componentProps: {
-        header: title,
-        message: notificationText,
-        imgSrc: imgSrc,
-      },
-      cssClass: "transaction-modal",
-    });
-
+      const imgSrc = 'assets/svgs/default.svg';
+  
+      const modal = await this.modalController.create({
+        component: NotificationModalComponent,
+        componentProps: {
+          header: title,
+          message: notificationText,
+          imgSrc: imgSrc
+        },
+        cssClass: 'transaction-modal'
+      });
+  
     await modal.present();
   }
 
+
   async initializeUnreadNotifications() {
     const result = await this.storage.getStoragex("unreadNotifications");
-    if (result && result.value) {
+    if (result.value) {
       this.unreadNotifications = new Set<string>(JSON.parse(result.value));
-    } else {
-      // Initialize unreadNotifications if not found in storage
-      this.unreadNotifications = new Set<string>();
     }
   }
 
+ 
   async markAsRead(item: any) {
-    item.unread = false;
-    this.unreadNotifications.delete(item.id);
-    await this.storage.setNotify(
-      "unreadNotifications",
-      JSON.stringify(Array.from(this.unreadNotifications))
-    );
-  }
+  item.unread = false;
+  this.unreadNotifications.delete(item.id);
+  await this.storage.setNotify("unreadNotifications", JSON.stringify(Array.from(this.unreadNotifications)));
+}
+
 
   send() {
     this.router.navigateByUrl("/deposit");
@@ -381,16 +389,19 @@ export class HomePage implements OnInit {
   //     await modal.dismiss();
   //   });
   // }
+  
 
   ngOnInit() {
+    
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.modalController.dismiss();
-        this.isModalOpeN = false;
-        this.isModalOpen = false;
-      });
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.modalController.dismiss();
+      this.isModalOpeN = false;
+      this.isModalOpen = false;
+    });
     this.initializeUnreadNotifications();
+
 
     //this.addItems(5);
     this.fetchNotification();
@@ -431,6 +442,7 @@ export class HomePage implements OnInit {
     this.isModalOpen = false; // Set isModalOpen to false when modal is dismissed
   }
 
+  
   closeModalN() {
     this.isModalOpeN = false;
   }

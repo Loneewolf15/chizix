@@ -31,7 +31,17 @@ setStorage(key: string, value: any) {
   });
 }
 
+setNotify(key: string, value: any) {
+  return Preferences.set({
+    key,
+    value
+  });
+}
+
   getPreference(key) {
+    return Preferences.get({key});
+  }
+  getPreferenced(key: any): any {
     return Preferences.get({key});
   }
   // removePreference(key) {

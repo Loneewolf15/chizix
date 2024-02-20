@@ -41,26 +41,32 @@ ion-card-subtitle {
 }
 }
 .chevron-button{
-        text-align: center;
-
-        width:65px;
-        padding-left: 5px !important;
-        margin-left: 38%;
-        margin-top: -45px;
-        
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    ion-img{
+        width: 50px;
     }
+    ion-icon{
+        font-size: 100px;
+    }
+}
 .manage{
     padding-top: none;
     margin-bottom: -2%;
+    width: 68%;
+    display: block;
+    margin:0 auto;
+    margin-top: 5%;
 }
 ion-card{
     --ion-background-color:transparent;
     box-shadow: none !important;
     height: 100%;
 }
-.transformButton {
-    transform: translateY(2vh);
-}
+// .transformButton {
+//     transform: translateY(2vh);
+// }
 ion-text{
     position:center;
 }
@@ -70,44 +76,3 @@ p{
 }
 
 
-/* Styles for screens below 768px */
-
-@media (max-height: 767px) {
-
-    ion-img{
-        margin-top: 5vh;
-    }
-
-    ion-card-title h1 {
-        color: white;
-        font-size: 45px;
-          font-weight: bolder;
-          white-space: nowrap;
-           word-break: keep-all;
-      padding: -11%;
-    }
-
-    ion-card-title p {
-        font-size: 25px;
-    }
-
-    ion-card-subtitle {
-        padding-top: 15px;
-        text-align: center;
-        color: white;
-        font-size: 15px;
-        font-weight: 200;
-    }
-
-    .chevron-button{
-        width: 50px;
-        margin-left: 35%;
-        margin-right: 35%;
-        margin-top: 10%;
-    }
-
-    p{
-        font-size: 18px;
-    }
-
-}

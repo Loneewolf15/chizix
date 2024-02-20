@@ -139,6 +139,10 @@ td:last-child {
   padding-left: 10px;
 }
 
+.iconx{
+  font-size: 15px;
+}
+
 
   .avatar-icon {
     width: 50px;
@@ -194,7 +198,7 @@ ion-content {
         font-size: 1rem;
       }
       .big-ico {
-        font-size: 2rem;
+        font-size: 1rem;
       }
       
       .central{
@@ -237,7 +241,7 @@ ion-content {
 
     ion-row.banners {
         position: center;
-        
+        padding: 0 1.5vh; 
         height: 1%;
        
         border-radius: 2.5rem;
@@ -277,7 +281,7 @@ ion-content {
         }
 
         ion-item-group {
-            padding: 0 4.5vh;
+            padding: 0 1.5vh;
             ion-item {
                 font-weight: bold;
                 --background: transparent;
@@ -298,11 +302,13 @@ ion-content {
                     height: 5.5vh;
                     width: 5vh;
                     border-radius: 10px;
-                    background: var(--ion-color-secondary);
+                    background: var(--ion-color-base);
                     box-shadow: 0px 3px 6px rgb(3 181 170 / 4%);
                     img {
-                        height: 4vh;
-                        width: 4vh;
+                        // height: 4vh;
+                        // width: 4vh;
+                        height: 2.3rem;
+                        width: 90%;
                         transform: translateY(25%);
                     }
                 }

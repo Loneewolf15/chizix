@@ -23,9 +23,9 @@ ion-content {
         background: transparent;
         // padding: 2rem 1.5rem 1rem 1.5rem;
         ion-item {
-            --background: #fff;
+           // --background: #fff;
             --border-style: box;
-            --border-color: var(--ion-color-white);
+            --border-color: var(--ion-color-base);
             --border-radius:3%;
             --padding-bottom: 1rem;
             // --padding-top: 1rem;
@@ -34,6 +34,9 @@ ion-content {
             ion-toggle {
                 margin-right: -0.6rem;
             }
+        }
+        ion-text{
+          color: var(--ion-color-medium);
         }
     }
 ion-icon{

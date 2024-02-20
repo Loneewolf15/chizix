@@ -81,6 +81,10 @@ getBanks(): Observable<any>{
   return this.httpService.postr('/reports/getBankName', data);
 }
 
+getNotification(){
+  return this.httpService.getr('/reports/getNotifications');
+}
+
 
 //masstransfer
 mtr(data: any): Observable<any> {

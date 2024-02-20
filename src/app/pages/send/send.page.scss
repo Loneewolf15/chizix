@@ -191,13 +191,20 @@ ion-card {
   flex-direction: column;
   justify-content: space-around;
 }
+.container{
+  position: absolute;
+}
 .buttons{
       
-  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 3px;
 
   .pinB{
     width: 35%;
 border: none;
+display: flex;
+justify-content: space-between;
 box-shadow: none;
 color: var(--ion-color-base);
 outline: none;

@@ -121,7 +121,7 @@
 
 <ion-button class="sendB" shape="block"
 (click)="setOpen(true)" color="warning"
-[disabled]="!amount || !selectedTag">
+>
 <ion-text color="white" style="font-weight: bold;">SEND</ion-text></ion-button> <!--cpitalized send-->
 
 <p (click)="book()" style="text-align: center; font-size: 1rem; font-weight: bold; color: #B7B7B7;">
@@ -175,40 +175,47 @@
           </div>
         </div>
           
-          <ion-list class="pinL">
+          
         
-            <ion-grid class="buttons">
+            <div class="buttons">
               <ion-row>
-                <ion-col size="4">
+                <ion-col >
                   <ion-button fill="clear" class="pinB" (click)="sett('1')">1</ion-button>
                 </ion-col>
-                <ion-col size="4">
+                <ion-col >
                   <ion-button fill="clear" class="pinB" (click)="sett('2')">2</ion-button>
                 </ion-col>
-                <ion-col size="4">
+                <ion-col >
                   <ion-button fill="clear" class="pinB" (click)="sett('3')">3</ion-button>
                 </ion-col>
-                <ion-col size="4">
+              </ion-row>
+              <ion-row>
+                <ion-col >
                   <ion-button fill="clear" class="pinB" (click)="sett('4')">4</ion-button>
                 </ion-col>
-                 <ion-col size="4">
+                 <ion-col >
                   <ion-button fill="clear" class="pinB" (click)="sett('5')">5</ion-button>
                 </ion-col>
-                 <ion-col size="4">
+                 <ion-col >
                   <ion-button fill="clear" class="pinB" (click)="sett('6')">6</ion-button>
                 </ion-col>
-                <ion-col size="4">
+              </ion-row>
+              <ion-row>
+                <ion-col >
                   <ion-button fill="clear" class="pinB" (click)="sett('7')">7</ion-button>
                 </ion-col>
-                <ion-col size="4">
+                <ion-col >
                   <ion-button fill="clear" class="pinB" (click)="sett('8')">8</ion-button>
                 </ion-col>
-                <ion-col size="4">
+                <ion-col >
                   <ion-button fill="clear" class="pinB" (click)="sett('9')">9</ion-button>
                 </ion-col>
-                <ion-col size="4">
+              </ion-row>
+              <ion-row>
+                <ion-col >
                   <!-- <ion-button fill="clear" class="pinB" (click)="clear1()"><ion-icon color="light" name="finger-print"></ion-icon></ion-button>
-                --></ion-col> 
+                -->
+              </ion-col> 
                 <ion-col size="4">
                   <ion-button fill="clear" class="pinB" (click)="sett('0')">0</ion-button>
                 </ion-col>
@@ -217,9 +224,9 @@
                  </ion-col>
               </ion-row>
             
-             </ion-grid>
+             </div>
       
-          </ion-list>
+        
         </ion-card-content>
 
       </ion-card>

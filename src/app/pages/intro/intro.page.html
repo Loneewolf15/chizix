@@ -1,40 +1,28 @@
-
-
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <!-- <ion-title color="light">login</ion-title> -->
-  </ion-toolbar>
-</ion-header>
-
-
 <ion-content [fullscreen]="true">
-<ion-card class="ion-no-margin">
-  <ion-img src="assets/images/manage.png" class="manage"></ion-img>
-  <ion-card-header>
-    <ion-card-title>
-      <h1 class="ion-text-center ion-text-wrap">Your  <br> Payments <br> Easily</h1>
-        
-        <br>
-    </ion-card-title>
-    <ion-card-subtitles>
-    <p class="ion-text-center" color="light">Keep your finance in the app <br> Send, Receive and Pay at ease
-    </p> 
-  
-    </ion-card-subtitles>
-  </ion-card-header>
-  <ion-card-content>
-    <!-- <a href="auth-screen">  -->
-    <!-- <div class="chevron-button ion-text-center" (click)="goToLogin()"> -->
-      <div class="chevron-button transformButton" (click)="goToLogin()" >
+  <ion-card class="ion-no-margin">
+    <ion-img src="assets/images/manage.png" class="manage"></ion-img>
+    <ion-card-header>
+      <h1 class="ion-text-center ion-text-wrap">
+        Your <br />
+        Payments <br />
+        Easily
+      </h1>
 
-<!-- 
-<ion-button (click)="goToLogin()"  fill="clear"  class="transformButton"> -->
-  <ion-img src="assets/images/chevron-forward.png"></ion-img>
-<!-- </ion-button> -->
-      
-      
-    </div>
-  <!-- </a> -->
-  </ion-card-content>
-</ion-card>
+      <br />
+
+      <p class="ion-text-center" color="light">
+        Keep your finance in the app <br />
+        Send, Receive and Pay at ease
+      </p>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- <a href="auth-screen">  -->
+      <!-- <div class="chevron-button ion-text-center" (click)="goToLogin()"> -->
+      <div class="chevron-button transformButton" (click)="goToLogin()">
+        <!-- <ion-img src="assets/images/chevron-forward.png"></ion-img> -->
+        <ion-icon name="chevron-forward-circle-outline"></ion-icon>
+      </div>
+      <!-- </a> -->
+    </ion-card-content>
+  </ion-card>
 </ion-content>

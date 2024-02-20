@@ -103,6 +103,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/intro/intro.page').then( m => m.IntroPage)
   },
   {
+    path: 'lock',
+    loadComponent: () => import('./pages/lock/lock.page').then( m => m.LockPage)
+  },
+  {
     path: 'auth-screen',
     loadComponent: () => import('./pages/auth-screen/auth-screen.page').then( m => m.AuthScreenPage),
     canMatch: [async() => await inject(AuthService).IntroGuard()]

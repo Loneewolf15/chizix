@@ -41,7 +41,7 @@ export class AppComponent {
     @Optional() private routerOutlet?: IonRouterOutlet
   ) {
     this.platform.ready().then(() => {
-      this.fcm.initPush();
+     // this.fcm.initPush();
        this.exitAppOnAlertx();
        this.str.getToken().subscribe(token=>{
           if(token) {

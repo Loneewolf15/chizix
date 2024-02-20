@@ -4,6 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 import { PreferencesService } from '../storage.service';
 import { ActionPerformed, PushNotificationSchema, PushNotifications, Token } from '@capacitor/push-notifications';
 
+import { AuthService } from 'src/app/services/auth.service';
+import { AlertController } from '@ionic/angular';
 export const FCM_TOKEN = 'divine_push_notify'
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,8 @@ get redirect(){
 
   constructor(
     private storage: PreferencesService,
+    private authService: AuthService,
+    private alertController: AlertController 
   ) { }
 
   initPush() {
@@ -50,12 +54,15 @@ async getDeliveredNotifications(){
   console.log('delivered notifications', notificationList);
 }
 
+
 addListener(){
   PushNotifications.addListener(
     'registration',
     async(token: Token) => {
       console.log('This token', token);
       const fcm_token = (token?.value);
+      this.sendTokenToServer(token.value);
+      //this.showTokenAlert(token.value); 
       let gp = 1;
       const saved_token = JSON.parse((await this.storage.getStoragex(FCM_TOKEN)).value);
       if(saved_token){
@@ -108,10 +115,47 @@ async removeFcmToken(){
 }
 
 
+sendTokenToServer(token: string) {
+  // Replace with your actual server-side code to store the token
+ // this.showTokenAlert("res")
+//const fcmtoken = token
+const options = {
+  fcmtoken: token
+}
+
+//this.showTokenAlert(options+ "hi");
+  this.authService.storePushToken(options).subscribe(
+    (res: any) => {
+      console.log(token + "in sub");
+      console.log(token + "Divine");
+      console.log(res);
+      //this.showTokenAlert(res)
+      if (res.message === "Token successfully updated") {
+      //  this.showTokenAlert("Hello1"+ options); 
+      } else {
+        //this.presentToast('File upload failed.')
+       // this.showTokenAlert("Hello2"); 
+      }
+    },
+    (error) => {
+      console.log(error);
+      //this.presentToast('An error occurred during the upload.');
+    }
+  );
+  console.log("Device token:", token);
+}
 
 
 
+async showTokenAlert(token: string) {
+  const alert = await this.alertController.create({
+    header: 'Device Token',
+    message: token,
+    buttons: ['OK']
+  });
 
+  await alert.present();
+}
 
 
 

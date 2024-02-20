@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { BarcodeScanner, ScanResult } from '@capacitor-community/barcode-scanner';
 import { AlertController, AnimationController, IonDatetime, IonicModule, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { IonText } from '@ionic/angular';
-import { format, parseISO, addHours } from 'date-fns';
-import {  utcToZonedTime } from 'date-fns-tz';
+//import { format, parseISO, addHours } from 'date-fns';
+//import {  utcToZonedTime } from 'date-fns-tz';
 import { AuthService } from 'src/app/services/auth.service';
 import { PreferencesService } from 'src/app/services/storage.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -36,7 +36,7 @@ export class BatPage implements OnInit {
   message: any;
   scanActive: boolean = false;
   showPicker = false;
-  dateValue = format(new Date(), 'yyyy-MM-dd') + 'T09:00:00.000Z';
+ // dateValue = format(new Date(), 'yyyy-MM-dd') + 'T09:00:00.000Z';
   formattedString = '';
   
   onKeyPress(key: string, inputField: any) {
@@ -189,9 +189,9 @@ async setToday() {
 const gmtPlus1 = 'Europe/Paris'; // Use the correct time zone identifier for GMT+1
 
 const currentDate = new Date();
-const gmtPlus1Date = utcToZonedTime(currentDate, gmtPlus1);
+//const gmtPlus1Date = utcToZonedTime(currentDate, gmtPlus1);
 
-this.formattedString = format(gmtPlus1Date, 'yyyy-MM-d HH:mm:ss');
+//this.formattedString = format(gmtPlus1Date, 'yyyy-MM-d HH:mm:ss');
 }
 
 
@@ -206,9 +206,9 @@ this.formattedString = format(gmtPlus1Date, 'yyyy-MM-d HH:mm:ss');
 dateChanged(value) {
 console.log('Date changed!', value);
 
-this.dateValue = value;
+//this.dateValue = value;
 // this.formattedString = format(parseISO(value), 'HH:mm - MMM d, yyyy') ;
-this.formattedString = format(parseISO(value), 'yyyy-MM-d HH:mm:ss') ;
+//this.formattedString = format(parseISO(value), 'yyyy-MM-d HH:mm:ss') ;
 localStorage.setItem('time', this.formattedString)
 this.showPicker = false;
 // Your other logic here

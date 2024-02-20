@@ -1,17 +1,17 @@
 
 <form [formGroup]="form" class="ion-margin"> 
   <div class="ion-margin-vertical">
-    <ion-item lines="none">
+    <ion-item lines="true">
       <ion-input label="Email/Tag" label-placement="floating" autocomplete="email" [counter]="true" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Please enter email or tag" formControlName="email" type="email" placeholder="Enter user tag"></ion-input>
     </ion-item>
   </div>
 
-  <div class="ion-margin-vertical">
+  <div class="ion-no-margin">
     <ion-item lines="none">
       <ion-icon 
         [name]="type ? 'eye' : 'eye-off'" 
         slot="end" 
-        color="medium" 
+        color="warning" 
         (click)="changeType()">
       </ion-icon>
       <ion-input label="Password" label-placement="floating" autocomplete="password" errorText="* Please enter your password" formControlName="password" [type]="type ? 'password' : 'text'" 
@@ -47,7 +47,7 @@
       
       <ion-button
       class="logIn"
-       size="medium" 
+       size="warning" 
        expand="block" 
        shape="round" 
        color="warning"

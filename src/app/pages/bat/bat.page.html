@@ -22,7 +22,7 @@
    <ion-item lines="full" text-wrap class="item" np>
     <ion-label position="static" >Amount</ion-label>
     <ion-input type="" #inputField pattern="[0-9]*" inputmode="numeric" (ionInput)="logA()" [(ngModel)]="amount" class="cp" id="amount"></ion-input>
-  </ion-item>
+   </ion-item>
   
         <div class="trimm">
           <ion-button class="extend" disabled shape="block" fill="clear" np np >
@@ -78,14 +78,14 @@
   </div> -->
      <br>
      <!-- modal date time holds here -->
-  <ion-item id="date-modal" np>
+  <!-- <ion-item id="date-modal" np>
     <ion-label>Date</ion-label>
     <ion-icon icon="calendar-outline" slot="start" color="warning"></ion-icon>
     <ion-text slot="end">
       {{formattedString}}
     </ion-text>
-  </ion-item>
-  <ion-modal trigger="date-modal" class="date-modal" [backdropDismiss]="false" [enterAnimation]="enterAnimation"
+  </ion-item> -->
+  <!-- <ion-modal trigger="date-modal" class="date-modal" [backdropDismiss]="false" [enterAnimation]="enterAnimation"
   [leaveAnimation]="leaveAnimation">
     <ng-template>
       <ion-content>
@@ -105,7 +105,7 @@
   
   </ion-modal>
   
-        
+         -->
      <!-- modal date time ends here -->
    
      <ion-modal #modal trigger="bat-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]">

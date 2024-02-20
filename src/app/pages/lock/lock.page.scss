@@ -1,0 +1,130 @@
+ion-content {
+      
+      ion-item{
+          background-color: inherit;
+      
+          border: none;
+          background: transparent;
+          
+      }
+  
+  
+  
+  ion-input {
+    background: transparent; /* make the input background transparent */
+    background-color: inherit;
+    color: var(--ion-color-base); /* set the text color to white */
+    border: none; 
+    font-size: 40px;
+    width: 100%; 
+    font-weight: bold;
+  }
+      div {
+          margin-top: 2rem;
+          ion-avatar {
+              border-radius: 50%;
+              border: 1px solid var(--ion-color-tertiary);
+              height: 4.5rem;
+              width: 4.5rem;
+          }
+      }
+  
+      ion-list {
+          background: transparent;
+          
+          ion-item {
+            
+              --padding-bottom: 2%;
+              // --padding-top: 1rem;
+              --padding-start: 0;
+              --padding-end: 0;
+              ion-toggle {
+                  margin-right: -0.6rem;
+              }
+          }
+      }
+  
+  
+  .buttons{
+        
+    bottom: 0;
+  
+    .pinB{
+      width: 35%;
+  border: none;
+  box-shadow: none;
+  color: var(--ion-color-base);
+  outline: none;
+  box-shadow: none white;
+  padding: 4px 0px 0px 4px;
+  font-weight: 200;
+    }
+  }
+  
+    .avatar-large {
+        display: flex;
+        justify-content: center;
+        align-items:center;
+    //   width: 140px; /* adjust as needed */
+    //   height: 80px; /* adjust as needed */
+    //   --border-radius: 50%; /* this sets the shape to a circle */
+    //   right: 24.36%;
+    //   top: 13.63%;
+    //   bottom: 62.68%;
+    }
+    .rounded-input {
+      border-radius: 560px; /* adjust the value as needed */
+      background-color: #fff;
+    }
+  
+    .input-row {
+      background-color: inherit;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .numberBox{
+     // background-color: #f2f2f2;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+  
+      div{
+        width: 30px;
+        height: 30px;
+        border-radius: 105%;
+        background-color: #f0f0f0;
+        margin: 20px;
+        align-self: center;
+  
+        ion-input{
+          margin-bottom: 5px;
+           color: var(--ion-color-base);
+          font-size: 20px;
+          font-weight: 500 !important;
+          align-items: center;
+         // padding-top: none !important ;
+          justify-content: center;
+          text-align: center;
+          
+        }
+      }
+      .image{
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        img{
+            width: 50px;
+        }
+      }
+
+      .container{
+        position: absolute;
+      }
+    }
+  
+  
+  
+  
+}

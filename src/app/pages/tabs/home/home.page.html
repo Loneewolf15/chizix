@@ -14,6 +14,9 @@
       <ion-avatar slot="end" (click)="setOpenN(true)">
         <img [src]="isDarkMode ? 'assets/icon/notification-icon.png' : 'assets/icon/notification-iconx.png'" alt="notification icon">
       </ion-avatar>
+      <!-- <ion-avatar slot="end" (click)="setOpenN(true)">
+        <img src="assets/svgs/bell.svg" alt="notification icon">
+      </ion-avatar> -->
       
     </ion-toolbar>
   </ion-header>
@@ -72,11 +75,12 @@
        
       
         <ion-list>
-          <ion-item [button]="true" *ngFor="let item of items">
-            <ion-icon *ngIf="item.unread" slot="start" color="primary" name="ellipse"></ion-icon>
+          <ion-item [button]="true" *ngFor="let item of notifications" (click)="markAsRead(item)" (click)="notifyPr(item.text, item.headers)">
+            <ion-icon *ngIf="item.unread" slot="start" color="warning" class="iconx"name="ellipse" ></ion-icon>
             <ion-label>
-              <h2>{{ item.name }}</h2>
-              <p>New message from {{ item.name }}</p>
+              <h2>{{ item.headers }}</h2>
+              <p *ngIf="item.unread">New message on {{ item.date }}</p>
+              <p *ngIf="!item.unread">Message read on {{ item.readTime }}</p>
             </ion-label>
           </ion-item>
         </ion-list>
@@ -100,24 +104,24 @@
             <!-- Inapp transaction -->
             <ion-thumbnail slot="start" class="ion-text-center" *ngIf="transaction.transaction_type === 'inapp'">
               <img
-                [src]="'assets/imgs/' + (transaction?.sender_tagname === userData?.loginData.user_tag ? 'sent.png' : 'received.png')" />
+                [src]="'assets/svgs/' + (transaction?.sender_tagname === userData?.loginData.user_tag ? 'sent.svg' : 'receive.svg')" />
             </ion-thumbnail>
 
             <!-- Withdrawal transaction -->
             <ion-thumbnail slot="start" class="ion-text-center" *ngIf="transaction.transaction_type === 'withdrawal'">
               <img
-                [src]="'assets/imgs/' + (transaction?.fullname === userData?.loginData.fullname ? 'received.png' : 'sent.png')" />
+                [src]="'assets/svgs/' + (transaction?.fullname === userData?.loginData.fullname ? 'receive.svg' : 'sent.svg')" />
             </ion-thumbnail>
 
             <!-- Deposit transaction -->
             <ion-thumbnail slot="start" class="ion-text-center" *ngIf="transaction.transaction_type === 'credit'">
               <img
-                [src]="'assets/imgs/' + (transaction?.full_name === userData?.loginData.fullname ? 'sent.png' : 'received.png')" />
+                [src]="'assets/svgs/' + (transaction?.full_name === userData?.loginData.fullname ? 'sent.svg' : 'receive.svg')" />
             </ion-thumbnail>
 
             <!-- VTU transaction -->
             <ion-thumbnail slot="start" class="ion-text-center" *ngIf="transaction.transaction_type === 'debit'">
-              <img src="assets/imgs/sent.png" />
+              <img src="assets/svgs/sent.svg" />
             </ion-thumbnail>
 
             <ion-label class="transaction-text">
@@ -187,11 +191,11 @@
 
 
  
-    <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="true" [enterAnimation]="enterAnimation"
+    <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false" [enterAnimation]="enterAnimation"
       [leaveAnimation]="leaveAnimation">
       <ng-template>
         <ion-content >
-          <ion-toolbar >
+          <ion-toolbar [color]="isDarkMode ? 'dark' : 'white'">
             <ion-buttons slot="end">
               <ion-button color="danger" (click)="closeModal()" class="close-btn"><b><strong>X</strong></b></ion-button>
             </ion-buttons>
