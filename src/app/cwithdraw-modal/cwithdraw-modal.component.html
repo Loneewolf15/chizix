@@ -1,33 +1,45 @@
-<!-- 
-<div class="container" >
+<div class="container">
+  <h3>Review Withdrawal</h3>
+  <!-- <div class="sub-header">{{ subHeader }}</div> -->
 
-  
-    <h3>{{ header }}</h3>
-   
-
-    <div class="sub-header">{{ subHeader }}</div>
-    <div class="message-container">
+  <!-- <div class="message-container">
       <img [src]="imgSrc" alt="Status Image" class="status-image">
       <div [innerHTML]="message" class="message"></div>
-    </div>
-  
-    
-    <button expand="block" (click)="Close()">Continue</button>
+  </div> -->
 
-</div> -->
-
-<div class="container">
-  
-    <button color="danger" slot="start" (click)="Close()" class="close-btn"><b><strong>X</strong></b></button>
- 
-
-  <h3>{{ header }}</h3>
-  <div class="sub-header">{{ subHeader }}</div>
-  <div class="message-container">
-    <img [src]="imgSrc" alt="Status Image" class="status-image">
-    <div [innerHTML]="message" class="message"></div>
+  <div class="table-container">
+      <table>
+          <tbody>
+              <tr>
+                  <td>Bank Namw</td>
+                  <td>{{ bankName }}</td>
+              </tr>
+              <tr>
+                  <td>Account Number</td>
+                  <td>{{ accountNumber }}</td>
+              </tr>
+              <tr>
+                <td>Account Name</td>
+                <td>{{ accountName }}</td>
+            </tr>
+            <tr>
+              <td>Amount</td>
+              <td>{{ amount }}</td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>{{ description }}</td>
+        </tr>
+          </tbody>
+      </table>
   </div>
-  
-  <!-- <button expand="block" (click)="Close()">Continue</button> -->
-</div>
 
+  <div class="sm-velux-logo">
+      <img src="assets/images/sm-velux-logo.png" alt="VeluxPay logo">
+  </div>
+
+  <div class="button-container">
+    <button color="success" expand="block" (click)="confirmWithdrawal()">Confirm Withdrawal</button>
+    <button color="danger" expand="block" (click)="Close()">Cancel</button>
+  </div>
+</div>

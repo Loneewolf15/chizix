@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AlertController, IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { AuthConstants } from 'src/app/config/auth-constants';
 
+import { CwithdrawModalComponent } from 'src/app/cwithdraw-modal/cwithdraw-modal.component';
 //import { OtpComponent } from './otp/otp.component';
 import { LoadingController } from '@ionic/angular';
 import { interval, Subscription } from 'rxjs';
@@ -373,64 +374,15 @@ async presentWithdrawalAlert(status: string,  amount: any, title?: string, subti
     cssClass: 'deposit-alert',
     animated: true,
     mode: 'ios',
-    // inputs: [
-    //   {
-    //     type: 'image',
-    //     src: status === 'successful' ? 'assets/imgs/received.png' : 'assets/imgs/sent.png',
-    //     // type: 'ion-icon',
-    //     // name: 'alert-circle-outline',
-    //     cssClass: 'no-border'
-    //   },
-    // ], 
+  
     message: message,
   });
 
   await alert.present();
 }
 
-async presentAlertx() {
-  const alert = await this.alertController.create({
-    header: 'Confirm Withdrawal',
-    message: `
-      <table>
-        <tr>
-          <td>Withdrawal Amount:</td>
-          <td>₦${parseFloat(this.form.get('amountx').value) + parseFloat('50')}</td>
-        </tr>
-        <tr>
-          <td>Account Number:</td>
-          <td>${this.form.get('accountNumber').value}</td>
-        </tr>
-        <tr>
-        <td>Account Name:</td>
-        <td>${this.form.get('accountName').value}</td>
-      </tr>
-        <tr>
-          <td>Withdrawal Date:</td>
-          <td>${this.currentDate }</td>
-        </tr>
-      </table>
-    `,
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        cssClass: 'secondary',
-        handler: () => {
-          console.log('Withdrawal canceled');
-        }
-      }, 
-      {
-        text: 'Confirm',
-         handler: async () => {
-          console.log('Withdrawal confirmed');
-          // Call API to place withdrawal here
-           const loading = await this.loadingController.create({
-    message: 'Please wait...',
-  });
-  await loading.present();
-  
-  // perform form submission here
+
+async submitForm() {
   this.charge = 50
    
   //this.amounted += this.feex;
@@ -439,8 +391,7 @@ async presentAlertx() {
   this.charge = parseFloat('50');
   const totalAmount = this.amounted + this.charge
 // this.amounted = totalAmount
-  if (this.form.valid) {
-    
+  
     const formData = {
       amount: totalAmount - this.charge,
       bank_code: this.bankCode,
@@ -451,86 +402,10 @@ async presentAlertx() {
      // descripton: this.form.get('descripton').value,
       
     };
-////callLoader here
-this.presentLoading('Processing Withdrawal...', 'circular')
+  console.log(formData)
 
-    this.authService.withdraw(formData)
-    .pipe(
-      finalize(() => {
-        this.loadingCtl.dismiss();
-      })
-  ).subscribe(
-      (response: any) => {
-        console.log(response.message);
-          if(response.message === "Signature verification failed" && this.router.url !== '/auth-screen'){
-            this.toastController.create()
-            this.presentToast('Session Expired.....Logging out', 'danger');
-            this.router.navigateByUrl('/auth-screen');
-          }
-        else{
-        console.log('Processing Request', response);
-
-       console.log('here');
-       if(response.message === 'insuficient funds'){
-         console.log('Hello mate'+ response.message)
-         this.toastController.create()
-         this.presentToast(response.message + ', Please fund your account and try again', 'danger');
-        // this.router.navigateByUrl('/tabs')
-        this.presentWithdrawalAlert(response.message, ` ₦${formData.amount}`, 'Incomplete Transaction');
-         this.loadingCtrl.dismiss();
-       } else if(response.message === 'the amount is too small '){
-         
-         this.toastController.create()
-         this.presentToast(response.message, 'danger');
-         this.presentWithdrawalAlert('failed', ` ₦${formData.amount}`, 'Transaction Failed');
-         console.log('Cameth hereAmount');
-         
-       //  this.router.navigateByUrl('/tabs')
-         this.loadingCtrl.dismiss();
-       }
-       
-       else if(response.message === "Transaction successful"){
-
-         this.toastController.create()
-         this.presentToast(response.message, 'success');
-         this.presentWithdrawalAlert('successful', ` ₦${formData.amount}`, 'Transaction Successful');
-         console.log('Cameth here');
-         
-       //  this.router.navigateByUrl('/tabs')
-         this.loadingCtrl.dismiss();
-       } else{
-         this.toastController.create()
-         this.presentToast(response.message, 'danger');
-         this.router.navigateByUrl('/tabs')
-         this.loadingCtrl.dismiss();
-       }
-       console.log('I reach here')
-      // this.router.navigateByUrl('/auth-screen')
-       this.loadingCtrl.dismiss();
-     
-    // console.log(JSON.parse(data))
-       }
-      },
-      (error) => {
-        if(this.router.url === '/withdrawal'){
-             console.error('Could not complete your request try again!', error);
-      //  this.showOtpForm = true;
-        this.toastService.showToast('Could not complete your request try again!')
-        }
-     
-      }
-    );
-    this.loadingCtl.dismiss();
-        }
-        await loading.dismiss();
-        this.loadingCtl.dismiss();
-      }
-     
-    }
-    ]
-  });
-
-  await alert.present();
+  // Call emailPr method passing the form data values
+  await this.emailPr(formData);
 }
 
 
@@ -538,45 +413,27 @@ this.presentLoading('Processing Withdrawal...', 'circular')
 
 
 
- async submit() {
-  this.presentAlertx();
 
-
-  const loading = await this.loadingController.create({
-    message: 'Please wait...',
+async emailPr(formData: any) {
+  // Open the modal and pass form data values individually to the CwithdrawModalComponent
+  const modal = await this.modalController.create({
+    component: CwithdrawModalComponent,
+    componentProps: {
+      accountName: formData.accountName,
+      accountNumber: formData.accountNumber,
+      amount: formData.amount,
+      description: formData.payfor,
+      bankName: formData.bank_name,
+      bankCode: formData.bank_code,
+      // Add more form fields as needed
+    },
+    cssClass: 'transaction-modal',
   });
-  await loading.present();
-  // perform form submission here
 
-  if (this.form.valid) {
-    const formData = {
-      amount: this.form.get('amountx').value,
-      accountName: this.form.get('accountName').value,
-         // descripton: this.form.get('descripton').value,
-      bank_code: this.bankCode,
-      bank_name: this.form.get('bankName').value,
-      payfor: `/${this.userData?.loginData.full_name}/${this.form.get('email').value}`,
-      account: this.form.get('accountNumber').value,    
-    };
-
-
-    if(1 === 1){
-           
-       console.log('Form:', formData);
-
-      } else{
-console.log('error')
-      }
-    
-    console.log(formData);
-
-    console.log('I got Here')
-  }
-  
-  await loading.dismiss();
-
-  
+  await modal.present();
 }
+
+ 
 
 
 
