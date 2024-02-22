@@ -59,6 +59,7 @@ export class HomePage implements OnInit {
   displayUserData: any;
   type = true;
   userData: any;
+  chatlink: any;
   userImage: any;
   getBalance: any;
   showBalance = false;
@@ -143,6 +144,7 @@ export class HomePage implements OnInit {
       this.getTransactions();
       this.fetchBalance();
       this.fetchUserData();
+      this.chatUrl();
       this.getImage();
       this.checkAppMode();
     }, 1000);
@@ -155,6 +157,7 @@ export class HomePage implements OnInit {
 
     setInterval(() => {
       this.fetchBalance();
+      this.chatUrl();
       this.getTransactions();
       this.checkAppMode();
     }, 70000);
@@ -302,6 +305,31 @@ export class HomePage implements OnInit {
       }
     });
   }
+
+  chatUrl() {
+    this.authService.getUrl().subscribe((res: any) => {
+      //this.displayUserData = res;
+
+      if (
+        res.message === "Signature verification failed" &&
+        this.router.url !== "/auth-screen"
+      ) {
+        localStorage.removeItem("userData");
+        localStorage.removeItem("res");
+        localStorage.removeItem("accessT");
+        this.toastController.create();
+        this.presentToast("Session Expired.....Logging out", "danger");
+        this.router.navigateByUrl("/auth-screen");
+      } else {
+
+        this.chatlink = res;
+        //console.log(res)
+        
+        localStorage.setItem("chat", JSON.stringify(res));
+      }
+    });
+  }
+
   fetchUserData() {
     const userDataString = localStorage.getItem("userData");
     if (userDataString) {

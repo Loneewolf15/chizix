@@ -226,6 +226,13 @@ showLoader(msg) {
     await modal.present();
   }
   
+  customCounterFormatter(inputLength: number, maxLength: number) {
+    return `${maxLength - inputLength} characters remaining`;
+  }
+
+  customCounterFormatterE(inputLength: number, maxLength: number) {
+    return `${maxLength - inputLength} characters remaining`;
+  }
 
 
 
@@ -305,7 +312,7 @@ this.loadingCtl.dismiss();
         }
         else if(data.message === "transaction succesful"){
           this.toastController.create()
-          this.presentToast(data.message + ', An unknown error occured please try again shortly.', 'danger');
+          this.presentToast(data.message + ',Airtime topped up', 'success');
           this.presentAirtimeAlert('transaction successful', ` ₦${vtuData.amount}`, 'Transaction Successful');
           //this.presentToast('Session Expired.....Logging out', 'danger');
           this.loadingCtl.dismiss();

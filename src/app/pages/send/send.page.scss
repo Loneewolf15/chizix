@@ -172,7 +172,7 @@ ion-card {
         }
     }
     ion-button {
-        margin-bottom: 10vh;
+       // margin-bottom: 10vh;
     }
     ion-toggle {
         // --size: 16px;
@@ -279,9 +279,8 @@ ion-alert.custom-alert {
   }
   
   .tit{
-    font-family: 'Inter';
-font-style: normal;
-    margin-left: 20%;
+    font-style: normal;
+   // margin-left: 20%;
     font-weight: 500;
     font-size:20px;
   }
@@ -320,6 +319,15 @@ font-style: normal;
   
 .digits{ //added code
   text-align: center;
+
+  ion-button{
+    font-size: 1.2rem;
+  }
+}
+
+.digitx{ //added code
+  text-align: center;
+  margin-bottom: 7vh;
 
   ion-button{
     font-size: 1.2rem;

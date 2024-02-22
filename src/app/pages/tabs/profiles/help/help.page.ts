@@ -15,7 +15,7 @@ import { IonicModule } from '@ionic/angular';
 })
 export class HelpPage implements OnInit {
   isTawkChatLoaded: boolean = false;
-
+chat: any;
 
   // Function to load Tawk.to script
   loadTawkScript() {
@@ -27,6 +27,20 @@ export class HelpPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+    this.chatUrl()
+  }
+  chatUrl(){
+    this.chat = JSON.parse(localStorage.getItem('chat'));
+    console.log(this.chat)
+    
   }
 
+  redirectToChat() {
+    // Assuming this.chat contains the WhatsApp number
+    this.chat = JSON.parse(localStorage.getItem('chat'));
+    const whatsappUrl = 'https://wa.me/' + this.chat; // Construct the WhatsApp URL
+    window.open(whatsappUrl, '_blank'); // Open the WhatsApp URL in a new tab
+  }
+  
 }

@@ -60,20 +60,24 @@
     <div>
     <ion-list>
       <form>
-      
-          <ion-item >
-            <ion-label position="floating">Phone Number</ion-label>
-            <ion-input type="tel" minlength="11" maxlength="11" message="Phone Number must be 11 characters long" [(ngModel)]="phone" name="phone"></ion-input>
-          </ion-item>
-          <ion-item > 
-            <ion-label position="floating">Airtime Amount</ion-label>
-            <ion-input type="number"  [(ngModel)]="amountx" name="amountx"></ion-input>
-          </ion-item>
+        <div class="ion-margin-vertical">
+         
+            <ion-input label="Phone Number" label-placement="floating" autocomplete="" [counter]="true" minlength="11" maxlength="11"[counterFormatter]="customCounterFormatterE" errorText="* Please enter phone number" [(ngModel)]="phone" name="phone" type="tel" ></ion-input>
           
-            <ion-item >
-              <ion-label position="floating">Transaction Pin</ion-label>
-              <ion-input type="password" minlength="4" maxlength="4" message="Pin must be 4 characters long" [(ngModel)]="pin" name="pin"></ion-input>
-            </ion-item>
+        </div>
+
+        <div class="ion-margin-vertical">
+         
+            <ion-input label="Airtime Amount" label-placement="floating" autocomplete="" [counter]="true" minlength="3" [counterFormatter]="customCounterFormatterE" errorText="* Please enter valid amount" [(ngModel)]="amountx" name="amountx" type="number" ></ion-input>
+          
+        </div>
+        
+        <div class="ion-margin-vertical">
+         
+            <ion-input label="Transaction Pin" label-placement="floating" autocomplete="" [counter]="true" minlength="4" maxlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Please enter your pin" [(ngModel)]="pin" name="pin" type="password" ></ion-input>
+          
+        </div>
+        
             <div>
               <br>
               <ion-button class="top-upx" expand="block" width="50%" color="warning" (click)="topUp()"> <ion-icon name="reload-circle-outline"></ion-icon>Top Up</ion-button>

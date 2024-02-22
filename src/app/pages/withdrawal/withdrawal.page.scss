@@ -1,7 +1,25 @@
 ion-card {
   box-shadow: none !important;
   padding-top: 3vh;
-  padding-bottom: 45vh;
+ // padding-bottom: 45vh;
+  /* CSS for placing ion-back-button and title on the same line within ion-card-header */
+
+// ion-card-header ion-toolbar {
+//   display: flex;
+//   align-items: center; /* Align items vertically center */
+//   justify-content: space-between; /* Space items evenly on the main axis */
+// }
+
+// ion-back-button {
+//   margin-right: 8px; /* Adjust margin as needed */
+// }
+ 
+.tit{
+  font-style: normal;
+ // margin-left: 20%;
+  font-weight: 500;
+  font-size:20px;
+}
   ion-input {
     font-size: 0.9rem;
    

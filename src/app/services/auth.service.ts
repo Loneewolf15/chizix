@@ -243,6 +243,13 @@ getAccountBalance(): Observable<any>{
 
   return this.httpService.getr('/reports/getAccountBalance');
 }
+
+//getAccountBalance
+getUrl(): Observable<any>{
+
+  return this.httpService.getr('/reports/geturl');
+}
+
 //data logicx
 mtnCorp(): Observable<any>{
 

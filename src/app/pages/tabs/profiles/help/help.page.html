@@ -92,21 +92,18 @@
     </ion-list>
   </p>
 </div>
-  <ion-text >
-    For more assistance, 
-    <b><a (click)="loadTawkScript()" class="email-link">Chat with customer service:</a></b>
-  </ion-text>
+<ion-text>
+  For more assistance, 
+  <b><a href="{{ chat }}" class="email-link">Chat with customer service:</a></b>
+</ion-text>
+
 
   
  
 </ion-content>
 
 
- <!-- Tawk.to chat iframe -->
- <!-- <div *ngIf="isTawkChatLoaded" class="tawk-chat-container">
-  <iframe src="https://tawk.to/chat/653fb259f2439e1631e9e9f3/1he0d1bm0" frameborder="0"></iframe>
-</div> -->
 
 <ion-content *ngIf="isTawkChatLoaded" >
-  <iframe src="https://tawk.to/chat/653fb259f2439e1631e9e9f3/1he0d1bm0" frameborder="0"></iframe>
+  
 </ion-content>

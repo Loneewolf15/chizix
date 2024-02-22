@@ -67,6 +67,7 @@ resendDisabled: boolean = false;
 charge: number;
 amounted: number;
 aBalance: any;
+bankCode: any;
 userData: any;
 
   public postData = {
@@ -100,23 +101,16 @@ userData: any;
  // 60,000 milliseconds = 60 seconds
   }
 
-//   onBankSelect(bank: any) {
-//   this.selectedBank = bank;
-//   console.log(bank.name);
-//   console.log("userSelected" + bank.name + bank.code)
-//   this.modalController.dismiss();
-// }
-
 onBankSelect(bank: any) {
   this.selectedBank = bank;
   console.log(bank.name);
   console.log(bank.code);
   this.form.patchValue({
     bankName: bank.name,
-    bankCode: bank.code,
   });
+  this.bankCode = bank.code
    console.log(this.form.get('bankName').value);
-   console.log(this.form.get('bankCode').value)
+   console.log(this.bankCode)
    this.modalController.dismiss();
 }
 
@@ -155,58 +149,12 @@ console.log(JSON.parse(balance));
       this.selectedBank = null;
       // rest of the code
     
-    
-    // while (this.callCount < 3) {
-    //   this.divine();
-    //   this.callCount++;
-    //   if (this.callCount === 3) {
-    //     localStorage.setItem('myData', JSON.stringify(this.banks));
-    //     console.log('Data saved to local storage.');
-    //   }
-    // }
-// this.bankList();
-// this.getAccountName();
-
   }
-// divine(){
-//   setInterval(() => {
-//     console.log("running again.....yaay");
-//     this.bankList();
-    
 
-//   }, 60000);
-// }
-  
-  // while (this.callCount < 3) {
-  //   this.myFunction();
-  //   this.callCount++;
-  // }
-  
-
-  // bankList(){
-  //   this.authService.getBanks().subscribe((data: any) => {
-  //     console.log(data);
-  //     console.log(JSON.stringify(data));
-  //     console.log('I am here now')
-  //     //this.banks = data;
-
-      // if(data.message === "Signature verification failed"){
-      //   this.toastController.create()
-      //   this.presentToast('Session Expired.....Logging out', 'warning');
-      //   this.router.navigateByUrl('/auth-screen');
-      // }
-  //     else {
-  //       console.log('I am here nowx')
-  //       this.banks = data.banks;
-  //       //this.banks = JSON.parse(data.banks);
-  //     }
-  //   });
-  // }
- 
   getAccountName(){
     const formData = {
-     // bank_code: this.selectedBank.code,
-      bank_code: this.form.get('bankCode').value,
+   
+      bank_code: this.bankCode,
       account: this.form.get('accountNumber').value,
     };
 
@@ -277,7 +225,7 @@ const num = event.target.value
     if (num.length === 10) {
       console.log('User entered a 10-digit number:', num);
       console.log('Divine',this.form.get('bankName').value);
-      console.log('Divinex',this.form.get('bankCode').value)
+      console.log('Divinex',this.bankCode)
       // Enable button, update UI, or perform other actions
       ///call loader here
 
@@ -293,11 +241,6 @@ if(this.router.url === '/withdrawal'){
       
       this.loadingCtl.dismiss();
     }, 10000);
-//     this.presentLoading('Searching for Account...', 'crescent');
-// this.getAccountName().subscribe((value) => {
-//   this.loadingCtl.dismiss();
-//   // do something with the value
-// });
 
 }
     
@@ -311,7 +254,7 @@ if(this.router.url === '/withdrawal'){
       
 
       bankName: new FormControl(null, {validators: [Validators.required]}),
-      bankCode: new FormControl(null, {validators: [Validators.required]}),
+      //bankCode: new FormControl(null, ),
       // tagname: new FormControl(null, {validators: [Validators.required]}),
       email: new FormControl(null, {validators: [Validators.required]}),
       accountName: new FormControl(null, {validators: [Validators.required]}),
@@ -324,6 +267,11 @@ if(this.router.url === '/withdrawal'){
 
     
   }
+   // Function to check if all form inputs are not empty
+  isFormValid(): boolean {
+    return Object.values(this.form.value).every(value => !!value);
+  }
+
 
   showDate(){
     const currentDateTimeString = this.currentDate.toLocaleString();
@@ -495,7 +443,7 @@ async presentAlertx() {
     
     const formData = {
       amount: totalAmount - this.charge,
-      bank_code: this.form.get('bankCode').value,
+      bank_code: this.bankCode,
       bank_name: this.form.get('bankName').value,
       payfor: `/${this.userData?.loginData.full_name}/${this.form.get('email').value}`,
       account: this.form.get('accountNumber').value,
@@ -605,7 +553,7 @@ this.presentLoading('Processing Withdrawal...', 'circular')
       amount: this.form.get('amountx').value,
       accountName: this.form.get('accountName').value,
          // descripton: this.form.get('descripton').value,
-      bank_code: this.form.get('bankCode').value,
+      bank_code: this.bankCode,
       bank_name: this.form.get('bankName').value,
       payfor: `/${this.userData?.loginData.full_name}/${this.form.get('email').value}`,
       account: this.form.get('accountNumber').value,    

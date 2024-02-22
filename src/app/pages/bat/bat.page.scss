@@ -236,13 +236,6 @@ ion-card {
             }
         }
     }
-// ion-icon{
-//     color: #7E219E;
-//     border-radius: 25px;
-// }
-    ion-button {
-        margin-bottom: 10vh;
-    }
     ion-toggle {
         // --size: 16px;
         --background-checked: #7E219E;
@@ -362,15 +355,12 @@ ion-alert.custom-alert {
   margin-bottom: -10px;
 }
   
-  .tit{
-    
-font-style: normal;
-    --margin-left: 20%;
-    --margin-right: 20%;
-    font-weight: 500;
-    font-size:20px;
-  }
-  
+.tit{
+  font-style: normal;
+ // margin-left: 20%;
+  font-weight: 500;
+  font-size:20px;
+}
   .custom-alert .alert-button-group {
     padding: 8px;
   }
@@ -405,5 +395,13 @@ font-style: normal;
   
 
 
+  .digitx{ //added code
+    text-align: center;
+    margin-bottom: 7vh;
+  
+    ion-button{
+      font-size: 1.2rem;
+    }
+  }
   
 

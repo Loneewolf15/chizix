@@ -442,7 +442,7 @@ console.log(data + 'are you good?')
 
     let message: string;
     switch (status) {
-      case 'successful':
+      case 'success':
         message = `You have successfully purchased airtime of ${amount} `;
         break;
       case 'insuficient funds':
@@ -473,14 +473,7 @@ console.log(data + 'are you good?')
       cssClass: 'custom-alert',
       animated: true,
       mode: 'ios',
-      //translucent: true,
-      // Add the image to the alert
-      // inputs: [
-      //   {
-      //     type: 'image',
-      //     src: status === 'successful' ? 'assets/imgs/received.png' : 'assets/imgs/sent.png'
-      //   }
-      // ]
+     
     });
     await alert.present();
   }
@@ -589,11 +582,13 @@ this.presentLoading('Validating...', 'crescent')
           else{
             console.log('Here Now')
             if(data.message === 'insuficient funds'){
-              this.presentDataAlert(data.message, ` ₦${vtuData.amount}`, 'Transaction Failed');
+              this.presentDataAlert('insuficient funds', ` ₦${vtuData.amount}`, 'Transaction Failed');
               this.toastController.create()
               this.presentToast(data.message + ', Please fund your account and try again', 'danger');
               this.loadingCtl.dismiss();
-            } else{
+            } else if(data.message === 'Data successfully delivered'){
+              this.presentDataAlert("success", ` ₦${vtuData.amount}`, 'Transaction Successful');
+            }else{
               this.toastController.create()
               this.presentToast(data.message, 'success');
               this.loadingCtl.dismiss();
@@ -653,51 +648,6 @@ this.presentLoading('Validating...', 'crescent')
       );
      
     }
-  //   if(this.pin === "7706"){
-  //     this.presentToast("Pin found", "success");
-  //   } else {
-  // this.presentToast("Pin not found", "danger");
-  //   }
-  
-  
-  
-  
-
-  // if(this.pin === "1206"){
-  //   // this.authService.airtime(vtuData).subscribe
-  //   // }
-  //   console.log('Pin is correct', vtuData)
-    
-  //   this.authService.data(vtuData).subscribe(
-  //     (data: any) => {
-  //       console.log(JSON.stringify(data))
-  //       if(data.message === "Signature verification failed"){
-  //         this.toastController.create()
-  //         this.presentToast('Session Expired.....Logging out', 'danger');
-  //         this.router.navigateByUrl('/auth-screen');
-  //       }
-  //       else{
-  //         if(data.message === 'insuficient funds'){
-  //           this.toastController.create()
-  //           this.presentToast(data.message + ', Please fund your account and try again', 'danger');
-  //         } else{
-  //           this.toastController.create()
-  //           this.presentToast(data.message, 'success');
-  //         }
-          
-        
-  //      // console.log(JSON.parse(data))
-
-  //       }
-       
-  //     },
-  //     (error) => {
-  //       console.error(error);
-  //       console.log('Error found here')
-    
-  //     }
-  //   );
-
 }
   
 

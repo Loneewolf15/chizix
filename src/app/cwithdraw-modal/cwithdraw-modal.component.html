@@ -1,0 +1,33 @@
+<!-- 
+<div class="container" >
+
+  
+    <h3>{{ header }}</h3>
+   
+
+    <div class="sub-header">{{ subHeader }}</div>
+    <div class="message-container">
+      <img [src]="imgSrc" alt="Status Image" class="status-image">
+      <div [innerHTML]="message" class="message"></div>
+    </div>
+  
+    
+    <button expand="block" (click)="Close()">Continue</button>
+
+</div> -->
+
+<div class="container">
+  
+    <button color="danger" slot="start" (click)="Close()" class="close-btn"><b><strong>X</strong></b></button>
+ 
+
+  <h3>{{ header }}</h3>
+  <div class="sub-header">{{ subHeader }}</div>
+  <div class="message-container">
+    <img [src]="imgSrc" alt="Status Image" class="status-image">
+    <div [innerHTML]="message" class="message"></div>
+  </div>
+  
+  <!-- <button expand="block" (click)="Close()">Continue</button> -->
+</div>
+

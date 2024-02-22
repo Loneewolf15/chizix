@@ -1,0 +1,196 @@
+
+ion-modal {
+    --height: 50%;
+    --border-radius: 16px;
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --width: fit-content;
+    --min-width: 90%;
+  }
+  ion-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  ion-modal::part(backdrop) {
+    background: rgba(209, 213, 219);
+    opacity: 1;
+  }
+  
+  ion-header ion-toolbar {
+    --background:white;
+    --color: black;
+  }
+  
+  table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  th,
+  td {
+    padding-bottom: 10px;
+    border: 1px solid transparent;
+  }
+  
+  td:first-child {
+    text-align: left;
+    font-size: 15px;
+  }
+  
+  td:last-child {
+    text-align: right;
+    font-size: 15px;
+  }
+  
+  .transaction-modal {
+    --background: transparent;
+    --width: 90%;
+    --height: auto;
+    --border-radius: 10px;
+    --padding: 0;
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .transaction-modal ion-content {
+    --height: 50%;
+    --border-radius: 16px;
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --width: fit-content;
+    --min-width: 90%;
+    --background: white;
+  }
+  
+  .transaction-modal ion-header {
+    --background: #f8f8f8;
+    --border-top-left-radius: 10px;
+    --border-top-right-radius: 10px;
+    --box-shadow: none;
+  }
+  
+  .container .message-container {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .container .close-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000; /* Adjust the color as needed */
+    z-index: 9999; /* Ensure the icon is above other elements */
+  }
+  
+  .container .status-image {
+    width: 80%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .transaction-modal .message {
+    margin-bottom: 20px;
+  }
+  
+  // .transaction-modal ion-button {
+  //   --background: #800080;
+  //   --border-radius: 5px;
+  //   --color: white;
+  // }
+
+  .transaction-modal {
+    margin-top: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity (0.5) as needed */
+    z-index: 9999;
+  }
+  
+  .ion-padding {
+    margin-top: 25%;
+    max-width: 400px;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  .sub-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .message-container {
+    margin-top: 90%;
+    margin-bottom: 15px;
+  }
+  
+  // .status-image {
+  //   width: 150px;
+  //   height: 150px;
+  //   margin-bottom: 10px;
+ 
+  // }
+  
+  .message {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 800;
+    text-align: center;
+    color:#f8f8f8;
+  }
+  
+  .container{
+    background-color:black;
+    width:90%;
+    margin-top: 50%;
+    height: 55vh;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h3 {
+      font-size: 20px;
+      color:#f8f8f8;
+      font-weight: bolder;
+      //margin-bottom: 25%;
+      margin-bottom: 8%
+    }
+
+    button{
+      // width:95%;
+      font-weight: bold;
+      padding-inline: 1.2rem;
+      padding-block: 0.8rem;
+      border-radius: 0.6rem;
+      background: #7E219E;
+      margin-bottom:10px;
+      color: white;
+    }
+
+    &::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.192); // Adjust the alpha value for transparency
+      z-index: -999999; // Ensure the overlay is behind the modal content
+    }
+  }
