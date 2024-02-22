@@ -341,48 +341,11 @@ async presentToast(message: string, color: string) {
   toast.present();
 }
 
-async presentWithdrawalAlert(status: string,  amount: any, title?: string, subtitle?: string) {
-  let message: string;
-  switch (status) {
-    case 'successful':
-      message = `You have successfully sent ${amount} to ${this.form.get('accountName').value}.`;
-      break;
-    case 'insuficient funds':
-      message = `Your request to withdraw ${amount}  could not be completed due to insufficient funds in your account.`;
-      break;
-    case 'failed':
-      message = `Please enter an amount greater than ₦50.`;
-      break;
-    default:
-      message = 'An unknown error occurred!! ${<br>} Please try again later';
-      break;
-  }
 
-  const alert = await this.alertController.create({
-    header: title || 'Transaction Status',
-    subHeader: subtitle,
-    buttons: [{
-      text: 'Go Back',
-      cssClass: 'purple-button',
-      handler: () => {
-        if (status !== 'failed') {
-          this.router.navigateByUrl('/tabs');
-        }
-      }
-    }],
-    backdropDismiss: false,
-    cssClass: 'deposit-alert',
-    animated: true,
-    mode: 'ios',
-  
-    message: message,
-  });
-
-  await alert.present();
-}
 
 
 async submitForm() {
+  // Your existing code to calculate totalAmount
   this.charge = 50
    
   //this.amounted += this.feex;
@@ -390,41 +353,33 @@ async submitForm() {
   this.amounted = parseFloat(this.form.get('amountx').value);
   this.charge = parseFloat('50');
   const totalAmount = this.amounted + this.charge
-// this.amounted = totalAmount
-  
-    const formData = {
-      amount: totalAmount - this.charge,
-      bank_code: this.bankCode,
-      bank_name: this.form.get('bankName').value,
-      payfor: `/${this.userData?.loginData.full_name}/${this.form.get('email').value}`,
-      account: this.form.get('accountNumber').value,
-      accountName: this.form.get('accountName').value,
-     // descripton: this.form.get('descripton').value,
-      
-    };
-  console.log(formData)
+
+  const formDatad = {
+    amount: totalAmount - this.charge,
+    bank_code: this.bankCode,
+    bank_name: this.form.get('bankName').value,
+    payfor: `/${this.userData?.loginData.full_name}/${this.form.get('email').value}`,
+    account: this.form.get('accountNumber').value,
+    accountName: this.accountName,
+    // Add more form data properties as needed
+  };
 
   // Call emailPr method passing the form data values
-  await this.emailPr(formData);
+  await this.emailPr(formDatad);
 }
 
-
-
-
-
-
-
-async emailPr(formData: any) {
+async emailPr(formDatad: any) {
   // Open the modal and pass form data values individually to the CwithdrawModalComponent
   const modal = await this.modalController.create({
     component: CwithdrawModalComponent,
     componentProps: {
-      accountName: formData.accountName,
-      accountNumber: formData.accountNumber,
-      amount: formData.amount,
-      description: formData.payfor,
-      bankName: formData.bank_name,
-      bankCode: formData.bank_code,
+      accountName: formDatad.accountName,
+      accountNumber: formDatad.account,
+      amount: formDatad.amount,
+      description: formDatad.payfor,
+      bankName: formDatad.bank_name,
+      bankCode: formDatad.bank_code,
+      
       // Add more form fields as needed
     },
     cssClass: 'transaction-modal',
@@ -432,21 +387,5 @@ async emailPr(formData: any) {
 
   await modal.present();
 }
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

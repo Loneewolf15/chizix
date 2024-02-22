@@ -20,7 +20,8 @@ export class CwithdrawModalComponent implements OnInit {
  @Input() description: string;
  @Input() bankName: string;
  @Input() bankCode: string;
-  @Input() showGoBackButton: boolean;
+ @Input() formData: any;
+ @Input() showGoBackButton: boolean;
 
   constructor(private router: Router,
     private modalController: ModalController,

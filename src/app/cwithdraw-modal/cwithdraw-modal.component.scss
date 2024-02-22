@@ -42,9 +42,9 @@ ion-modal {
   td:last-child {
     text-align: right;
     font-size: 15px;
+    color: var(--ion-color-base);
   }
-  
-  .transaction-modal {
+   .transaction-modal {
     --background: transparent;
     --width: 90%;
     --height: auto;
