@@ -19,7 +19,7 @@
             </tr>
             <tr>
               <td>Amount</td>
-              <td>{{ amount }}</td>
+              <td>₦{{ amount }}</td>
           </tr>
           <tr>
             <td>Description</td>
@@ -34,7 +34,7 @@
   </div>
 
   <div class="button-container">
-    <button color="success" expand="block" (click)="confirmWithdrawal()">Confirm Withdrawal</button>
-    <button color="danger" expand="block" (click)="Close()">Cancel</button>
+    <button color="success" expand="block" (click)="confirmWithdrawal()" class="yes-button">Confirm Withdrawal</button>
+    <button color="danger" expand="block" (click)="Close()" class="no-button">Cancel</button>
   </div>
 </div>

@@ -36,13 +36,16 @@ ion-modal {
   
   td:first-child {
     text-align: left;
+    color: var(--ion-color-white);
     font-size: 15px;
+    padding: 19px;
   }
   
   td:last-child {
     text-align: right;
     font-size: 15px;
-    color: var(--ion-color-base);
+    padding: 19px;
+    color: var(--ion-color-white);
   }
    .transaction-modal {
     --background: transparent;
@@ -94,11 +97,6 @@ ion-modal {
     margin-bottom: 20px;
   }
   
-  // .transaction-modal ion-button {
-  //   --background: #800080;
-  //   --border-radius: 5px;
-  //   --color: white;
-  // }
 
   .transaction-modal {
     margin-top: 25%;
@@ -179,8 +177,28 @@ ion-modal {
       padding-block: 0.8rem;
       border-radius: 0.6rem;
       background: #7E219E;
+      padding: 8px;
       margin-bottom:10px;
       color: white;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+    }
+    .no-button{
+      color: white;
+      background:transparent;
+      font-size: 16px;
+    }
+    
+  .yes-button,
+    .no-button {
+      flex: 1;
+      margin: 0 5px; /* Adjust margin as needed */
+    }
+    .yes-button{
+      background: #7E219E;
+      //color: black;
     }
 
     &::before {

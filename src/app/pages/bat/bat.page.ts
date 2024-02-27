@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { OnDestroy, Component, OnInit, ViewChild, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment-timezone';
 
 import { BarcodeScanner, ScanResult } from '@capacitor-community/barcode-scanner';
 import { AlertController, AnimationController, IonDatetime, IonicModule, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { IonText } from '@ionic/angular';
-import { format, parseISO, addHours } from 'date-fns';
+import { format, parseISO, subHours } from 'date-fns';
 import {  utcToZonedTime } from 'date-fns-tz';
 import { AuthService } from 'src/app/services/auth.service';
 import { PreferencesService } from 'src/app/services/storage.service';
@@ -38,6 +39,8 @@ export class BatPage implements OnInit {
   showPicker = false;
   dateValue = format(new Date(), 'yyyy-MM-dd') + 'T09:00:00.000Z';
   formattedString = '';
+  selectedDate: string;
+  selectedTime: string;
   
   onKeyPress(key: string, inputField: any) {
     switch (key) {
@@ -197,23 +200,22 @@ const currentDate = new Date();
 
 
 
-// dateChanged(value){
-//   console.log(value);
-//   this.dateValue = value;
-//   this.formattedString = format(parseISO(value), 'HH:mm, MMM d') ;
-//   this.showPicker = false;
-// }
 
 dateChanged(value) {
   console.log('Date changed!', value);
 
   this.dateValue = value;
- // this.formattedString = format(parseISO(value), 'HH:mm - MMM d, yyyy') ;
-  this.formattedString = format(parseISO(value), 'yyyy-MM-d HH:mm:ss') ;
+  this.formattedString = format(parseISO(value), 'yyyy-MM-d HH:mm:ss');
+  const dateTime = subHours(new Date(value), 5); // Subtract 5 hours
+  this.selectedDate = dateTime.toISOString().split('T')[0]; // Extract date
+  this.selectedTime = dateTime.toISOString().split('T')[1].slice(0, 5); // Extract time
+  console.log(this.selectedTime);
+
+  localStorage.setItem('time', this.formattedString);
+
   this.showPicker = false;
   // Your other logic here
 }
-
 
 close(){
 this.datetime.cancel(true)
@@ -353,8 +355,6 @@ console.log(response)
         if (loggedInUserTag) {
           this.tagName = this.tagName.filter(tag => tag.user_tag !== loggedInUserTag);
         }
-        //localStorage.setItem('tagName', JSON.stringify(response));
-        //this.tagNamex = localStorage.getItem('tagName');
        
         this.filteredTags = [...this.tagName];
       console.log('Returned Data', response);
@@ -389,20 +389,33 @@ console.log("userSelected" + tag.full_name + tag.user_tag);
 
 
 setFocus() {
+  // Retrieve the color mode of the app
+  const appColorMode = document.body.classList.contains('dark') ? 'dark' : 'light';
+
   for (let i = 1; i <= 4; i++) {
     const inputElem = document.getElementById("pin" + i) as HTMLElement;
     if (inputElem) {
-      if (i <= this.pin.length) {
-        inputElem.style.background = "var(--ion-color-dark)";
+      // Check the color mode and set background color accordingly
+      if (appColorMode === 'dark') {
+        if (i <= this.pin.length) {
+          console.log('dark')
+          inputElem.style.background = "var(--ion-color-warning)";
+        } else {
+          inputElem.style.background = "var(--ion-color-white)";
+        }
       } else {
-        inputElem.style.background = "var(--ion-color-base)";
+        if (i <= this.pin.length) {
+          inputElem.style.background = "var(--ion-color-dark)";
+        } else {
+          inputElem.style.background = "var(--ion-color-light)";
+        }
       }
     }
   }
+
+  // Update parent element background based on pin length
   const parentElem = document.querySelector('.numberBox') as HTMLElement;
-  if (parentElem) {
-    parentElem.style.background = this.pin.length === 4 ? "var(--ion-color-base)" : "var(--ion-color-base)";
-  }
+  parentElem.style.background = this.pin.length === 4 ? "var(--ion-color-base)" : "var(--ion-color-base)";
 }
 
 
@@ -497,7 +510,7 @@ let timed = localStorage.getItem('time')
 switch (status) {
   case 'successful':
     message = `You have successfully scheduled a transfer of ₦${amount} into Velux user @${this.selectedTag.user_tag} wallet. for ${timed}`;
-    // subHeader = 'Transaction SuccessFul'
+  
     imgSrc = 'assets/imgs/success.png';
     break;
   case 'insufficient fund':

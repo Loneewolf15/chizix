@@ -355,7 +355,7 @@ async submitForm() {
   const totalAmount = this.amounted + this.charge
 
   const formDatad = {
-    amount: totalAmount - this.charge,
+    amount: totalAmount,
     bank_code: this.bankCode,
     bank_name: this.form.get('bankName').value,
     payfor: `/${this.userData?.loginData.full_name}/${this.form.get('email').value}`,

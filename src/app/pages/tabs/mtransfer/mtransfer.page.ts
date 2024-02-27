@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { OnDestroy, Component, OnInit, ViewChild } from '@angular/core';
+import {  Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -26,7 +26,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
     ReactiveFormsModule,
     IonicModule,],
 })
-export class MtransferPage implements OnInit, OnDestroy {
+export class MtransferPage implements OnInit {
   @ViewChild('inputField') inputField: any;
   @ViewChild('selectedTagText', { static: true }) selectedTagText: IonText;
   selectedTag: any;
@@ -104,15 +104,11 @@ pin1Color: string = '';
   // }
  
   ngOnInit() {
-  //  BarcodeScanner.prepare();
-    this.setFocux();
-   
   const userDataString = localStorage.getItem('userData');
   if (userDataString) {
     this.userData = JSON.parse(userDataString);
   }
 this.getImage();
-  //this.setFocus();
   this.balance();
   this.getTagname();
 }
@@ -374,50 +370,10 @@ stopScan() {
   this.content_visibility = '';
 }
 
-ngOnDestroy(): void {
-  this.stopScan();
-}
 
 
-async searchTag(){
-  
-  
-}
-//clear the pin value if modal is closed
 
-// if( setOpen = false){
-//   this.pin = "";
-// }
-  //change style of current input
-  setFocused(){
-    for (let i = 1; i < 3; i++){
-      if((this.amount.length + 1) == i){
-        document.getElementById("amount" + i).style.background = "var(--ion-color-base)"
-      }
-    else {
-      document.getElementById("amount" + i).style.background = "var(--ion-color-base)"
-    }
-  }
-  }
 
-  setFocux(){
-    for(let d = 1; d <= 10; d++){
-      if((this.amount.length + 1) == d){
-
-      document.getElementById("amount" + d)
-      }
-    
-    else{
-      document.getElementById("amount" + d)
-    }
-    
-    }
-  }
-
-  // set(value: any) {
-  //   const currentInputValue = this.inputField.value;
-  //   this.inputField.value = currentInputValue ? currentInputValue + value : value;
-  // }
   
 
   set(value: any) {
@@ -429,42 +385,55 @@ async searchTag(){
 
 clear(){
   this.amount = "";
-  this.setFocux();
+  
 }
 
 //backspace last amount and focus on input
 
 setx(number: any){
   this.amount += number;
-  this.setFocux();
+ 
   
 }
 
 back(){
   // this.inputField.value =  this.inputField.value.slice(0, -1);
-  // this.setFocux();
+  
   this.amount =  this.amount.slice(0, -1);
 }
 
 
 
+
 setFocus() {
+  // Retrieve the color mode of the app
+  const appColorMode = document.body.classList.contains('dark') ? 'dark' : 'light';
+
   for (let i = 1; i <= 4; i++) {
     const inputElem = document.getElementById("pin" + i) as HTMLElement;
     if (inputElem) {
-      if (i <= this.pin.length) {
-        inputElem.style.background = "var(--ion-color-dark)";
+      // Check the color mode and set background color accordingly
+      if (appColorMode === 'dark') {
+        if (i <= this.pin.length) {
+          console.log('dark')
+          inputElem.style.background = "var(--ion-color-warning)";
+        } else {
+          inputElem.style.background = "var(--ion-color-white)";
+        }
       } else {
-        inputElem.style.background = "var(--ion-color-base)";
+        if (i <= this.pin.length) {
+          inputElem.style.background = "var(--ion-color-dark)";
+        } else {
+          inputElem.style.background = "var(--ion-color-light)";
+        }
       }
     }
   }
-  const parentElem = document.querySelector('.numberBox') as HTMLElement;
-  if (parentElem) {
-    parentElem.style.background = this.pin.length === 4 ? "var(--ion-color-base)" : "var(--ion-color-base)";
-  }
-}
 
+  // Update parent element background based on pin length
+  const parentElem = document.querySelector('.numberBox') as HTMLElement;
+  parentElem.style.background = this.pin.length === 4 ? "var(--ion-color-base)" : "var(--ion-color-base)";
+}
 
 
 

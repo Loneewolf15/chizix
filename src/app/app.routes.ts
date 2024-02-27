@@ -127,6 +127,10 @@ export const routes: Routes = [
     path: 'register/veri',
     loadComponent: () => import('./pages/register/verify/verify.page').then( m => m.VerifyPage)
   },
+  {
+    path: 'veri/selfie',
+    loadComponent: () => import('./pages/register/verify/selfie/selfie.page').then( m => m.SelfiePage)
+  },
   // {
   //   path: 'otp',
   //   loadChildren: () => import('./pages/otp/otp.module').then( m => m.OtpPageModule)

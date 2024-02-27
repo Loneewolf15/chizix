@@ -70,7 +70,7 @@ export class HomePage implements OnInit {
   isModalOpeN = false;
   getBalancex: any[] = [];
   formattedPrice: any;
-  unread: boolean;
+  unread = true;
   notifications: any[] = [];
   unreadNotifications: Set<string> = new Set<string>();
   images: LocalFile[] = [];
@@ -190,72 +190,129 @@ export class HomePage implements OnInit {
   }
 
   async fetchNotification() {
-    this.authService.getNotification().subscribe((res: any) => {
-      //this.displayUserData = res;
-
-      if (
-        res.message === "Signature verification failed" &&
-        this.router.url !== "/auth-screen"
-      ) {
+    await this.updateNotificationsFromStorage();
+    try {
+      const res: any = await this.authService.getNotification().toPromise();
+  
+      if (res.message === "Signature verification failed" && this.router.url !== "/auth-screen") {
+        // Handle session expiration
         localStorage.removeItem("userData");
         localStorage.removeItem("res");
         localStorage.removeItem("accessT");
-        this.toastController.create();
         this.presentToast("Session Expired.....Logging out", "danger");
         this.router.navigateByUrl("/auth-screen");
-      } else {
-        console.log(res);
-
-        // Store the data in Capacitor storage
-        this.storage.setNotify("notifications", JSON.stringify(res));
-
-        // Perform functions on the retrieved data
-        this.notifications = res.map((notification) => {
-          const unread = !this.unreadNotifications.has(notification.id); // Check if notification is unread
-          if (!unread && !notification.readTime) {
-            // Check if notification is read for the first time
-            notification.readTime = new Date().toLocaleString(); // Set read time
-          }
-          return { ...notification, unread };
-        });
+        return; // Stop execution if session is expired
       }
-    });
+  
+      console.log(res);
+  
+      // Store the data in Capacitor storage
+      await this.storage.setNotify("notifications", JSON.stringify(res));
+  
+      // Get existing notifications from storage
+      const existingNotifications = await this.storage.getStoragex("notifications");
+  
+      if (existingNotifications && existingNotifications.value) {
+        // Parse existing notifications from storage
+        const storedNotificationsArray = JSON.parse(existingNotifications.value);
+  
+        // Filter out notifications that already exist in storage
+        const existingIds = storedNotificationsArray.map((notification: any) => notification.id);
+        const newNotifications = res.filter((notification: any) => !existingIds.includes(notification.id));
+  
+        // Add new notifications to the storage
+        if (newNotifications.length > 0) {
+          await this.storage.setNotify("notifications", JSON.stringify([...storedNotificationsArray, ...newNotifications]));
+        }
+      } else {
+        // No existing notifications found in storage, store the fetched notifications directly
+        await this.storage.setNotify("notifications", JSON.stringify(res));
+      }
+  
+      console.log(this.notifications);
+  
+      // Retrieve notifications from storage and update UI
+      await this.updateNotificationsFromStorage();
+  
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+      // Handle error gracefully (e.g., show error message to user)
+    }
   }
+  
+  
+  async updateNotificationsFromStorage() {
+    const storedNotifications = await this.storage.getStoragex("notifications");
+  
+    if (storedNotifications && storedNotifications.value) {
+      // Convert stored notifications back to an array
+      const storedNotificationsArray = JSON.parse(storedNotifications.value);
+  
+      // Perform mapping on the retrieved data
+      this.notifications = storedNotificationsArray.map((notification: any) => {
+        const unread = !this.unreadNotifications.has(notification.id);
+        if (!unread && !notification.readTime) {
+          notification.readTime = new Date().toLocaleString();
+        }
+        return { ...notification, unread };
+      });
+    }
+  }
+  
+  
+  
 
-  async notifyPr(notificationText: string, title: string) {
+  async notifyPr(notificationText: string, title: string, notificationId: string) {
     const imgSrc = "assets/svgs/default.svg";
 
+    // Mark notification as read
+    await this.markNotificationAsRead(notificationId);
+
     const modal = await this.modalController.create({
-      component: NotificationModalComponent,
-      componentProps: {
-        header: title,
-        message: notificationText,
-        imgSrc: imgSrc,
-      },
-      cssClass: "transaction-modal",
+        component: NotificationModalComponent,
+        componentProps: {
+            header: title,
+            message: notificationText,
+            imgSrc: imgSrc,
+        },
+        cssClass: "transaction-modal",
     });
 
     await modal.present();
-  }
+}
 
-  async initializeUnreadNotifications() {
+async markNotificationAsRead(notificationId: string) {
+  // Retrieve stored notifications
+  const storedNotifications = await this.storage.getStoragex("notifications");
+
+  if (storedNotifications && storedNotifications.value) {
+      // Convert stored notifications back to an array
+      const storedNotificationsArray = JSON.parse(storedNotifications.value);
+
+      // Find the notification with the matching ID
+      const notificationIndex = storedNotificationsArray.findIndex((notification: any) => notification.id === notificationId);
+
+      if (notificationIndex !== -1) {
+          // Mark notification as read and update its readTime
+          storedNotificationsArray[notificationIndex].unread = false;
+          storedNotificationsArray[notificationIndex].readTime = new Date().toLocaleString();
+
+          // Update the stored notifications in storage
+          await this.storage.setNotify("notifications", JSON.stringify(storedNotificationsArray));
+      }
+  }
+}
+
+
+async initializeUnreadNotifications() {
     const result = await this.storage.getStoragex("unreadNotifications");
     if (result && result.value) {
-      this.unreadNotifications = new Set<string>(JSON.parse(result.value));
+        this.unreadNotifications = new Set<string>(JSON.parse(result.value));
     } else {
-      // Initialize unreadNotifications if not found in storage
-      this.unreadNotifications = new Set<string>();
+        // Initialize unreadNotifications if not found in storage
+        this.unreadNotifications = new Set<string>();
     }
-  }
-
-  async markAsRead(item: any) {
-    item.unread = false;
-    this.unreadNotifications.delete(item.id);
-    await this.storage.setNotify(
-      "unreadNotifications",
-      JSON.stringify(Array.from(this.unreadNotifications))
-    );
-  }
+}  
 
   send() {
     this.router.navigateByUrl("/deposit");

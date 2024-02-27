@@ -38,7 +38,7 @@ export class VerifyPage implements OnInit {
   }
   
   selfie(){
-    this.router.navigateByUrl('/verification/selfie')
+    this.router.navigateByUrl('veri/selfie')
   }
   scan(){
     this.router.navigateByUrl('/verification/scan')

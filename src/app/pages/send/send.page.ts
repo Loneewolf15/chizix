@@ -358,17 +358,17 @@ ngOnDestroy(): void {
 }
 
 
-  //change style of current input
-  setFocused(){
-    for (let i = 1; i < 3; i++){
-      if((this.amount.length + 1) == i){
-        document.getElementById("amount" + i).style.background = "var(--ion-color-base)"
-      }
-    else {
-      document.getElementById("amount" + i).style.background = "var(--ion-color-base)"
-    }
-  }
-  }
+  // //change style of current input
+  // setFocused(){
+  //   for (let i = 1; i < 3; i++){
+  //     if((this.amount.length + 1) == i){
+  //       document.getElementById("amount" + i).style.background = "var(--ion-color-base)"
+  //     }
+  //   else {
+  //     document.getElementById("amount" + i).style.background = "var(--ion-color-base)"
+  //   }
+  // }
+  // }
 
 
   set(value: any) {
@@ -392,34 +392,36 @@ back(){
 
 
 
-
-// setFocusx() {
-//   for (let i = 1; i <= 4; i++) {
-//      const inputElem = document.getElementById("pin" + i);
-//     if (i <= this.pin.length) {
-//       inputElem.style.background = "var(--ion-color-dark)";
-//     } else {
-//       document.getElementById("pin" + i).style.background = "var(--ion-color-light)";
-//     }
-//   }
-// }
-
 setFocus() {
+  // Retrieve the color mode of the app
+  const appColorMode = document.body.classList.contains('dark') ? 'dark' : 'light';
+
   for (let i = 1; i <= 4; i++) {
     const inputElem = document.getElementById("pin" + i) as HTMLElement;
     if (inputElem) {
-      if (i <= this.pin.length) {
-        inputElem.style.background = "var(--ion-color-dark)";
+      // Check the color mode and set background color accordingly
+      if (appColorMode === 'dark') {
+        if (i <= this.pin.length) {
+          console.log('dark')
+          inputElem.style.background = "var(--ion-color-warning)";
+        } else {
+          inputElem.style.background = "var(--ion-color-white)";
+        }
       } else {
-        inputElem.style.background = "var(--ion-color-base)";
+        if (i <= this.pin.length) {
+          inputElem.style.background = "var(--ion-color-dark)";
+        } else {
+          inputElem.style.background = "var(--ion-color-light)";
+        }
       }
     }
   }
+
+  // Update parent element background based on pin length
   const parentElem = document.querySelector('.numberBox') as HTMLElement;
-  if (parentElem) {
-    parentElem.style.background = this.pin.length === 4 ? "var(--ion-color-base)" : "var(--ion-color-base)";
-  }
+  parentElem.style.background = this.pin.length === 4 ? "var(--ion-color-base)" : "var(--ion-color-base)";
 }
+
 
 
 

@@ -74,6 +74,17 @@ ion-modal ion-toolbar {
   --background:white;
   --color: white;
 }
+.notification-avatar {
+  position: relative; /* Make the container positioned */
+}
+
+.notification-indicator {
+  position: absolute; /* Position the icon absolutely */
+  top: -5px; /* Adjust top position to be slightly on the notification bell head */
+  right: -5px; /* Adjust right position to be slightly on the notification bell head */
+  font-size: 12px; /* Reduce the font size of the icon */
+}
+
 
 table {
   width: 100%;

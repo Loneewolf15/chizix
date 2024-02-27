@@ -1,12 +1,10 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { IonModal, ModalController, AnimationController, LoadingController, ToastController, AlertController } from '@ionic/angular';
-import { interval, Subscription } from 'rxjs';
-import { async } from '@angular/core/testing';
+import {  ModalController, AnimationController, LoadingController, ToastController, AlertController } from '@ionic/angular'
 import { finalize } from 'rxjs/operators';
 import { ToastService } from '../services/toast.service';
-
+import { TransactionStatusComponent } from 'src/app/transaction-status/transaction-status.component';
 @Component({
   selector: 'app-cwithdraw-modal',
   templateUrl: './cwithdraw-modal.component.html',
@@ -22,6 +20,9 @@ export class CwithdrawModalComponent implements OnInit {
  @Input() bankCode: string;
  @Input() formData: any;
  @Input() showGoBackButton: boolean;
+ header: any;
+ status: any;
+ message: any;
 
   constructor(private router: Router,
     private modalController: ModalController,
@@ -96,44 +97,51 @@ export class CwithdrawModalComponent implements OnInit {
 
   async presentWithdrawalAlert(status: string,  amount: any, title?: string, subtitle?: string) {
     let message: string;
+    let imgSrc: string;
     switch (status) {
       case 'successful':
         message = `You have successfully sent ${amount} to ${this.accountName}.`;
+        imgSrc = 'assets/imgs/success.png';
         break;
       case 'insuficient funds':
         message = `Your request to withdraw ${amount}  could not be completed due to insufficient funds in your account.`;
+        imgSrc = 'assets/imgs/failed.png';
         break;
       case 'failed':
         message = `Please enter an amount greater than ₦50.`;
+        imgSrc = 'assets/imgs/failed.png';
+        break;
+        case 'failedT':
+        message = 'An unknown error occurred!! Please try again later';
+        imgSrc = 'assets/imgs/failed.png';
         break;
       default:
         message = 'An unknown error occurred!! ${<br>} Please try again later';
+        imgSrc = 'assets/imgs/failed.png';
         break;
     }
   
-    const alert = await this.alertController.create({
-      header: title || 'Transaction Status',
-      subHeader: subtitle,
-      buttons: [{
-        text: 'Go Back',
-        cssClass: 'purple-button',
-        handler: () => {
-          if (status !== 'failed') {
-            this.router.navigateByUrl('/tabs');
-          }
-        }
-      }],
-      backdropDismiss: false,
-      cssClass: 'deposit-alert',
-      animated: true,
-      mode: 'ios',
-    
-      message: message,
+    this.header = title || 'Transaction Status';
+    this.status = status || 'Unknown';
+    this.amount = amount || '50';
+    this.message = message;
+  
+    const modal = await this.modalController.create({
+      component: TransactionStatusComponent,
+      componentProps: {
+        header: this.header,
+        status: this.status,
+        amount: this.amount,
+        message: this.message,
+        imgSrc: imgSrc,
+        subHeader: subtitle,
+      },
+      cssClass: 'transaction-modal',
     });
   
-    await alert.present();
+    await modal.present();
   }
-
+  
  async confirmWithdrawal(){
 
     const FormData = {
@@ -167,7 +175,6 @@ export class CwithdrawModalComponent implements OnInit {
          console.log('Hello mate'+ response.message)
          this.toastController.create()
          this.presentToast(response.message + ', Please fund your account and try again', 'danger');
-        // this.router.navigateByUrl('/tabs')
         this.presentWithdrawalAlert(response.message, ` ₦${FormData.amount}`, 'Incomplete Transaction');
          this.loadingCtl.dismiss();
        } else if(response.message === 'the amount is too small '){
@@ -176,8 +183,6 @@ export class CwithdrawModalComponent implements OnInit {
          this.presentToast(response.message, 'danger');
          this.presentWithdrawalAlert('failed', ` ₦${FormData.amount}`, 'Transaction Failed');
          console.log('Cameth hereAmount');
-         
-       //  this.router.navigateByUrl('/tabs')
          this.loadingCtl.dismiss();
        }
        
@@ -187,26 +192,21 @@ export class CwithdrawModalComponent implements OnInit {
          this.presentToast(response.message, 'success');
          this.presentWithdrawalAlert('successful', ` ₦${FormData.amount}`, 'Transaction Successful');
          console.log('Cameth here');
-         
-       //  this.router.navigateByUrl('/tabs')
          this.loadingCtl.dismiss();
-       } else{
+       } else if(response.message === "Transaction Failed"){
          this.toastController.create()
+         this.presentWithdrawalAlert('failedT', ` ₦${FormData.amount}`, 'Transaction Failed');
          this.presentToast(response.message, 'danger');
          this.router.navigateByUrl('/tabs')
          this.loadingCtl.dismiss();
        }
        console.log('I reach here')
-      // this.router.navigateByUrl('/auth-screen')
        this.loadingCtl.dismiss();
-     
-    // console.log(JSON.parse(data))
        }
       },
       (error) => {
         if(this.router.url === '/withdrawal'){
-             console.error('Could not complete your request try again!', error);
-      //  this.showOtpForm = true;
+             console.error('Could not complete your request try again!', error)
         this.toastService.showToast('Could not complete your request try again!')
         }
      

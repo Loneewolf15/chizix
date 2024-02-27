@@ -1,6 +1,6 @@
 
-<ion-header  color="dark">
-  <ion-toolbar color="dark" class="ty">
+<ion-header  >
+  <ion-toolbar  class="ty">
     <ion-buttons>
       <ion-back-button defaultHref="/tabs"></ion-back-button>
    </ion-buttons>
@@ -8,10 +8,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [style.visibility]="content_visibility" color="dark">
+<ion-content [style.visibility]="content_visibility" >
 
 
-  <ion-card class="ion-text-center ion-padding" color="dark">
+  <ion-card class="ion-text-center ion-padding" style="box-shadow: none;" >
 
     <ion-card-content [style.--background]="scanActive ? '#00000000' : '#fff'">
 
@@ -19,13 +19,13 @@
 
 
  <!-- Make the amount input editable and accept only numbers -->
- <ion-item lines="full" text-wrap class="item" color="dark">
-  <ion-label position="static" color="white">Amount</ion-label>
+ <ion-item lines="full" text-wrap class="item" >
+  <ion-label position="static" >Amount</ion-label>
   <ion-input type="" #inputField pattern="[0-9]*" inputmode="numeric" (ionChange)="logA()" [(ngModel)]="amount" class="cp" id="amount"></ion-input>
 </ion-item>
 
       <div class="trimm">
-        <ion-button class="extend" disabled shape="block" fill="clear" color="dark" color="dark" >
+        <ion-button class="extend" disabled shape="block" fill="clear"   >
      
         </ion-button>
       </div>
@@ -34,7 +34,7 @@
   </ion-card>
   
   
-  <ion-item lines="none" [inset]="true" color="dark" class="container">
+  <ion-item lines="none" [inset]="true"  class="container">
     <ion-avatar class="user-icon" slot="start">
       <ion-img *ngIf="selectedTag" [src]="'https://api.veluxpay.com/' + selectedTag.image"></ion-img>
       <ion-icon *ngIf="!selectedTag" name="person-circle"></ion-icon>
@@ -55,36 +55,16 @@
     </div>
 
   </ion-item>
-
-<br>
-<!-- 
-<div>
-     <ion-item (click)="showPicker = !showPicker" color="dark">
-        <ion-label>Date</ion-label>
-        <ion-text slot="end">
-          {{formattedString}}
-        </ion-text>
-      </ion-item>
-      <ion-datetime
-  *ngIf="showPicker"
-    #datetime
-  class="custom-datetime"
-  [value]="dateValue"
-  size="cover"
-  (ionChange)="dateChanged(datetime.value)"
-  showDefaultButtons="true"
-  (ionCancel)="showPicker = false;">
-</ion-datetime>
-</div> -->
    <br>
    <!-- modal date time holds here -->
-<ion-item id="date-modal" color="dark">
+<ion-item id="date-modal" >
   <ion-label>Date</ion-label>
   <ion-icon icon="calendar-outline" slot="start" color="warning"></ion-icon>
   <ion-text slot="end">
     {{formattedString}}
   </ion-text>
 </ion-item>
+
 <ion-modal trigger="date-modal" class="date-modal" [backdropDismiss]="false" [enterAnimation]="enterAnimation"
 [leaveAnimation]="leaveAnimation">
   <ng-template>
@@ -105,20 +85,36 @@
 
 </ion-modal>
 
-      
+
+<div class="date-time-container">
+ 
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="true" id="date-modal">
+      <ion-input label="Date" label-placement="floating" fill="outline"  type="text" readonly [value]="selectedDate" ></ion-input>
+    </ion-item>
+  </div>
+
+  <div class="ion-margin-vertical" id="date-modal">
+    <ion-item lines="true" id="date-modal">
+      <ion-input label="Time" label-placement="floating" fill="outline"  type="text" readonly [value]="selectedTime" ></ion-input>
+    </ion-item>
+  </div>
+</div>
+
    <!-- modal date time ends here -->
  
    <ion-modal #modal trigger="bat-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]">
     <ng-template>
       <ion-content>
-        <ion-searchbar placeholder="Search user tagname" [(ngModel)]="searchTerm" (ionChange)="filterTag()" (click)="modal.setCurrentBreakpoint(0.75)"></ion-searchbar>
-        <ion-list *ngIf="tagName?.length >= 1">
+        <ion-searchbar placeholder="Search user tagname" [(ngModel)]="searchTerm" (ionInput)="filterTag()" (click)="modal.setCurrentBreakpoint(0.75)"></ion-searchbar>
+        <ion-list *ngIf="tagName?.length >= 1 && searchTerm.length > 0">
           <ng-container *ngFor="let tag of filteredTags">
           <ion-item (click)="onTagSelect(tag)" *ngIf="tag.full_name !== userData?.loginData.full_name && tag.user_tag !== userData?.loginData.user_tag">
             <ion-avatar slot="start">
               <ion-img [src]="'https://api.veluxpay.com/' + tag.image"></ion-img>
             </ion-avatar>
-            <ion-label color="dark">
+            <ion-label>
               <h2>{{tag?.full_name}}</h2>
               <p>{{tag?.user_tag}}</p>
             </ion-label>
