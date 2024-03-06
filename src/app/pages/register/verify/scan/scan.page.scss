@@ -1,5 +1,4 @@
-ion-content {
-    ion-checkbox {
+ion-content {ion-checkbox {
     --size: 22px;
     --background-checked: #7E219E;
   }
@@ -11,19 +10,40 @@ ion-content {
 
     p{
         display: transparent;
-            font-weight: 80;
-            font-size: 1.0rem;
-            margin-bottom: 1rem;
-            margin-top: 0.6rem;
+            font-weight: 70;
+            font-size: 15px;
+            // margin-bottom: 1rem;
+            // margin-top: 0.6rem;
+    }
+    h1{
+       
+        font-family: 'B Proportional Bold';
+            font-style: 32px;
+            font-weight: bolder;
+    }
+ion-col{
+    padding: 2px;
+}h3{
+font-family: 'B Proportional Bold';
+font-style: normal;
+font-weight: bolder;
+
+}
+.bullet-point ion-icon {
+    font-size: 8px; /* Adjust the size of the bullet point */
+    color: #000; /* Adjust the color of the bullet point */
+  }
+  .email-link {
+    color: #7E219E;
+  }
+    p{
+        font-family: 'Avenir Next';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 16px;
     }
     div {
         margin-top: 2rem;
-        ion-item{
-            h3{
-                font-size: medium;
-                
-            }
-        }
         ion-avatar {
             border-radius: 50%;
             border: 1px solid var(--ion-color-tertiary);
@@ -32,24 +52,28 @@ ion-content {
         }
         ion-label {
             display: transparent;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
+            font-weight: 500;
+            font-size: 16px;
+            margin-bottom:1px;
             margin-top: 0.6rem;
         }
     }
 
     ion-list {
         background: transparent;
-        padding: 2rem 1.5rem 1rem 1.5rem;
         ion-item {
             --background: transparent;
             --border-style: dashed;
             --border-color: var(--ion-color-tertiary);
-            --padding-bottom: 1rem;
-            --padding-top: 1rem;
             --padding-start: 0;
             --padding-end: 0;
+            ion-text {
+                display: transparent;
+                font-weight: 500;
+                font-size: 16px;
+                margin-bottom:1px;
+                margin-top: 0.6rem;
+            }
             ion-toggle {
                 margin-right: -0.6rem;
             }
@@ -57,10 +81,163 @@ ion-content {
     }
 
     ion-button {
-        margin-top: 75%;
-        //color:#7E219E;
+        margin-top: 15%;
+     
         margin-right: 25%;
         margin-left: 25%;
         --border-radius: 10px;
     }
+    .signout{
+        color:var(--ion-color-danger);
+       // margin-top: 5vh;
+       ion-img{
+        padding-bottom:2px;
+       }
+    }
+
+   .ion{
+    padding-top: 3%;
+    padding-bottom: 1%;
+   }
+
+   ion-input[type="file"]{
+    color:aliceblue;
+    background-color: #fff;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding:10px;
+    font-size: 16px;
+    width: 200px;
+   }
+
+   ion-input[type="file"]::part(native) {
+    color:#fff;
+   }
 }
+/* Styles for the file upload component */
+.file-upload-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .file-upload {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .upload-icon {
+    font-size: 24px;
+    margin-right: 8px;
+  }
+  
+  .file-label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .file-preview {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .image-preview {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-right: 16px;
+  }
+  
+  .image-preview img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .file-details {
+    flex-grow: 1;
+  }
+  
+  .file-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .file-size {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .file-requirements-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  
+  .file-requirements {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .file-requirements li {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .submit-button {
+    margin-top: 20px;
+  }
+  
+  /* Additional styling can be added as needed */
+    /* Style for the file upload container */
+.file-upload {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  /* Style for the file upload icon */
+  .upload-icon {
+    font-size: 24px;
+    color: #4CAF50; /* Green color */
+  }
+  
+  /* Style for the file label */
+  .file-label {
+    font-size: 16px;
+    color: #333; /* Dark gray color */
+    margin-left: 10px;
+  }
+  
+  /* Hover effect for the file upload container */
+  .file-upload:hover .upload-icon,
+  .file-upload:hover .file-label {
+    color: #2E8B57; /* Sea green color */
+  }
+  
+  /* Style for the file input (hidden) */
+  .file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  

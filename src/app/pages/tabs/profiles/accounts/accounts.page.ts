@@ -111,7 +111,10 @@ if (this.userImage) {
       console.log(imageFile)
       let imageData = new FormData();
       imageData.append('image', imageFile)
+      console.log(imageData)
+      console.log(imageFile)  
       this.uploadData(imageData);
+
     }
     catch(e){}
   }

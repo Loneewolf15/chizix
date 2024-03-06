@@ -8,6 +8,7 @@ import {from, Observable} from 'rxjs'
 
 export const INTRO_KEY = 'intro-card';
 export const APP_TOKEN = 'app-token'
+export const LOGIN_KEY = 'login-card';
 
 @Injectable({
   providedIn: 'root'

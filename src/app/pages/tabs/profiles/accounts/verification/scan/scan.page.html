@@ -8,66 +8,40 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- 
-<ion-content>
-
-<ion-list>
-
-<div>
-   <ion-item lines="none">
-    <ion-input type="file"></ion-input>
-  </ion-item>
-</div>
- 
-  
-   
-  <ion-item lines="none">
-     <h3 class="ion-text-left ion-padding ion-no-margin">Please ensure that the file matches the following:</h3>
-  </ion-item>
-
-  <ion-item lines="none">
-      <ion-text class="ion-text-justify">• The image is not blur to ensure proper verification <br> </ion-text>
-  </ion-item>
-  
-  <ion-item lines="none">
-
-    <ion-text class="ion-text-justify">• The information on the ID can be read easily</ion-text>
-  </ion-item>
-
-
-      <ion-button shape="block" color="medium" (click)="upload">Submit</ion-button>
-
-  
-</ion-list>
-
-</ion-content> -->
-
-
 <ion-content class="ion-padding">
+  <form class="file-upload-form">
+    <label *ngIf="!selectedFile" class="file-upload">
+      <input type="file" (change)="onFileChange($event)" hidden>
+      <ion-icon name="cloud-upload-outline" class="upload-icon"></ion-icon>
+      <span class="file-label">Select File</span>
+    </label>
+    
+    
+    <!-- Display selected file information -->
+    <div *ngIf="selectedFile" class="file-preview">
+      <div class="image-preview">
+        <img [src]="selectedFileDataUrl" alt="Selected Image">
+      </div>
+      <div class="file-details">
+        <p class="file-name">{{ selectedFile.name }}</p>
+        <p class="file-size">{{ formatFileSize(selectedFile.size) }}</p>
+      </div>
+    </div>
 
-  <ion-item class="ion" lines="none">
-    <ion-input type="file"></ion-input>
-  </ion-item>
-  
-<!-- <br> -->
-  <h5 class="ion-padding">Please ensure that the file matches the following:</h5>
- <p>
-    <ion-list>
-      <ion-item class="bullet-point" lines="none">
-        <ion-icon name="ellipse" slot="start"></ion-icon>
-        <ion-text class="ion-text-justify">The image is not blur to ensure proper verification</ion-text>
-      </ion-item>
-      <ion-item  class="bullet-point" lines="none">
+    <h5 class="ion-padding file-requirements-title">Please ensure that the file matches the following:</h5>
+    <ul class="file-requirements">
+      <li>
+        <ion-item class="bullet-point" lines="none">
+          <ion-icon name="ellipse" slot="start"></ion-icon>
+          <ion-text class="ion-text-justify">The image must be clear and not blurred</ion-text>
+        </ion-item>
+      </li>
+      <li>  <ion-item  class="bullet-point" lines="none">
         <ion-icon name="ellipse" slot="start"></ion-icon>
         <ion-text>The information on the ID can be read easily</ion-text>
-      </ion-item>
-      
-    </ion-list>
-  </p>
-  
-    <ion-button shape="block" color="medium" (click)="upload($event)">Submit</ion-button>
+      </ion-item></li>
+    </ul>
     
-  
-
- 
+    <ion-button shape="block" color="warning" class="submit-button" (click)="upload($event)">Submit</ion-button>
+  </form>
 </ion-content>

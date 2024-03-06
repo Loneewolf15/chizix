@@ -1,28 +1,33 @@
 <ion-content [fullscreen]="true">
-  <ion-card class="ion-no-margin">
-    <ion-img src="assets/images/manage.png" class="manage"></ion-img>
-    <ion-card-header>
-      <h1 class="ion-text-center ion-text-wrap">
-        Your <br />
-        Payments <br />
-        Easily
-      </h1>
+  <div class = "down">
+    <ion-card class="ion-no-margin">
+      <ion-img src="assets/images/manage.png" class="manage"></ion-img>
+      <ion-card-header>
+        <h1 class="ion-text-center ion-text-wrap">
+          Your <br />
+          Payments <br />
+          Easily
+        </h1>
 
-      <br />
+        <br />
 
-      <p class="ion-text-center" color="light">
-        Keep your finance in the app <br />
-        Send, Receive and Pay at ease
-      </p>
-    </ion-card-header>
-    <ion-card-content>
-      <!-- <a href="auth-screen">  -->
-      <!-- <div class="chevron-button ion-text-center" (click)="goToLogin()"> -->
-      <div class="chevron-button transformButton" (click)="goToLogin()">
-        <!-- <ion-img src="assets/images/chevron-forward.png"></ion-img> -->
-        <ion-icon color="warning" name="chevron-forward-circle-outline"></ion-icon>
-      </div>
-      <!-- </a> -->
-    </ion-card-content>
-  </ion-card>
+        <p class="ion-text-center" color="light">
+          Keep your finance in the app <br />
+          Send, Receive and Pay at ease
+        </p>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- <a href="auth-screen">  -->
+        <!-- <div class="chevron-button ion-text-center" (click)="goToLogin()"> -->
+        <div class="chevron-button transformButton" (click)="goToLogin()">
+          <!-- <ion-img src="assets/images/chevron-forward.png"></ion-img> -->
+          <ion-icon
+            color="warning"
+            name="chevron-forward-circle-outline"
+          ></ion-icon>
+        </div>
+        <!-- </a> -->
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

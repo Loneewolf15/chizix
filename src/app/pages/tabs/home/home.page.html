@@ -15,7 +15,8 @@
         <img [src]="isDarkMode ? 'assets/icon/notification-icon.png' : 'assets/icon/notification-iconx.png'" alt="notification icon">
       
         <!-- Red ellipse icon (conditional) -->
-        <ion-icon *ngIf="notifications && notifications.length > 0" name="ellipse" color="warning" class="notification-indicator"></ion-icon>
+        <ion-badge *ngIf="hasUnreadNotifications(notifications)" color="warning" class="notification-indicator circular-badge">{{ unreadNotificationCount(notifications) }}</ion-badge>
+
       </ion-avatar>
             
       <!-- <ion-avatar slot="end" (click)="setOpenN(true)">
@@ -83,8 +84,8 @@
                 <ion-icon *ngIf="item.unread !== false" slot="start" color="warning" class="iconx" name="ellipse"></ion-icon>
                 <ion-label>
                     <h2>{{ item.headers }}</h2>
-                    <p *ngIf="item.unread">New message on {{ item.date }}</p>
-                    <p *ngIf="!item.unread">Message read on {{ item.readTime }}</p>
+                    <p *ngIf="item.unread !== false">New message on {{ item.date }}</p>
+                    <p *ngIf="item.unread === false">Message read on {{ item.readTime }}</p>
                 </ion-label>
             </ion-item>
             

@@ -1,14 +1,23 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, NO_ERRORS_SCHEMA, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import {  ModalController, AnimationController, LoadingController, ToastController, AlertController } from '@ionic/angular'
+import {  ModalController, AnimationController, LoadingController, ToastController, AlertController, IonicModule } from '@ionic/angular'
 import { finalize } from 'rxjs/operators';
 import { ToastService } from '../services/toast.service';
 import { TransactionStatusComponent } from 'src/app/transaction-status/transaction-status.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-cwithdraw-modal',
   templateUrl: './cwithdraw-modal.component.html',
   styleUrls: ['./cwithdraw-modal.component.scss'],
+  standalone:true,
+  imports:[
+    CommonModule,
+    FormsModule,
+    IonicModule,
+  ],
+    schemas:[NO_ERRORS_SCHEMA],
 })
 export class CwithdrawModalComponent implements OnInit {
  // @ViewChild('modalx') modalx: IonModal;
@@ -21,13 +30,20 @@ export class CwithdrawModalComponent implements OnInit {
  @Input() formData: any;
  @Input() showGoBackButton: boolean;
  header: any;
+ isModalOpen = false;
+ pin: any = "";
  status: any;
+ content_visibility = '';
  message: any;
+isLoading = false;
+ userImage: any;
 
   constructor(private router: Router,
     private modalController: ModalController,
     private loadingCtl: LoadingController,
     private toastController: ToastController,
+    private modalCtrl: ModalController,
+    private toastCtrl: ToastController,
     private animationCtrl: AnimationController,
     private authService: AuthService,
     private toastService: ToastService,
@@ -38,7 +54,17 @@ export class CwithdrawModalComponent implements OnInit {
 
   ngOnInit(
    
-  ) {}
+  ) {
+
+this.getImage();
+  }
+
+  getImage() {
+    const storedImage = localStorage.getItem('userImage');
+    if (storedImage) {
+      this.userImage = JSON.parse(storedImage);
+    }
+    }
 
   yes() {
     this.modalController.dismiss();
@@ -47,6 +73,24 @@ export class CwithdrawModalComponent implements OnInit {
   Close() {
     this.modalController.dismiss();
   }
+
+
+setOpenx(isOpen: boolean) {
+  console.log('Here')
+  if(this.router.url !== '/withdrawal'){
+    this.isModalOpen = false;
+  }
+  else{
+    this.isModalOpen = isOpen;
+  this.pin = "";
+  this.setFocus();
+  }
+
+}
+
+closeModal() {
+  this.setOpenx(false);
+}
 
 
   enterAnimation = (baseEl: HTMLElement) => {
@@ -95,6 +139,60 @@ export class CwithdrawModalComponent implements OnInit {
     await loading.present();
   }
 
+setFocus() {
+  // Retrieve the color mode of the app
+  const appColorMode = document.body.classList.contains('dark') ? 'dark' : 'light';
+
+  for (let i = 1; i <= 4; i++) {
+    const inputElem = document.getElementById("pin" + i) as HTMLElement;
+    if (inputElem) {
+      // Check the color mode and set background color accordingly
+      if (appColorMode === 'dark') {
+        if (i <= this.pin.length) {
+          console.log('dark')
+          inputElem.style.background = "var(--ion-color-warning)";
+        } else {
+          inputElem.style.background = "var(--ion-color-white)";
+        }
+      } else {
+        if (i <= this.pin.length) {
+          inputElem.style.background = "var(--ion-color-dark)";
+        } else {
+          inputElem.style.background = "var(--ion-color-light)";
+        }
+      }
+    }
+  }
+
+  // Update parent element background based on pin length
+  const parentElem = document.querySelector('.numberBox') as HTMLElement;
+  parentElem.style.background = this.pin.length === 4 ? "var(--ion-color-base)" : "var(--ion-color-base)";
+}
+
+
+sett(number){
+  this.pin += number;
+  this.setFocus();
+  
+  if(this.pin.length == 4){
+  this.presentLoading('Validating...', 'crescent')
+  this.checkPin()
+  }
+  }
+
+
+clear1(){
+  this.pin = "";
+  this.setFocus();
+  }
+  
+  //backspace last pin and focus on input
+  back1(){
+  this.pin = this.pin.slice(0, -1);
+  this.setFocus();
+  }
+  
+
   async presentWithdrawalAlert(status: string,  amount: any, title?: string, subtitle?: string) {
     let message: string;
     let imgSrc: string;
@@ -142,6 +240,15 @@ export class CwithdrawModalComponent implements OnInit {
     await modal.present();
   }
   
+
+
+
+hideLoader() {
+  if(this.isLoading) this.isLoading = false;
+  return this.loadingCtl.dismiss()
+  .then(() => console.log('dismissed'))
+  .catch(e => console.log(e));
+  }
  async confirmWithdrawal(){
 
     const FormData = {
@@ -214,6 +321,87 @@ export class CwithdrawModalComponent implements OnInit {
     );
     this.loadingCtl.dismiss();
         }
+
+        checkPin(){
+          setTimeout(()=>{
+          this.loadingCtl.dismiss();
+          
+          if (this.pin.length === 4) {
+            console.log(this.pin);
+            const data = {transferPin: this.pin}
+            console.log('I am '+ data)
+            this.authService.checkPin(data).subscribe(
+             async (response : any) => {
+                console.log(response);
+                // if(response.message === "Signature verification failed" || "Session has expired."){
+                //   this.toastController.create()
+                //   this.presentToast('Session Expired.....Logging out', 'danger');
+                //   this.router.navigateByUrl('/auth-screen');
+                // }
+                // else{
+                
+          if(response === "correct pin" ){
+          const toasty = await this.toastCtrl.create({
+          message: 'Pin is Valid.',
+          duration: 3000,
+          position: 'bottom'
+          });
+          //toasty.present();
+          this.loadingCtl.dismiss();
+          
+          
+                this.hideLoader();
+            this.modalCtrl.dismiss(response);
+          //  this.presentLoading('Processing...', 'circular')
+            this.isModalOpen = false;
+          this.confirmWithdrawal()
+          //this.router.navigateByUrl('/auth-screen')
+          this.loadingCtl.dismiss();
+          } else{  
+            this.isModalOpen = false;
+            const toast = await this.toastCtrl.create({
+            
+              message: 'Invalid User Pin. Please try again.',
+              duration: 2000,
+              position: 'bottom',
+              color: 'danger'
+            });
+            toast.present();
+            //this.router.navigateByUrl('/tabs')
+            console.log('Hello Dickson')
+            //this.router.navigateByUrl('/tabs')
+            this.loadingCtl.dismiss();
+            this.hideLoader();
+            this.modalCtrl.dismiss(data);
+            console.log('I am here')
+            //this.router.navigateByUrl('/auth-screen')
+            this.loadingCtl.dismiss();
+            this.isModalOpen = false;
+          }
+              },
+            async (error) => {
+                console.log(error);
+                const toast = await this.toastCtrl.create({
+                  message: 'Invalid User Pin. Please try again.',
+                  duration: 2000,
+                  position: 'bottom',
+                  color: 'danger'
+                });
+                toast.present();
+                //this.router.navigateByUrl('/tabs')
+                this.hideLoader();
+                this.modalCtrl.dismiss(data);
+                this.loadingCtl.dismiss();
+                this.isModalOpen = false;
+              }
+          
+             
+            );
+          }
+          
+          }, 2000);
+          this.loadingCtl.dismiss();
+          }
 
       }
  

@@ -34,8 +34,11 @@
           <ng-container *ngFor="let selectedTag of selectedTags.slice(-4); let i = index;">
             <ion-col size="3" (click)="onSelectedTagClick(selectedTag)">
               <ion-avatar>
-                <ion-img [src]="'https://api.veluxpay.com/' + selectedTag.image"></ion-img>
+                <ion-img *ngIf="selectedTag?.image !== '0' && selectedTag?.image !== null && selectedTag?.image !== undefined && selectedTag?.image !== ''" [src]="'https://api.veluxpay.com/' + selectedTag?.image"></ion-img>
+                <ion-img *ngIf="selectedTag?.image === '0' || selectedTag?.image === null || selectedTag?.image === undefined || selectedTag?.image === ''" src="assets/images/avatar.png" alt="Dummy Image"></ion-img>
               </ion-avatar>
+              
+                            
               <ion-label>
                 <ion-text>{{ selectedTag.full_name }}</ion-text><br>
                 <ion-note>{{ selectedTag.user_tag }}</ion-note>
@@ -61,6 +64,17 @@
         <!-- Display the list of filtered tags -->
         <ion-list *ngIf="filteredTags && filteredTags.length > 0 && searchTerm.length > 0">
   <ion-item *ngFor="let tag of filteredTags" (click)="onTagSelect(tag)">
+    <ion-avatar slot="start">
+      <ion-img
+      *ngIf="tag?.image !== '0' && tag?.image !== null && tag?.image !== undefined && tag?.image !== ''"
+      [src]="'https://api.veluxpay.com/' + tag?.image"
+    ></ion-img>
+    <ion-img
+      *ngIf="tag?.image === '0' || tag?.image === null || tag?.image === undefined || tag?.image === ''"
+      src="assets/images/avatar.png"
+      alt="Dummy Image"
+    ></ion-img>
+    </ion-avatar>
     <ion-label>
       <h2>{{ tag.full_name }}</h2>
       <p>{{ tag.user_tag }}</p>
@@ -155,8 +169,9 @@
     
         <div align="center" >
           <ion-avatar class="avatar-large">
-            <img *ngIf="userImage" [src]="'https://api.veluxpay.com/' + userImage" alt=""/>
-            <img *ngIf="!userImage" src="assets/images/avatar.png" alt="Dummy Image"/>
+            <img *ngIf="userImage" [src]="'https://api.veluxpay.com/' + userImage" alt="" />
+            <img *ngIf="!userImage" src="assets/images/avatar.png" alt="Dummy Image" />
+            <img *ngIf="userImage === 0" src="assets/images/avatar.png" alt="Dummy Image" />
           </ion-avatar>
         </div>
       <div class="numberBox">

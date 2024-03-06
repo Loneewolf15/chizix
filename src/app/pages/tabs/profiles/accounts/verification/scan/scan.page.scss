@@ -114,3 +114,130 @@ font-weight: bolder;
     color:#fff;
    }
 }
+/* Styles for the file upload component */
+.file-upload-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .file-upload {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .upload-icon {
+    font-size: 24px;
+    margin-right: 8px;
+  }
+  
+  .file-label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .file-preview {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .image-preview {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-right: 16px;
+  }
+  
+  .image-preview img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .file-details {
+    flex-grow: 1;
+  }
+  
+  .file-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .file-size {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .file-requirements-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  
+  .file-requirements {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .file-requirements li {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .submit-button {
+    margin-top: 20px;
+  }
+  
+  /* Additional styling can be added as needed */
+    /* Style for the file upload container */
+.file-upload {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  /* Style for the file upload icon */
+  .upload-icon {
+    font-size: 24px;
+    color: #4CAF50; /* Green color */
+  }
+  
+  /* Style for the file label */
+  .file-label {
+    font-size: 16px;
+    color: #333; /* Dark gray color */
+    margin-left: 10px;
+  }
+  
+  /* Hover effect for the file upload container */
+  .file-upload:hover .upload-icon,
+  .file-upload:hover .file-label {
+    color: #2E8B57; /* Sea green color */
+  }
+  
+  /* Style for the file input (hidden) */
+  .file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  

@@ -255,8 +255,6 @@ if(this.router.url === '/withdrawal'){
       
 
       bankName: new FormControl(null, {validators: [Validators.required]}),
-      //bankCode: new FormControl(null, ),
-      // tagname: new FormControl(null, {validators: [Validators.required]}),
       email: new FormControl(null, {validators: [Validators.required]}),
       accountName: new FormControl(null, {validators: [Validators.required]}),
       accountNumber: new FormControl(null, {validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)]}),

@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthConstants } from '../config/auth-constants';
 
 import { HttpService } from './http.service';
-import { INTRO_KEY, PreferencesService } from './storage.service';
+import { INTRO_KEY, LOGIN_KEY, PreferencesService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -296,6 +296,12 @@ validate(formData: any): Observable<any>{
 
   return this.httpService.posti('/users/selfieValidate', formData);
 }
+
+////Image validator userImage
+validaten(formData: any): Observable<any>{
+
+  return this.httpService.posti('/users/ninvalidate', formData);
+}
 ////Image validator userImage
 storePushToken(formData: any): Observable<any>{
 
@@ -337,7 +343,18 @@ async IntroGuard(){
     return true;
   } else {
     this.router.navigateByUrl('/intro', {replaceUrl: true});
+    return false;
+  }
+
+}
+
+async vGuard(){
+  const hasNotLogin = await this.preferences.getPreference(LOGIN_KEY);
+  if(hasNotLogin && hasNotLogin.value == 'true') {
     return true;
+  } else {
+    this.router.navigateByUrl('/register/veri', {replaceUrl: true});
+    return false;
   }
 
 }

@@ -264,55 +264,30 @@ this.modalController.dismiss();
 }
 
 
-onTagSelectMass(tag: any) {
-const existingTag = this.selectedTags.find(selectedTag => selectedTag.user_tag === tag.user_tag);
-if (!existingTag) {
-  this.selectedTags.push(tag);
-  console.log("Tag added:", tag);
-} else {
-  console.log("Tag already selected:", tag);
-}
-}
 
-///Logic to remove selected user when user click
-onSelectedTagClick(selectedTag: any) {
-this.selectedTags = this.selectedTags.filter(tag => tag.user_tag !== selectedTag.user_tag);
-console.log("Tag removed:", selectedTag);
-}
 
-///filter the tagname on search here 
-
-filterTagx() {
-console.log(this.filteredTags)
-if (!Array.isArray(this.tagName)) {
-  return; // handle error condition
-}
-this.filteredTags = this.tagName.filter(tag => tag.full_name.toLowerCase().includes(this.searchTerm.toLowerCase()));
-this.filteredTags = this.tagName.filter(tag => tag.user_tag.toLowerCase().includes(this.searchTerm.toLowerCase()));
-
-}
 
 filterTag() {
-console.log(this.filteredTags);
-if (!Array.isArray(this.tagName)) {
-  return; // handle error condition
-}
-this.filteredTags = this.tagName.filter(
-  (tag) =>
-    tag.full_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-    tag.user_tag.toLowerCase().includes(this.searchTerm.toLowerCase())
-);
+  console.log(this.filteredTags);
+  if (!Array.isArray(this.tagName)) {
+    return; // handle error condition
+  }
+
+  // Check if the length of the searchTerm is at least 4 characters
+  if (this.searchTerm.length >= 4) {
+    this.filteredTags = this.tagName.filter(
+      (tag) =>
+       // tag.full_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        tag.user_tag.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  } else {
+    // If the length is less than 4, reset the filteredTags array
+    this.filteredTags = [];
+  }
 }
 
-searchx(event) {
-const query = event.detail.value;
-console.log(query)
-if (query !== '') {
-  this.filteredTags = this.tagName.filter(tag => tag.includes(query));
-} else {
-  this.results = [];
-}
-}
+
+
 
 search(event) {
 const query = event.detail.value;
@@ -342,9 +317,6 @@ getTagname(){
       else{
 console.log(response)
         this.tagName = response;
-//this.arrayData = JSON.parse(response.plans);
-//this.filteredOptions = this.plans
-//const data = this.plans userData?.loginData.user_tag
         ///logic goes here 
         for(let res of response){
           console.log(res.full_name)

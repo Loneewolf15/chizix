@@ -179,7 +179,7 @@
             [src]="'assets/imgs/' + (transaction?.sender_tagname === userData?.user_tag ? 'sent.png' : 'received.png')" />
         </ion-thumbnail>
           <ion-label>
-            <ion-text>{{transaction?.to}}</ion-text>
+            <ion-text>{{transaction?.sender_name}}</ion-text>
             <p>
               <ion-text>
                 {{transaction?.date | date: 'MMM d, y'}}
@@ -188,16 +188,10 @@
           </ion-label>
             <!-- Inapp transaction amount and time -->
             <ion-text class="transaction-text amount-text-right" slot="end"
-              *ngIf="transaction?.sender_tagname === userData?.user_tag && transaction.transaction_type === 'inapp'"
-              color="danger">
-              {{ '-₦' + formatAmountWithCommas(transaction.amount) }} <br>
-              <ion-note color="white">{{ transaction?.date | date: 'hh:mm a' }}</ion-note>
-            </ion-text>
-            <ion-text class="transaction-text amount-text-right" slot="end"
               *ngIf="transaction.sender_tagname !== userData?.user_tag && transaction.transaction_type === 'inapp'"
               color="success">
               {{ '₦' + formatAmountWithCommas(transaction.amount) }} <br>
-              <ion-note color="white">{{ transaction?.date | date: 'hh:mm a' }}</ion-note>
+              <ion-note color="light">{{ transaction?.date | date: 'hh:mm a' }}</ion-note>
             </ion-text>
 
         </ion-item>
@@ -223,16 +217,10 @@
           <ion-item  class="ion-receipt-header" lines="'none">
             <ion-label class="receipt-header">
               <img src="assets/images/pay_success.png" alt="Transaction receipt">
-              <!-- sent to another user -->
-              <ng-container
-                *ngIf="selectedTransaction?.sender_tagname === userData?.user_tag 
-                && selectedTransaction.transaction_type === 'inapp'">
-                <h3>Payment Successful</h3>
-              </ng-container>
+              
               <!-- received from another user -->
               <ng-container
-                *ngIf="selectedTransaction?.sender_tagname !== userData?.user_tag 
-                && selectedTransaction.transaction_type === 'inapp'">
+                *ngIf="selectedTransaction?.sender_tagname !== userData?.user_tag && selectedTransaction?.transaction_type === 'inapp'">
                 <h3>Received </h3>
               </ng-container>
             </ion-label>
@@ -272,46 +260,13 @@
                     </tr>
                   </ng-container>
                   <ng-container
-                    *ngIf="selectedTransaction?.sender_tagname !== userData?.loginData.user_tag && selectedTransaction.transaction_type === 'inapp'">
+                  *ngIf="selectedTransaction?.sender_tagname !== userData?.user_tag && selectedTransaction?.transaction_type === 'inapp'">
                     <tr class="transac-details">
                       <td>Sender Name</td>
                       <td>{{ selectedTransaction.receiver_tagname === userData?.loginData.user_tag ?
                         selectedTransaction.receiver_name : selectedTransaction.receiver_name }}</td>
                     </tr>
                   </ng-container>
-
-                  <ng-container
-                    *ngIf="selectedTransaction.transaction_type === 'withdrawal'">
-                    <tr class="transac-details">
-                      <td>Bank Name</td>
-                      <td>{{ selectedTransaction.bankname }}</td>
-                    </tr>
-                  </ng-container>
-
-                  <ng-container
-                  *ngIf="selectedTransaction.transaction_type === 'withdrawal'">
-                  <tr class="transac-details">
-                    <td>Account Name</td>
-                    <td>{{ selectedTransaction.accountname }}</td>
-                  </tr>
-                </ng-container>
-
-                  <ng-container
-                  *ngIf="selectedTransaction.transaction_type === 'withdrawal'">
-                  <tr class="transac-details">
-                    <td>Account Number</td>
-                    <td>{{ selectedTransaction.receiver_tagname === userData?.loginData.user_tag ?
-                      selectedTransaction.receiver_name : selectedTransaction.receiver_name }}</td>
-                  </tr>
-                </ng-container>
-
-                <ng-container
-                *ngIf="selectedTransaction.transaction_type === 'debit'">
-                <tr class="transac-details">
-                  <td>Service Provider</td>
-                  <td>{{ selectedTransaction.vtupackage.toUpperCase() }}</td>
-                </tr>
-              </ng-container>
 
                   <!-- Add more conditionals for other transaction types -->
 

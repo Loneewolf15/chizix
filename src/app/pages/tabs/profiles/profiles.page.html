@@ -9,6 +9,7 @@
       <ion-avatar class="user-img-size" slot="start">
         <img *ngIf="userImage" [src]="'https://api.veluxpay.com/' + userImage" alt="" />
         <img *ngIf="!userImage" src="assets/images/avatar.png" alt="Dummy Image" />
+        <img *ngIf="userImage === 0" src="assets/images/avatar.png" alt="Dummy Image" />
       </ion-avatar>
       <ion-label class="heading-bold" >{{ userData?.loginData.full_name }}
         <br>
@@ -79,11 +80,8 @@
       
       <ion-item  lines="none"  detail="false" text-wrap>
         <ion-icon name="moon" color="warning" slot="start"></ion-icon>
-        <ion-label> <h2>
-         Dark Theme
-        </h2></ion-label>
-        <ion-toggle slot="end" mode="ios" [checked]="darkMode"
-          (ionChange)="toggleDarkMode()">
+        <ion-toggle [enableOnOffLabels]="true" justify="space-between" color="warning" [checked]="true" mode="ios" [checked]="darkMode"
+          (ionChange)="toggleDarkMode()">Dark Theme
         </ion-toggle>
       </ion-item>
   <br>

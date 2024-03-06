@@ -80,10 +80,22 @@ ion-modal ion-toolbar {
 
 .notification-indicator {
   position: absolute; /* Position the icon absolutely */
-  top: -5px; /* Adjust top position to be slightly on the notification bell head */
-  right: -5px; /* Adjust right position to be slightly on the notification bell head */
-  font-size: 12px; /* Reduce the font size of the icon */
+  top: -8px; /* Adjust top position to be slightly on the notification bell head */
+  right: -8.7px; /* Adjust right position to be slightly on the notification bell head */
+  font-size: 9px; /* Reduce the font size of the icon */
+  --background: transparent;
 }
+
+.circular-badge {
+  width: 18px; /* Adjust the width and height to make the badge circular */
+  height: 18px; /* Adjust the width and height to make the badge circular */
+  border-radius: 50%; /* Make the badge circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* Remove padding to maintain circular shape */
+}
+
 
 
 table {

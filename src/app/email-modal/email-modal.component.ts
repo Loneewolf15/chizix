@@ -34,7 +34,7 @@ export class EmailModalComponent implements OnInit {
 
   yes() {
     this.modalController.dismiss();
-    this.router.navigateByUrl('/register/veri')
+    this.router.navigateByUrl('/auth-screen')
   }
 
   enterAnimation = (baseEl: HTMLElement) => {

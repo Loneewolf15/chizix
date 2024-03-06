@@ -14,29 +14,44 @@
 
   
   <ion-content id="zone"  fullscreen>
-    
-    <ion-item color="tertiary"  lines="none" (click)="selfie()" detail="false">
+    <ion-item color="tertiary" lines="none" [disabled]="uploadSuccess || imgValidation > 0" (click)="selfie()" detail="false">
       <ion-icon slot="start" name="person-circle-outline"></ion-icon>
       <ion-label>
         <h2 class="ion-text-left">Take Selfie</h2>
-      <p class="ion-text-justify no-wrap">
-       A clear picture of you on<br> a plain background
-      </p>
+        <p class="ion-text-justify no-wrap">
+          A clear picture of you on<br> a plain background
+        </p>
       </ion-label>
-      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      <ion-icon *ngIf="imgValidation === 1" name="checkmark-circle" color="success" slot="end"></ion-icon>
+      <ion-icon *ngIf="uploadSuccess || imgValidation > 0 && imgValidation !== 1" 
+        class="hourglass-icon"
+        name="hourglass" 
+        color="success" 
+        slot="end">
+    </ion-icon>
+
+      <ion-icon *ngIf="imgValidation === 0" name="chevron-forward-outline" slot="end"></ion-icon>
     </ion-item>
-  
-  
-    <ion-item color="tertiary"  lines="none" (click)="scan()" detail="false" >
-      <ion-icon slot="start" name="document-text"></ion-icon>
-       
-      <ion-label>
-       <h2>Scan ID</h2>
-       <ion-text>NIMC Slip</ion-text>
-     </ion-label>
-      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
     
-    </ion-item>
+  
+    <ion-item color="tertiary" lines="none" [disabled]="scanSuccess || ninValidation > 0" (click)="scan()" detail="false">
+      <ion-icon slot="start" name="document-text"></ion-icon>
+      <ion-label>
+        <h2>Scan ID</h2>
+        <ion-text>NIMC Slip</ion-text>
+      </ion-label>
+      <ion-icon *ngIf="ninValidation === 1" name="checkmark-circle" color="success" slot="end"></ion-icon>
+      <ion-icon *ngIf="scanSuccess || ninValidation > 0 && ninValidation !== 1" 
+      class="hourglass-icon"
+      name="hourglass" 
+      color="success" 
+      slot="end">
+</ion-icon>
+
+      <ion-icon *ngIf="ninValidation === 0" name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item> 
+
+    
   </ion-content>
   
 </ion-content >

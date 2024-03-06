@@ -6,6 +6,7 @@ import { AlertController, Platform, ToastController, IonRouterOutlet, ActionShee
 import { Router } from '@angular/router';
 import { InactivityService } from './services/inactivity.service';
 import { ToastService } from './services/toast.service';
+import { NativeAudio } from '@capacitor-community/native-audio';
 import { App } from '@capacitor/app';
 
 import { CommonModule, Location } from '@angular/common';
@@ -53,9 +54,26 @@ export class AppComponent {
       console.log(e)
     });
     // this.initializeApp();
+
+    this.preloadAudio();
   }
 
   
+  async preloadAudio() {
+    try {
+      let path = 'notification.wav';
+      if(Capacitor.getPlatform() == 'ios') path = 'sounds/' + path;
+      await NativeAudio.preload({
+        assetId: "notification",
+        assetPath: path,
+        audioChannelNum: 1,
+        isUrl: false
+      });
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
 
 exitAppOnAlert() {
   if(Capacitor.getPlatform() == 'android') {

@@ -1,12 +1,13 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController, ModalController, IonicModule } from '@ionic/angular';
+import { ToastController, ModalController, IonicModule, AnimationController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { PreferencesService } from 'src/app/services/storage.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { Preferences } from "@capacitor/preferences";
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -30,6 +31,7 @@ export class TransactionsPage implements OnInit {
   userData: any;
   selectedTransaction: any;
   isModalOpen = false;
+  isDarkMode = true;
   segmentValue = 'in';
 
   constructor(
@@ -37,6 +39,7 @@ export class TransactionsPage implements OnInit {
     public router : Router,
     private toastController: ToastController,
     private storage: PreferencesService,
+    private animationCtrl: AnimationController,
     private toastService: ToastService,
     private datePipe: DatePipe,
     private modalController: ModalController,
@@ -44,6 +47,8 @@ export class TransactionsPage implements OnInit {
   ) { 
     this.getTransactions();
     this.filterTransactionx();
+    this.showTransactions()
+    this.checkAppMode();
   }
 
   async presentToast(message: string, color: string) {
@@ -63,9 +68,18 @@ export class TransactionsPage implements OnInit {
     }
   }
 
+  async checkAppMode() {
+    const checkIsDarkMode = await Preferences.get({ key: "darkModeActivated" });
+    console.log(checkIsDarkMode);
+    checkIsDarkMode?.value == "true"
+      ? (this.isDarkMode = true)
+      : (this.isDarkMode = false);
+    document.body.classList.toggle("dark", this.isDarkMode);
+  }
+
  
 
-  getTransactions() {
+   getTransactions() {
     this.authService.getTransactions().subscribe((res: any) => {
    
       if (res.message === "Signature verification failed" && this.router.url !== '/auth-screen') {
@@ -81,13 +95,55 @@ export class TransactionsPage implements OnInit {
         // const mergedArray = [...res.inapp, ...res.vtu, ...res.deposit, ...res.withdrawal];
         // console.log(mergedArray);
   
-        this.transactionx = res;
+       // this.transactionx = res;
+       this.showTransactions()
         }
         
-        console.log(this.transactionx);
-      
+       // console.log(this.transactionx);
+         this.storage.setPreference("transactions", JSON.stringify(res));
     });
   }
+
+
+  formatAmount(transactionx: any) {
+    return transactionx.amount.toLocaleString();
+  }
+
+// Helper function to format amount with commas
+formatAmountWithCommas(amount: number): string {
+  return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+ async showTransactions(){
+    this.transactionx = this.storage.getPreferenced("transactions");
+    console.log(this.transactionx)
+    try {
+      const transactionData = await this.storage.getPreferenced("transactions");
+      if (transactionData && transactionData.value) {
+        this.transactionx = JSON.parse(transactionData.value);
+        console.log(this.transactionx)
+      } else {
+        // Handle case when transactions are not found
+      }
+    } catch (error) {
+      console.error("Error retrieving transactions from storage:", error);
+      // Handle error appropriately
+    }
+  }
+
+  filterTransactionx() {
+    if(this.segmentValue == 'in') {
+      this.transactionx = this.allTransactionx.filter(x => 
+        x.sender_name !== JSON.parse(localStorage.getItem('userData'))?.loginData.full_name);
+        console.log(this.transactionx);
+    } else {
+      this.transactionx = this.allTransactionx.filter(x => x.sender_name === JSON.parse(localStorage.getItem('userData'))?.loginData.full_name);
+      console.log(this.transactionx);
+      
+      console.log(`I am ${JSON.stringify(this.transactionx)}`)
+    }
+  }
+
   
   ngOnInit() {
     
@@ -108,31 +164,12 @@ export class TransactionsPage implements OnInit {
       { id: 5, to: 'osaro Godwin.', date: '2022-04-13', amount: -800 },
     ];
     this.getTransactions();
+    this.showTransactions
     this.filterTransactionx();
   }
 
-  filterTransactions() {
-    if(this.segmentValue == 'in') {
-      this.transactions = this.allTransactions.filter(x => x.amount >= 0);
-    } else {
-      this.transactions = this.allTransactions.filter(x => x.amount < 0);
-    }
-  }
 
-
-  filterTransactionx() {
-    if(this.segmentValue == 'in') {
-      this.transactionx = this.allTransactionx.filter(x => 
-        x.sender_name !== JSON.parse(localStorage.getItem('userData'))?.loginData.full_name);
-        console.log(this.transactionx);
-    } else {
-      this.transactionx = this.allTransactionx.filter(x => x.sender_name === JSON.parse(localStorage.getItem('userData'))?.loginData.full_name);
-      console.log(this.transactionx);
-      
-      console.log(`I am ${JSON.stringify(this.transactionx)}`)
-    }
-  }
-
+  
  
   getThumbnailImage(transaction: any): string {
     if (this.segmentValue === 'in') {
@@ -169,4 +206,31 @@ export class TransactionsPage implements OnInit {
     this.isModalOpen = false;
   }
 
+  enterAnimation = (baseEl: HTMLElement) => {
+    const root = baseEl.shadowRoot;
+
+    const backdropAnimation = this.animationCtrl
+      .create()
+      .addElement(root.querySelector("ion-backdrop")!)
+      .fromTo("opacity", "0", "var(--backdrop-opacity)");
+
+    const wrapperAnimation = this.animationCtrl
+      .create()
+      .addElement(root.querySelector(".modal-wrapper")!)
+      .keyframes([
+        { offset: 0, opacity: "0", transform: "scale(0)" },
+        { offset: 1, opacity: "1.0", transform: "scale(1)" },
+      ]);
+
+    return this.animationCtrl
+      .create()
+      .addElement(baseEl)
+      .easing("ease-out")
+      .duration(500)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+
+  leaveAnimation = (baseEl: HTMLElement) => {
+    return this.enterAnimation(baseEl).direction("reverse");
+  };
 }

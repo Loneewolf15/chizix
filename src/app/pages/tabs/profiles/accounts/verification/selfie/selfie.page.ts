@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
+import { ImageService } from 'src/app/services/image.service';
 const IMAGE_DIR = 'stored-images';
 
 export interface LocalFile {
@@ -43,6 +43,7 @@ export class SelfiePage implements OnInit {
         private authService: AuthService,
         private storage: PreferencesService,
         private router: Router,
+        private igs: ImageService,
     ) {}
 
     async ngOnInit() {
@@ -120,10 +121,11 @@ async uploadData(imageData: any) {
       console.log(imageData + 'Divine');
       console.log(res);
       if (res.message === 'selfie successfully uploaded') {
-                this.presentToast('File upload complete.');
-                this.router.navigateByUrl('/tabs')
+                this.igs.setUploadStatus(true);
+                this.presentToast('Selfie upload complete.');
+                this.router.navigateByUrl('/accounts/verification')
             } else {
-                this.presentToast('File upload failed.')
+                this.presentToast('Selfie upload failed.')
             }
     }, (error) => {
       console.log(error);

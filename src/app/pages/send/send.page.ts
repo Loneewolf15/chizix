@@ -149,14 +149,24 @@ onTagSelect(tag: any) {
 ///filter the tagname on search here 
 
 filterTag() {
-  console.log(this.filteredTags)
+  console.log(this.filteredTags);
   if (!Array.isArray(this.tagName)) {
     return; // handle error condition
   }
-  this.filteredTags = this.tagName.filter(tag => tag.full_name.toLowerCase().includes(this.searchTerm.toLowerCase()));
-  this.filteredTags = this.tagName.filter(tag => tag.user_tag.toLowerCase().includes(this.searchTerm.toLowerCase()));
 
+  // Check if the length of the searchTerm is at least 4 characters
+  if (this.searchTerm.length >= 4) {
+    this.filteredTags = this.tagName.filter(
+      (tag) =>
+       // tag.full_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        tag.user_tag.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  } else {
+    // If the length is less than 4, reset the filteredTags array
+    this.filteredTags = [];
+  }
 }
+
 
 search(event) {
   const query = event.detail.value;

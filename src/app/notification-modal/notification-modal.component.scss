@@ -74,16 +74,26 @@ ion-modal {
     text-align: center;
   }
 
-  .container .close-btn {
+  // .container .close-btn {
+  //   position: absolute;
+  //   top: 10px;
+  //   left: 10px;
+  //   font-size: 16px;
+  //   cursor: pointer;
+  //   color: var(--ion-color-base); /* Adjust the color as needed */
+  //   z-index: 9999; /* Ensure the icon is above other elements */
+  // }
+  
+  .close-btn {
     position: absolute;
     top: 10px;
-    left: 10px;
-    font-size: 24px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 20px;
     cursor: pointer;
-    color: #000; /* Adjust the color as needed */
-    z-index: 9999; /* Ensure the icon is above other elements */
   }
-  
+
   .container .status-image {
     width: 80%;
     height: auto;
@@ -125,51 +135,50 @@ ion-modal {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
+.sub-header {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-image {
+  width: 100px; /* Adjust image size as needed */
+  margin-bottom: 20px;
+}
+
+.message {
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: justify; /* Align message text to the left */
+}
   
-  
-  .sub-header {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .message-container {
-    margin-top: 90%;
-    margin-bottom: 15px;
-  }
-  
-  // .status-image {
-  //   width: 150px;
-  //   height: 150px;
-  //   margin-bottom: 10px;
- 
-  // }
-  
-  .message {
-    font-size: 16px;
-    line-height: 1.5;
-    font-weight: 800;
+  .container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    color: #666;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 85%; /* Adjust maximum width as needed */
+    width: 1000px; /* Set an initial width */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    color:#f8f8f8;
-  }
+    overflow-y: auto; /* Enable vertical scroll if content exceeds container height */
+    max-height: 80%; /* Limit maximum height */
   
-  .container{
-    background-color:black;
-    width:90%;
-    margin-top: 50%;
-    height: 55vh;
-    margin-left: 5%;
-    margin-right: 5%;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     h3 {
       font-size: 20px;
       color:#f8f8f8;
       font-weight: bolder;
       //margin-bottom: 25%;
-      margin-bottom: 8%
+      margin-bottom: 10px
     }
 
     button{

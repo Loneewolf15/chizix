@@ -1,15 +1,21 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { IonModal, ModalController, AnimationController } from '@ionic/angular';
+import { IonModal, ModalController, AnimationController, IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-notification-modal',
   templateUrl: './notification-modal.component.html',
   styleUrls: ['./notification-modal.component.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class NotificationModalComponent implements OnInit {
- // @ViewChild('modalx') modalx: IonModal;
+  @ViewChild('container', { static: false }) container: ElementRef;
+
+  modalWidth: string = 'auto';
   @Input() header: string;
   @Input() subHeader: string;
   @Input() message: string;
@@ -31,7 +37,21 @@ export class NotificationModalComponent implements OnInit {
 
   ngOnInit(
    
-  ) {}
+  ) {
+    this.checkContentWidth();
+  }
+
+
+  checkContentWidth() {
+    setTimeout(() => {
+      const containerWidth = this.container.nativeElement.offsetWidth;
+      const windowWidth = window.innerWidth;
+      
+      if (containerWidth > 1.5 * windowWidth) {
+        this.modalWidth = '100%'; // Set width to 80% if content width exceeds 80% of window width
+      }
+    }, 0);
+  }
 
   yes() {
     this.modalController.dismiss();

@@ -14,7 +14,7 @@
         color="warning" 
         (click)="changeType()">
       </ion-icon>
-      <ion-input label="Password" label-placement="floating" autocomplete="password" errorText="* Please enter your password" formControlName="password" [type]="type ? 'password' : 'text'" 
+      <ion-input label="Password" label-placement="floating" autocomplete="password" errorText="form.get('password')!.hasError('minlength') ? '*Minimum of 6 characters' : '* Please enter your password' " formControlName="password" [type]="type ? 'password' : 'text'" 
         placeholder="Enter password" [counter]="true" minlength="6" [counterFormatter]="customCounterFormatter"></ion-input>
     </ion-item>
   </div>
@@ -105,8 +105,23 @@
 
 
 
+<ion-button 
+*ngIf="!bioS"
+class="submit"
+ size="large" 
+ expand="block" 
+ shape="round" 
+ color="warning"
+ (click)="loginfunc()" [disabled]="form.invalid">
+ <ion-text>Log In</ion-text>
+</ion-button>
+
+       
+    <!-- verify face id -->
+    <ion-row *ngIf="bioS" class="ion-margin authorize">
+      <ion-col size="9">
         <ion-button
-        class="logIn"
+        class="faceid"
          size="large" 
          expand="block" 
          shape="round" 
@@ -114,6 +129,18 @@
          (click)="loginfunc()" [disabled]="form.invalid">
          <ion-text>Log In</ion-text>
        </ion-button>
+      </ion-col>
+      <ion-col size="3">
+        <ion-button
+          expand="block"
+          size="large"
+          color="white"
+          (click)="performBiometricVerification()"
+        >
+        <ion-icon slot="icon-only" name="finger-print" color="warning"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
 
 
 

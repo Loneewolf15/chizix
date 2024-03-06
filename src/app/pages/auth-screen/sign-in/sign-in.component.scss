@@ -16,11 +16,32 @@ p {
         margin: .5vhvh .2vw;
     }
 }
-ion-button {
-    margin: 5vh 6vw;
-    color:white;
-}
+// ion-button {
+//     margin: 5vh 6vw;
+//    // color:white;
+// }
 
+.submit {
+  margin-top: 2rem;
+  ion-button {
+      --background: linear-gradient(to right, #B006D0, #4E0894);
+  }
+  ion-text {
+      font-size: 1rem;
+  }
+}
+.authorize {
+  margin-top: 2rem;
+  ion-button.faceid {
+      --background: linear-gradient(to bottom, #B006D0, #4E0894);
+  }
+  ion-text {
+      font-size: 0.9rem;
+      span {
+          font-size: 0.8rem;
+      }
+  }
+}
 
 
 

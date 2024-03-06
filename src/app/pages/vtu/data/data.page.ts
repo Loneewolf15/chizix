@@ -6,6 +6,7 @@ import { PreferencesService } from 'src/app/services/storage.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { FormControl, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TransactionStatusComponent } from 'src/app/transaction-status/transaction-status.component';
 
 @Component({
   selector: 'app-data',
@@ -36,6 +37,9 @@ export class DataPage implements OnInit {
   phone: string;
   amountx: number;
   pin: string;
+  header: string;
+  status: string;
+  message: string;
 
   showContent = true;
   cardValue = '';
@@ -438,46 +442,98 @@ console.log(data + 'are you good?')
     );
   }
 
-  async presentDataAlert(status: string,  amount: any, title?: string, subtitle?: string) {
+  // async presentDataAlert(status: string,  amount: any, title?: string, subtitle?: string) {
 
+  //   let message: string;
+  //   switch (status) {
+  //     case 'success':
+  //       message = `You have successfully purchased airtime of ${amount} `;
+  //       break;
+  //     case 'insuficient funds':
+  //       message = `Transaction amount greater than wallet balance. <br> ${amount}`;
+  //       break;
+  //     case 'failed':
+  //       message = `We could not complete your request at this moment, please try again shortly.`;
+  //       break;
+  //     default:
+  //       message = 'An unknown error occurred.';
+  //       break;
+  //   }
+
+  //   const alert = await this.alertController.create({
+  //     header: title,
+  //     //subHeader: subtitle,
+  //     message: message,
+  //     buttons: [{
+  //       text: 'OK',
+  //       cssClass: 'purple-button',
+  //       handler: () => {
+  //         if (status !== 'failed') {
+  //           this.router.navigateByUrl('/tabs');
+  //         }
+  //       }
+  //     }],
+  //     backdropDismiss: false,
+  //     cssClass: 'custom-alert',
+  //     animated: true,
+  //     mode: 'ios',
+     
+  //   });
+  //   await alert.present();
+  // }
+
+  async presentDataAlert(status: string, amount: any, title?: string, subtitle?: string) {
     let message: string;
+    let imgSrc: string;
+    // let subHeader : string;
+  
     switch (status) {
-      case 'success':
-        message = `You have successfully purchased airtime of ${amount} `;
+        case 'transaction successful':
+        message = `You have successfully purchased data of ₦${amount} `;
+        imgSrc = 'assets/imgs/success.png';
         break;
-      case 'insuficient funds':
-        message = `Transaction amount greater than wallet balance. <br> ${amount}`;
+        case 'insuficient funds':
+          message = `Transaction amount greater than wallet balance. <br> ₦${amount}.00`;
+          imgSrc = 'assets/imgs/failed.png';
         break;
-      case 'transaction failed':
-        message = `We could not complete your request at this moment, please try again shortly.`;
+        case 'failed':
+          message = `We could not complete your request at this moment, please try again shortly.`;
+          imgSrc = 'assets/imgs/less.png';
+        break;
+        case 'Duplicate transaction detected':
+          message = `We noticed that this transaction is a duplicate transaction, please try again shortly.`;
+          imgSrc = 'assets/imgs/less.png';
         break;
       default:
-        message = 'An unknown error occurred.';
+        message = 'An unknown error occurred!!<br>Please try again later';
+        imgSrc = 'assets/imgs/less.png';
         break;
+
+        
     }
-
-    const alert = await this.alertController.create({
-      header: title,
-      //subHeader: subtitle,
-      message: message,
-      buttons: [{
-        text: 'OK',
-        cssClass: 'purple-button',
-        handler: () => {
-          if (status !== 'failed') {
-            this.router.navigateByUrl('/tabs');
-          }
-        }
-      }],
-      backdropDismiss: false,
-      cssClass: 'custom-alert',
-      animated: true,
-      mode: 'ios',
-     
+  
+    this.header = title || 'Data Status';
+    this.status = status || 'Unknown';
+    this.amount = amount || '50';
+    this.message = message;
+    
+  
+    const modal = await this.modalController.create({
+      component: TransactionStatusComponent,
+      componentProps: {
+        header: this.header,
+        status: this.status,
+        amount: this.amount,
+        message: this.message,
+        imgSrc: imgSrc,
+        subHeader: subtitle,
+      },
+      cssClass: 'transaction-modal',
     });
-    await alert.present();
+  
+    await modal.present();
   }
-
+  
 
   showLoader(msg) {
     if(!this.isLoading) this.isLoading = true;
@@ -588,9 +644,15 @@ this.presentLoading('Validating...', 'crescent')
               this.loadingCtl.dismiss();
             } else if(data.message === 'Data successfully delivered'){
               this.presentDataAlert("success", ` ₦${vtuData.amount}`, 'Transaction Successful');
+                this.loadingCtl.dismiss();
+            }
+              else if(data.message === 'Data purchase failed'){
+                this.presentDataAlert("failed", ` ₦${vtuData.amount}`, 'Transaction Failed');
+                  this.loadingCtl.dismiss();
             }else{
               this.toastController.create()
-              this.presentToast(data.message, 'success');
+              //"Data purchase failed
+              this.presentToast(data.message, 'danger');
               this.loadingCtl.dismiss();
             }
             

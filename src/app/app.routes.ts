@@ -21,7 +21,7 @@ export const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.routes').then((m) => m.routes),
-    canMatch: [async() => await inject(AuthService).TabsGuard],
+    canMatch: [async() => await inject(AuthService).vGuard()],
     resolve: {
       userData: UserDataResolver
     },
@@ -130,6 +130,10 @@ export const routes: Routes = [
   {
     path: 'veri/selfie',
     loadComponent: () => import('./pages/register/verify/selfie/selfie.page').then( m => m.SelfiePage)
+  },
+  {
+    path: 'veri/scan',
+    loadComponent: () => import('./pages/register/verify/scan/scan.page').then( m => m.ScanPage)
   },
   // {
   //   path: 'otp',

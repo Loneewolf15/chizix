@@ -107,18 +107,6 @@ export class HomePage implements OnInit {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController
   ) {
-    // this.platform
-    //   .ready()
-    //   .then(() => {
-    //     this.str.getToken().subscribe((token) => {
-    //       if (token) {
-    //         this.sendTokenToServer(token);
-    //       }
-    //     });
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
 
     this.platform
       .ready()
@@ -129,6 +117,10 @@ export class HomePage implements OnInit {
         console.log(e);
       });
 
+      this.loadNotifications();
+
+      this.hasUnreadNotifications(this.notifications)
+      this.unreadNotificationCount(this.notifications)
     const now = new Date();
     const currentHour = Number(this.datePipe.transform(now, "HH"));
 
@@ -145,6 +137,8 @@ export class HomePage implements OnInit {
       this.fetchBalance();
       this.fetchUserData();
       this.chatUrl();
+      this.hasUnreadNotifications(this.notifications);
+      this.unreadNotificationCount(this.notifications)
       this.getImage();
       this.checkAppMode();
     }, 1000);
@@ -162,6 +156,19 @@ export class HomePage implements OnInit {
       this.checkAppMode();
     }, 70000);
   }
+
+  hasUnreadNotifications(notifications: any[]): boolean {
+    return notifications && notifications.some(notification => notification.unread !== false);
+  }
+  
+    // Method to calculate count of unread notifications
+    unreadNotificationCount(notifications: any[]): number {
+      //console.log('Notifications:', notifications); // Check if notifications are correct
+      const unreadCount = notifications.filter(notification => notification.unread !== false).length;
+     // console.log('Unread count:', unreadCount); // Check if unread count is correct
+      return unreadCount;
+    }
+        
 
   handleRefresh(event) {
     setTimeout(() => {
@@ -189,73 +196,87 @@ export class HomePage implements OnInit {
     this.router.navigateByUrl("/tabs/receive");
   }
 
-  async fetchNotification() {
-    await this.updateNotificationsFromStorage();
-    try {
-      const res: any = await this.authService.getNotification().toPromise();
-  
-      if (res.message === "Signature verification failed" && this.router.url !== "/auth-screen") {
-        // Handle session expiration
-        localStorage.removeItem("userData");
-        localStorage.removeItem("res");
-        localStorage.removeItem("accessT");
-        this.presentToast("Session Expired.....Logging out", "danger");
-        this.router.navigateByUrl("/auth-screen");
-        return; // Stop execution if session is expired
-      }
-  
-      console.log(res);
-  
-      // Store the data in Capacitor storage
-      await this.storage.setNotify("notifications", JSON.stringify(res));
-  
-      // Get existing notifications from storage
-      const existingNotifications = await this.storage.getStoragex("notifications");
-  
-      if (existingNotifications && existingNotifications.value) {
-        // Parse existing notifications from storage
-        const storedNotificationsArray = JSON.parse(existingNotifications.value);
-  
-        // Filter out notifications that already exist in storage
-        const existingIds = storedNotificationsArray.map((notification: any) => notification.id);
-        const newNotifications = res.filter((notification: any) => !existingIds.includes(notification.id));
-  
-        // Add new notifications to the storage
-        if (newNotifications.length > 0) {
-          await this.storage.setNotify("notifications", JSON.stringify([...storedNotificationsArray, ...newNotifications]));
-        }
-      } else {
-        // No existing notifications found in storage, store the fetched notifications directly
-        await this.storage.setNotify("notifications", JSON.stringify(res));
-      }
-  
-      console.log(this.notifications);
-  
-      // Retrieve notifications from storage and update UI
-      await this.updateNotificationsFromStorage();
-  
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-      // Handle error gracefully (e.g., show error message to user)
+
+async fetchNotification() {
+  try {
+    const res: any = await this.authService.getNotification().toPromise();
+
+    if (res.message === "Signature verification failed" && this.router.url !== "/auth-screen") {
+      // Handle session expiration
+      localStorage.removeItem("userData");
+      localStorage.removeItem("res");
+      localStorage.removeItem("accessT");
+      this.presentToast("Session Expired.....Logging out", "danger");
+      this.router.navigateByUrl("/auth-screen");
+      return; // Stop execution if session is expired
     }
+
+    console.log(res);
+
+    // Get existing notifications from storage
+    const existingNotifications = await this.storage.getStoragex("notifications");
+    const storedNotificationsArray = existingNotifications && existingNotifications.value ? JSON.parse(existingNotifications.value) : [];
+
+    // Merge data from backend with existing data
+    const mergedNotifications = this.mergeNotifications(storedNotificationsArray, res);
+
+    // Store the merged data in Capacitor storage
+    await this.storage.setNotify("notifications", JSON.stringify(mergedNotifications));
+      // Retrieve merged notifications from storage
+      const mergedNotificationsFromStorage = await this.storage.getStoragex("notifications");
+      const mergedNotificationsArray = mergedNotificationsFromStorage && mergedNotificationsFromStorage.value ? JSON.parse(mergedNotificationsFromStorage.value) : [];
+  
+      // Use the merged notifications as needed
+      console.log("Merged notifications:", mergedNotificationsArray);
+  
+
+    // Retrieve notifications from storage and update UI
+    await this.loadNotifications();
+
+  } catch (error) {
+    console.error("Error fetching notifications:", error);
+    // Handle error gracefully (e.g., show error message to user)
   }
+}
+
+mergeNotifications(existingNotifications: any[], newNotifications: any[]): any[] {
+  // Merge data from backend with existing data
+  const existingIds = existingNotifications.map((notification: any) => notification.id);
+  const newNotificationsFiltered = newNotifications.filter((notification: any) => !existingIds.includes(notification.id));
+  return [...existingNotifications, ...newNotificationsFiltered];
+}
   
+  // async updateNotificationsFromStorage() {
+  //   const storedNotifications = await this.storage.getStoragex("notifications");
   
-  async updateNotificationsFromStorage() {
-    const storedNotifications = await this.storage.getStoragex("notifications");
+  //   if (storedNotifications && storedNotifications.value) {
+  //     // Convert stored notifications back to an array
+  //     const storedNotificationsArray = JSON.parse(storedNotifications.value);
   
-    if (storedNotifications && storedNotifications.value) {
-      // Convert stored notifications back to an array
-      const storedNotificationsArray = JSON.parse(storedNotifications.value);
-  
-      // Perform mapping on the retrieved data
-      this.notifications = storedNotificationsArray.map((notification: any) => {
-        const unread = !this.unreadNotifications.has(notification.id);
-        if (!unread && !notification.readTime) {
-          notification.readTime = new Date().toLocaleString();
-        }
-        return { ...notification, unread };
-      });
+  //     // Perform mapping on the retrieved data
+  //     this.notifications = storedNotificationsArray.map((notification: any) => {
+  //       const unread = !this.unreadNotifications.has(notification.id);
+  //       if (!unread && !notification.readTime) {
+  //         notification.readTime = new Date().toLocaleString();
+  //       }
+  //       return { ...notification, unread };
+  //     });
+  //     console.log('Divine'+JSON.stringify(this.notifications))
+  //   }
+  // }
+
+  async loadNotifications() {
+    try {
+      // Retrieve notifications from storage
+      const storedNotifications = await this.storage.getStoragex("notifications");
+      // Parse stored notifications from string to array
+      const storedNotificationsArray = storedNotifications.value ? JSON.parse(storedNotifications.value) : [];
+
+      // Update notifications array with retrieved notifications
+      this.notifications = storedNotificationsArray;
+      console.log('Hello:',this.notifications);
+    } catch (error) {
+      console.error('Error loading notifications:', error);
     }
   }
   
@@ -286,33 +307,26 @@ async markNotificationAsRead(notificationId: string) {
   const storedNotifications = await this.storage.getStoragex("notifications");
 
   if (storedNotifications && storedNotifications.value) {
-      // Convert stored notifications back to an array
-      const storedNotificationsArray = JSON.parse(storedNotifications.value);
+    // Convert stored notifications back to an array
+    const storedNotificationsArray = JSON.parse(storedNotifications.value);
 
-      // Find the notification with the matching ID
-      const notificationIndex = storedNotificationsArray.findIndex((notification: any) => notification.id === notificationId);
+    // Find the notification with the matching ID
+    const notificationIndex = storedNotificationsArray.findIndex((notification: any) => notification.id === notificationId);
 
-      if (notificationIndex !== -1) {
-          // Mark notification as read and update its readTime
-          storedNotificationsArray[notificationIndex].unread = false;
-          storedNotificationsArray[notificationIndex].readTime = new Date().toLocaleString();
+    if (notificationIndex !== -1) {
+      // Mark notification as read and update its readTime
+      storedNotificationsArray[notificationIndex].unread = false;
+      storedNotificationsArray[notificationIndex].readTime = new Date().toLocaleString();
 
-          // Update the stored notifications in storage
-          await this.storage.setNotify("notifications", JSON.stringify(storedNotificationsArray));
-      }
+      // Update the stored notification in storage
+      await this.storage.setNotify("notifications", JSON.stringify(storedNotificationsArray));
+
+      // Update the specific notification in the this.notifications array
+      this.notifications[notificationIndex] = storedNotificationsArray[notificationIndex];
+    }
   }
 }
 
-
-async initializeUnreadNotifications() {
-    const result = await this.storage.getStoragex("unreadNotifications");
-    if (result && result.value) {
-        this.unreadNotifications = new Set<string>(JSON.parse(result.value));
-    } else {
-        // Initialize unreadNotifications if not found in storage
-        this.unreadNotifications = new Set<string>();
-    }
-}  
 
   send() {
     this.router.navigateByUrl("/deposit");
@@ -475,7 +489,7 @@ async initializeUnreadNotifications() {
         this.isModalOpeN = false;
         this.isModalOpen = false;
       });
-    this.initializeUnreadNotifications();
+    
 
     //this.addItems(5);
     this.fetchNotification();
