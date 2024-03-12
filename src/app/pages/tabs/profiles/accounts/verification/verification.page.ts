@@ -11,6 +11,7 @@ import {
   animate,
   transition,
 } from "@angular/animations";
+import { NinService } from "src/app/services/nin.service";
 @Component({
   selector: "app-verification",
   templateUrl: "./verification.page.html",
@@ -34,6 +35,7 @@ export class VerificationPage implements OnInit {
   constructor(
     public router: Router,
     private igs: ImageService,
+    private ngs: NinService,
     private animationController: AnimationController
   ) {
     this.selfieStatus();
@@ -57,6 +59,9 @@ export class VerificationPage implements OnInit {
     this.startAnimation();
     this.igs.uploadStatus$.subscribe((status) => {
       this.uploadSuccess = status;
+    });
+    this.ngs.scanStatus$.subscribe((ninstatus) => {
+      this.scanSuccess = ninstatus;
     });
 
     this.selfieStatus();

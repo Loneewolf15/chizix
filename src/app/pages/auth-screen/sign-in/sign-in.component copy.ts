@@ -71,8 +71,9 @@ export class SignInComponent implements OnInit {
     private toastCtrl: ToastController,
     private platform: Platform,
     private alertController: AlertController,
-    private loadingCtl: LoadingController // private fingerPrint: FingerprintAIO
-  ) {
+    private loadingCtl: LoadingController
+  ) // private fingerPrint: FingerprintAIO
+  {
     this.initForm();
     this.showB();
   }
@@ -309,6 +310,7 @@ export class SignInComponent implements OnInit {
           );
           this.loadingCtl.dismiss();
         }
+       
       );
     this.loadingCtl.dismiss();
     return true;
@@ -346,30 +348,22 @@ export class SignInComponent implements OnInit {
       if (result.biometryType) {
         biometryType = result.biometryType;
       } else {
-        // Determine the biometry type based on platform
+        // If biometry type is not provided by the plugin, assume it's fingerprint for Android devices
         biometryType =
-          Capacitor.getPlatform() === "android"
+        Capacitor.getPlatform() === "android"
             ? BiometryType.FINGERPRINT
-            : BiometryType.TOUCH_ID; // Default to TOUCH_ID for iOS
+            : BiometryType.FACE_ID;
       }
-
-      // // Handle MULTIPLE biometry type
-      // if (biometryType.includes(BiometryType.MULTIPLE)) {
-      //   // Check if the device supports FINGERPRINT authentication
-      //   if (biometryType.includes(BiometryType.FINGERPRINT)) {
-      //     biometryType = BiometryType.FINGERPRINT; // Set default to FINGERPRINT
-      //   } else {
-      //     // If FINGERPRINT is not supported, fallback to the first available biometric type
-      //     biometryType = biometryType[0];
-      //   }
-      // }
-
-      const authenticationPrompt = this.getAuthenticationPrompt(biometryType);
 
       const verified = await NativeBiometric.verifyIdentity({
         reason: "Authentication",
         title: "Log in",
-        ...authenticationPrompt,
+        subtitle:
+          biometryType === BiometryType.FACE_ID ? "FACE ID" : "Fingerprint",
+        description:
+          biometryType === BiometryType.FACE_ID
+            ? "Authorise your account using your Face ID"
+            : "Authorise your account using your Fingerprint",
         useFallback: true,
         maxAttempts: 3,
       })
@@ -379,77 +373,31 @@ export class SignInComponent implements OnInit {
           return false; // Biometric authentication failed
         });
 
-      if (!verified) {
-        // Handle scenario where biometric authentication fails
-        const errorMessage = this.getErrorMessage(biometryType);
-        this.presentAlertx(errorMessage);
-        return;
+      // if (!verified) {
+      //   // Handle scenario where biometric authentication fails
+      //   this.presentAlertx(
+      //     `Biometric authentication using ${
+      //       biometryType === BiometryType.FACE_ID ? "Face ID" : "Fingerprint"
+      //     } failed or not set up. Please try again or use another authentication method.`
+      //   );
+      //   return;
+      // }
+
+
+    if (!verified) {
+      // Handle scenario where biometric authentication fails
+      if (biometryType === BiometryType.FACE_ID) {
+        this.presentAlertx('Face ID authentication failed or not set up. Please try again or use another authentication method.');
+      } else {
+        this.presentAlertx('Fingerprint authentication failed or not set up. Please try again or use another authentication method.');
       }
+      return;
+    }
+
 
       this.getCredentials();
     } catch (e) {
       console.log(e);
-    }
-  }
-
-  getAuthenticationPrompt(
-    biometryType: BiometryType
-  ): { subtitle: string; description: string } {
-    switch (biometryType) {
-      case BiometryType.TOUCH_ID:
-        return {
-          subtitle: "Touch ID",
-          description: "Authorise your account using your Touch ID",
-        };
-      case BiometryType.FACE_ID:
-        return {
-          subtitle: "Face ID",
-          description: "Authorise your account using your Face ID",
-        };
-      case BiometryType.FINGERPRINT:
-        return {
-          subtitle: "Fingerprint",
-          description: "Authorise your account using your Fingerprint",
-        };
-      case BiometryType.FACE_AUTHENTICATION:
-        return {
-          subtitle: "Face Authentication",
-          description: "Authorise your account using Face Authentication",
-        };
-      case BiometryType.IRIS_AUTHENTICATION:
-        return {
-          subtitle: "Iris Authentication",
-          description: "Authorise your account using Iris Authentication",
-        };
-      // case BiometryType.MULTIPLE:
-      //   return {
-      //     subtitle: "Biometric",
-      //     description: "Authorise your account using biometric authentication",
-      //   };
-      default:
-        return {
-          subtitle: "Biometric",
-          description: "Authorise your account using biometric authentication",
-        };
-    }
-  }
-
-  getErrorMessage(biometryType: BiometryType): string {
-    switch (biometryType) {
-      case BiometryType.TOUCH_ID:
-        return "Touch ID authentication failed or not set up. Please try again or use another authentication method.";
-      case BiometryType.FACE_ID:
-        return "Face ID authentication failed or not set up. Please try again or use another authentication method.";
-      case BiometryType.FINGERPRINT:
-        return "Fingerprint authentication failed or not set up. Please try again or use another authentication method.";
-      case BiometryType.FACE_AUTHENTICATION:
-        return "Face Authentication failed or not set up. Please try again or use another authentication method.";
-      case BiometryType.IRIS_AUTHENTICATION:
-        return "Iris Authentication failed or not set up. Please try again or use another authentication method.";
-      case BiometryType.MULTIPLE:
-        return "Biometric authentication failed. Please try again or use another authentication method.";
-      default:
-        return "Biometric authentication failed. Please try again or use another authentication method.";
     }
   }
 

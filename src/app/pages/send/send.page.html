@@ -45,16 +45,17 @@
   <ion-item lines="none" [inset]="true" id="open-modalSend">
     <ion-avatar class="user-icon" slot="start">
       <ion-img
-        *ngIf="selectedTag?.image !== '0' && selectedTag?.image !== null && selectedTag?.image !== undefined && selectedTag?.image !== ''"
-        [src]="'https://api.veluxpay.com/' + selectedTag?.image"
+        *ngIf="selectedTag && (selectedTag.image !== '0' && selectedTag.image !== null && selectedTag.image !== undefined && selectedTag.image !== '')"
+        [src]="'https://api.veluxpay.com/' + selectedTag.image"
       ></ion-img>
       <ion-img
-        *ngIf="selectedTag?.image === '0' || selectedTag?.image === null || selectedTag?.image === undefined || selectedTag?.image === ''"
+        *ngIf="selectedTag && (selectedTag.image === '0' || selectedTag.image === null || selectedTag.image === undefined || selectedTag.image === '')"
         src="assets/images/avatar.png"
         alt="Dummy Image"
       ></ion-img>
       <ion-icon *ngIf="!selectedTag" name="person-circle"></ion-icon>
     </ion-avatar>
+
     <ion-label>
       <ion-text *ngIf="!selectedTag">Add receiver</ion-text>
       <ion-text *ngIf="selectedTag">{{ selectedTag.full_name }} </ion-text
@@ -86,14 +87,14 @@
             >
               <ion-avatar slot="start">
                 <ion-img
-                *ngIf="tag?.image !== '0' && tag?.image !== null && tag?.image !== undefined && tag?.image !== ''"
-                [src]="'https://api.veluxpay.com/' + tag?.image"
-              ></ion-img>
-              <ion-img
-                *ngIf="tag?.image === '0' || tag?.image === null || tag?.image === undefined || tag?.image === ''"
-                src="assets/images/avatar.png"
-                alt="Dummy Image"
-              ></ion-img>
+                  *ngIf="tag?.image !== '0' && tag?.image !== null && tag?.image !== undefined && tag?.image !== ''"
+                  [src]="'https://api.veluxpay.com/' + tag?.image"
+                ></ion-img>
+                <ion-img
+                  *ngIf="tag?.image === '0' || tag?.image === null || tag?.image === undefined || tag?.image === ''"
+                  src="assets/images/avatar.png"
+                  alt="Dummy Image"
+                ></ion-img>
               </ion-avatar>
               <ion-label>
                 <h2>{{tag?.full_name}}</h2>
@@ -220,9 +221,21 @@
           <ion-card-content>
             <div align="center">
               <ion-avatar class="avatar-large">
-                <img *ngIf="userImage" [src]="'https://api.veluxpay.com/' + userImage" alt="" />
-                <img *ngIf="!userImage" src="assets/images/avatar.png" alt="Dummy Image" />
-                <img *ngIf="userImage === 0" src="assets/images/avatar.png" alt="Dummy Image" />
+                <img
+                  *ngIf="userImage"
+                  [src]="'https://api.veluxpay.com/' + userImage"
+                  alt=""
+                />
+                <img
+                  *ngIf="!userImage"
+                  src="assets/images/avatar.png"
+                  alt="Dummy Image"
+                />
+                <img
+                  *ngIf="userImage === 0"
+                  src="assets/images/avatar.png"
+                  alt="Dummy Image"
+                />
               </ion-avatar>
             </div>
             <div class="numberBox">
@@ -316,8 +329,19 @@
                       >9</ion-button
                     >
                   </ion-col>
-                  <ion-col class="digitx" size="4">
-                    <!-- <ion-button fill="clear" class="button" (click)="clear()">Clear</ion-button> -->
+                  <ion-col *ngIf="bioSe" class="digitx" size="4">
+                    <ion-button
+                      expand="block"
+                      size="large"
+                      color="white"
+                      (click)="initiateT()"
+                    >
+                      <ion-icon
+                        slot="icon-only"
+                        name="finger-print"
+                        color="warning"
+                      ></ion-icon>
+                    </ion-button>
                   </ion-col>
                   <ion-col class="digitx" size="4">
                     <ion-button fill="clear" class="button" (click)="sett('0')"
@@ -325,7 +349,12 @@
                     >
                   </ion-col>
                   <ion-col class="digitx" size="4">
-                    <ion-button fill="clear" class="button" (click)="back1()"
+                    <ion-button
+                      fill="clear"
+                      class="button"
+                      expand="block"
+                      size="large"
+                      (click)="back1()"
                       ><ion-icon name="backspace"></ion-icon
                     ></ion-button>
                   </ion-col>

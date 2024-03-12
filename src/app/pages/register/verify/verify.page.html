@@ -14,7 +14,7 @@
 
   
   <ion-content id="zone"  fullscreen>
-    <ion-item color="tertiary" lines="none" [disabled]="uploadSuccess || imgValidation > 0" (click)="selfie()" detail="false">
+    <ion-item color="tertiary" lines="none" (click)="selfie()" detail="false">
       <ion-icon slot="start" name="person-circle-outline"></ion-icon>
       <ion-label>
         <h2 class="ion-text-left">Take Selfie</h2>
@@ -34,7 +34,7 @@
     </ion-item>
     
   
-    <ion-item color="tertiary" lines="none" [disabled]="scanSuccess || ninValidation > 0" (click)="scan()" detail="false">
+    <ion-item color="tertiary" lines="none" (click)="scan()" detail="false">
       <ion-icon slot="start" name="document-text"></ion-icon>
       <ion-label>
         <h2>Scan ID</h2>
@@ -51,6 +51,7 @@
       <ion-icon *ngIf="ninValidation === 0" name="chevron-forward-outline" slot="end"></ion-icon>
     </ion-item> 
 
+    
     
   </ion-content>
   

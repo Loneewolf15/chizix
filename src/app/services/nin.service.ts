@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class NinService {
-  private readonly scanStatusKey = 'scanStatus';
-  private scanStatusSubject = new BehaviorSubject<boolean>(this.getInitialscanStatus());
+  private readonly scanStatusKey = "scanStatus";
+  private scanStatusSubject = new BehaviorSubject<boolean>(
+    this.getInitialscanStatus()
+  );
 
   scanStatus$ = this.scanStatusSubject.asObservable();
 
@@ -21,8 +23,8 @@ export class NinService {
     return this.scanStatusSubject.value;
   }
 
-  setscanStatus(status: boolean) {
-    localStorage.setItem(this.scanStatusKey, JSON.stringify(status));
-    this.scanStatusSubject.next(status);
+  setscanStatus(ninstatus: boolean) {
+    localStorage.setItem(this.scanStatusKey, JSON.stringify(ninstatus));
+    this.scanStatusSubject.next(ninstatus);
   }
 }

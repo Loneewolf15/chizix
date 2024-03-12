@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AnimationController, IonicModule } from "@ionic/angular";
 import { ImageService } from "src/app/services/image.service";
+import { NinService } from "src/app/services/nin.service";
 
 import {
   LOGIN_KEY,
@@ -31,10 +32,17 @@ export class VerifyPage implements OnInit {
     public router: Router,
     private storage: PreferencesService,
     private animationController: AnimationController,
-    private igs: ImageService
+    private igs: ImageService,
+    private ngs: NinService
   ) {
     this.selfieStatus();
     this.ninStatus();
+    this.igs.uploadStatus$.subscribe((status) => {
+      this.uploadSuccess = status;
+    });
+    this.ngs.scanStatus$.subscribe((ninstatus) => {
+      this.scanSuccess = ninstatus;
+    });
     this.redirectF();
   }
 
@@ -44,10 +52,20 @@ export class VerifyPage implements OnInit {
   }
 
   selfie() {
-    this.router.navigateByUrl("/veri/selfie");
+    if (this.uploadSuccess || this.imgValidation > 0) {
+      return false; // Prevent the default action of the event
+    } else {
+      this.router.navigateByUrl("/veri/selfie");
+      return true;
+    }
   }
   scan() {
-    this.router.navigateByUrl("/veri/scan");
+    if (this.scanSuccess || this.ninValidation > 0) {
+      return false; // Prevent the default action of the event
+    } else {
+      this.router.navigateByUrl("/veri/scan");
+      return true;
+    }
   }
 
   selfieStatus() {
@@ -64,20 +82,25 @@ export class VerifyPage implements OnInit {
     console.log(this.ninValidation);
   }
   ngOnInit() {
-    this.redirectF();
     this.startAnimation();
     this.igs.uploadStatus$.subscribe((status) => {
       this.uploadSuccess = status;
-      this.scanSuccess = status;
+    });
+    this.ngs.scanStatus$.subscribe((ninstatus) => {
+      this.scanSuccess = ninstatus;
     });
 
     this.selfieStatus();
     this.ninStatus();
+    this.redirectF();
   }
 
   redirectF() {
     // Check if imgValidation or ninValidation is greater than 0
-    if ((this.imgValidation > 0 && this.ninValidation > 0) || (this.uploadSuccess && this.scanSuccess)) {
+    if (
+      (this.imgValidation > 0 && this.ninValidation > 0) ||
+      (this.uploadSuccess && this.scanSuccess)
+    ) {
       this.storage.setPreference(LOGIN_KEY, "true");
       // Redirect to the tabs page
       // Replace 'tabs' with the actual route to the tabs page
