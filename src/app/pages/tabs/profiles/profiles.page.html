@@ -1,99 +1,163 @@
-
-  
-  <ion-content>
-    <ion-item lines="none" class="profile-header-margin">
+<ion-content scroll-y="false" class="profile-header-margin">
+  <ion-header translucent="{true}">
+    <ion-toolbar>
       <ion-title mode="ios" class="profile-header">Profile</ion-title>
-    </ion-item>
-    <br>
-    <ion-item lines="none" inset="true" >
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-item lines="none" inset="true">
       <ion-avatar class="user-img-size" slot="start">
-        <img *ngIf="userImage" [src]="'https://api.veluxpay.com/' + userImage" alt="" />
-        <img *ngIf="!userImage" src="assets/images/avatar.png" alt="Dummy Image" />
-        <img *ngIf="userImage === 0" src="assets/images/avatar.png" alt="Dummy Image" />
+        <img
+          *ngIf="userImage"
+          [src]="'https://api.veluxpay.com/' + userImage"
+          alt=""
+        />
+        <img
+          *ngIf="!userImage"
+          src="assets/images/avatar.png"
+          alt="Dummy Image"
+        />
+        <img
+          *ngIf="userImage === 0"
+          src="assets/images/avatar.png"
+          alt="Dummy Image"
+        />
       </ion-avatar>
-      <ion-label class="heading-bold" >{{ userData?.loginData.full_name }}
-        <br>
-        <ion-note class="user-tag-size" color="warning">@{{ userData?.loginData.user_tag }}</ion-note>
+      <ion-label class="heading-bold"
+        >{{ userData?.loginData.full_name }}
+        <br />
+        <ion-note class="user-tag-size" color="warning"
+          >@{{ userData?.loginData.user_tag }}</ion-note
+        >
       </ion-label>
-      <ion-icon slot="end" (click)="account()" class="p" name="pencil-outline"></ion-icon>
+      <ion-icon
+        slot="end"
+        (click)="account()"
+        class="p"
+        name="pencil-outline"
+      ></ion-icon>
     </ion-item>
-  
-    <ion-list  inset="false">
-  
-      <ion-item class="ion-item-gap" lines="none" (click)="subAccount()"  detail="false">
-        <ion-icon name="people" slot="start" size="1.5" color="warning"></ion-icon>
-        <ion-label> 
-          <h2 class="heading-bold">Sub Accounts</h2>
-          <ion-text class="user-tag-size">Create and control sub account</ion-text>
-        </ion-label>
-        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-      </ion-item>
 
-
-   
-    
-      <ion-item class="ion-item-gap" lines="none" (click)="verifications()" detail="false">
-        <ion-icon name="shield-checkmark" slot="start" color="warning"></ion-icon>
+    <ion-list inset="false">
+      <ion-item
+        class="ion-item-gap"
+        lines="none"
+        (click)="subAccount()"
+        detail="false"
+      >
+        <ion-icon
+          name="people"
+          slot="start"
+          size="1.5"
+          color="warning"
+        ></ion-icon>
         <ion-label>
-          <h2 class="heading-bold">
-            Verifications
-          </h2>
-         <ion-text class="user-tag-size">Complete verification to increase limit</ion-text>
+          <h2 class="heading-bold">Sub Accounts</h2>
+          <ion-text class="user-tag-size"
+            >Create and control sub account</ion-text
+          >
         </ion-label>
         <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
       </ion-item>
-  
-  
-  
-      <ion-item class="ion-item-gap" lines="none" inset="true" (click)="history()" detail="false">
+
+      <ion-item
+        class="ion-item-gap"
+        lines="none"
+        (click)="verifications()"
+        detail="false"
+      >
+        <ion-icon
+          name="shield-checkmark"
+          slot="start"
+          color="warning"
+        ></ion-icon>
+        <ion-label>
+          <h2 class="heading-bold">Verifications</h2>
+          <ion-text class="user-tag-size"
+            >Complete verification to increase limit</ion-text
+          >
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item
+        class="ion-item-gap"
+        lines="none"
+        inset="true"
+        (click)="history()"
+        detail="false"
+      >
         <ion-icon name="pie-chart" slot="start" color="warning"></ion-icon>
         <ion-label>
-          <h2 class="heading-bold">
-            Transaction History
-          </h2>
+          <h2 class="heading-bold">Transaction History</h2>
         </ion-label>
         <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
       </ion-item>
-  
-  
-      <ion-item class="ion-item-gap" lines="none" (click)="security()" detail="false">
+
+      <ion-item
+        class="ion-item-gap"
+        lines="none"
+        (click)="security()"
+        detail="false"
+      >
         <ion-icon name="shield-half" slot="start" color="warning"></ion-icon>
         <ion-label>
-          <h2 class="heading-bold">
-            Security
-          </h2>
-         <ion-text class="user-tag-size">Change your PIN, Applock</ion-text>
+          <h2 class="heading-bold">Security</h2>
+          <ion-text class="user-tag-size">Change your PIN, Applock</ion-text>
         </ion-label>
         <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
       </ion-item>
-  
-      <ion-item class="ion-item-gap" lines="none" (click)="help()" detail="false">
+
+      <ion-item
+        class="ion-item-gap"
+        lines="none"
+        (click)="help()"
+        detail="false"
+      >
         <ion-icon name="help-circle" slot="start" color="warning"></ion-icon>
         <ion-label>
-          <h2 class="heading-bold">
-            Help
-          </h2>
-         <ion-text class="user-tag-size">FAQs, Customer Service</ion-text>
+          <h2 class="heading-bold">Help</h2>
+          <ion-text class="user-tag-size">FAQs, Customer Service</ion-text>
         </ion-label>
         <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
       </ion-item>
-      
-      <ion-item  lines="none"  detail="false" text-wrap>
+
+      <ion-item lines="none" detail="false" text-wrap>
         <ion-icon name="moon" color="warning" slot="start"></ion-icon>
-        <ion-toggle [enableOnOffLabels]="true" justify="space-between" color="warning" [checked]="true" mode="ios" [checked]="darkMode"
-          (ionChange)="toggleDarkMode()">Dark Theme
+        <ion-toggle
+          [enableOnOffLabels]="true"
+          justify="space-between"
+          color="warning"
+          [checked]="true"
+          mode="ios"
+          [checked]="darkMode"
+          (ionChange)="toggleDarkMode()"
+          >Dark Theme
         </ion-toggle>
       </ion-item>
-  <br>
-      <div style="display: flex; justify-content: center; align-items: center; padding-bottom: 5rem;">
-        <ion-item align="center" lines="none" button detail="false" inset="true" (click)="logout()" class="box-shadow">
-          <ion-icon slot="start" name="exit"  style="color:#FF0000"></ion-icon>
+      <br />
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding-bottom: 5rem;
+        "
+      >
+        <ion-item
+          align="center"
+          lines="none"
+          button
+          detail="false"
+          inset="true"
+          (click)="logout()"
+          class="box-shadow"
+        >
+          <ion-icon slot="start" name="exit" style="color: #ff0000"></ion-icon>
           <ion-label>Sign Out</ion-label>
         </ion-item>
       </div>
-      
     </ion-list>
   </ion-content>
-  
-  
-  
+</ion-content>

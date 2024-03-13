@@ -459,9 +459,9 @@ export class SignInComponent implements OnInit {
         server: this.server,
       });
       console.log(credentials);
-      this.showToastx(
-        `Authorised! Credentials: ${credentials.username}, ${credentials.password}`
-      );
+      // this.showToastx(
+      //   `Authorised! Credentials: ${credentials.username}, ${credentials.password}`
+      // );
       const loginData = {
         email: credentials.username,
         password: credentials.password,

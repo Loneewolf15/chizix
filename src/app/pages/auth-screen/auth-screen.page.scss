@@ -18,13 +18,17 @@ ion-content {
     width: 70%;
   }
 
+  .custom-scroll {
+    overflow-y: auto;
+    max-height: calc(100vh - 200px); /* Adjust 200px to your preference */
+  }
 
   .ion-img-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 40%;
-    ion-icon{
+    ion-icon {
       font-size: 15rem;
     }
     //background-color: var(--ion-color-white);
@@ -68,7 +72,7 @@ ion-content {
 ion-card {
   position: absolute;
   bottom: 0;
-  height:60%;
+  height: 60%;
   width: 100%;
   --ion-background-color: transparent;
   //--ion-background-color: #ffff;

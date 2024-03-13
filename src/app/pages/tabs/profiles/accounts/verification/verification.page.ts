@@ -81,7 +81,7 @@ export class VerificationPage implements OnInit {
     if (this.scanSuccess || this.ninValidation > 0) {
       return false; // Prevent the default action of the event
     } else {
-      this.router.navigateByUrl("/verification/selfie");
+      this.router.navigateByUrl("/verification/scan");
       return true;
     }
   }
