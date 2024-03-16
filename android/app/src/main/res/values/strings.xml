@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Velux Pay</string>
+    <string name="title_activity_main">Velux Pay</string>
+    <string name="package_name">com.veluxpay.VeluxPay</string>
+    <string name="custom_url_scheme">com.veluxpay.VeluxPay</string>
+    <string name="admob_app_id">ca-app-pub-3700961518997534~9485939982</string>
+</resources>

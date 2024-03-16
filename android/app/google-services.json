@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "358906029713",
+    "project_id": "veluxpay",
+    "storage_bucket": "veluxpay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358906029713:android:f8efd2388239b61c3fc130",
+        "android_client_info": {
+          "package_name": "com.veluxpay.VeluxPay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnbcvAv_tuTHmNfO3plz09XWch15tz4K0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
