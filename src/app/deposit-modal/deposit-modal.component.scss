@@ -1,0 +1,89 @@
+ion-modal {
+    --background: rgba(0, 0, 0, 0.6);
+ion-header {
+    ion-toolbar {
+      --background: #e27070;
+      --color: #333;
+    }
+  }
+  
+  ion-content {
+   
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      
+        background-color: transparent;
+      
+    ion-list {
+
+        ion-button.close-button {
+            --background: transparent;
+            --color: #333;
+            font-size: 24px;
+            margin-right: 10px;
+      
+            &:hover {
+              --background: transparent;
+              --color: #4caf50;
+            }
+          }
+
+      ion-item {
+        --background: transparent;
+        --color: #333;
+  
+        ion-icon {
+          --color: #4caf50;
+        }
+  
+        ion-label {
+          font-weight: bold;
+        }
+      }
+  
+      ion-item:not(:last-child) {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  }
+  .deposit-status {
+    margin-top: 20px;
+  
+    ion-icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+  
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      font-size: 16px;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+  
+    button {
+      --background: #4caf50;
+      --color: #fff;
+      --border-radius: 5px;
+      --padding-start: 20px;
+      --padding-end: 20px;
+      --box-shadow: none;
+      --ion-activatable-background-color: #fff;
+      margin-top: 20px;
+  
+      &:active {
+        --background: #4caf50;
+        --box-shadow: none;
+      }
+    }
+  }
+  
+}
+  

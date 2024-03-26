@@ -1,0 +1,80 @@
+
+
+
+
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Set Transaction PIN</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-input type="number" inputmode="numeric" maxlength="1" pattern="\d" autofocus="true" placeholder="0" class="box"></ion-input>
+      </ion-col>
+      <ion-col size="4">
+        <ion-input type="number" inputmode="numeric" maxlength="1" pattern="\d" placeholder="0" class="box"></ion-input>
+      </ion-col>
+      <ion-col size="4">
+        <ion-input type="number" inputmode="numeric" maxlength="1" pattern="\d" placeholder="0" class="box"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content> -->
+
+
+<!--<ion-content>
+  <div class="pin-container">
+    <ion-input type="number" inputmode="numeric"  maxlength="1" autofocus="true" class="pin-input" [(ngModel)]="digit1" (ionInput)="focusNext($event, digit2Input)"></ion-input> 
+
+    <ion-input type="number" inputmode="numeric" maxlength="1" autofocus="true" class="pin-input" [(ngModel)]="digit1" (ionInput)="focusNext($event, digit2Input)" #digit1Input></ion-input>
+
+
+    <ion-input type="number" inputmode="numeric"  maxlength="1" class="pin-input" [(ngModel)]="digit2" (ionInput)="focusNext($event, digit3Input)" #digit2Input></ion-input>
+    <ion-input type="number" inputmode="numeric"  maxlength="1" class="pin-input" [(ngModel)]="digit3" (ionInput)="focusNext($event, digit4Input)" #digit3Input></ion-input>
+    <ion-input type="number" inputmode="numeric"  maxlength="1" class="pin-input" [(ngModel)]="digit4" #digit4Input></ion-input>
+  </div>
+</ion-content>-->
+
+
+
+
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Set Transaction PIN
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label position="floating">Enter PIN</ion-label>
+    <ion-input type="password" [(ngModel)]="pin"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Confirm PIN</ion-label>
+    <ion-input type="password" [(ngModel)]="confirmPin"></ion-input>
+  </ion-item>
+<!-- 
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Enter a new PIN</ion-label>
+      <ion-input type="password" [(ngModel)]="pin" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Confirm new PIN</ion-label>
+      <ion-input type="password" [(ngModel)]="confirmPin" required></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" [disabled]="!form.valid">Save PIN</ion-button>
+  </form> -->
+  
+
+  <ion-button expand="block" (click)="onSubmit()">Submit</ion-button>
+</ion-content>

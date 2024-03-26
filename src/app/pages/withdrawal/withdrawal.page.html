@@ -7,7 +7,7 @@
 
       <ion-card-title>
         <h3 class="ion-text-center" style="color: #7e219e">
-          Withdrawal Form
+          Withdrawal
           <ion-icon
             class="scan"
             size="small"
@@ -52,8 +52,6 @@
             </ion-item>
           </div>
 
-         
-
           <div class="ion-margin-vertical">
             <ion-item lines="none">
               <ion-input
@@ -64,27 +62,27 @@
                 (ionInput)="onNumberChange($event)"
                 errorText="* Account Number is required and must be valid."
                 formControlName="accountNumber"
-                type="text"
+                type="tel"
               ></ion-input>
             </ion-item>
           </div>
 
           <div class="ion-margin-vertical">
-          <ion-item lines="none">
-            <ion-input
-              *ngIf="accountName"
-              label="Account Name:"
-              label-placement="floating"
-              formControlName="accountName"
-              errorText="* Account Name is required and must be valid."
-              type="text"
-              value="{{ accountName }}"
-              readonly
-              name="accountName"
-              [ngStyle]="{'color': accountName === 'Invalid Account number or bank' ? 'red' : ''}"
-            >
-            </ion-input>
-          </ion-item>
+            <ion-item lines="none">
+              <ion-input
+                *ngIf="accountName"
+                label="Account Name:"
+                label-placement="floating"
+                formControlName="accountName"
+                errorText="* Account Name is required and must be valid."
+                type="text"
+                value="{{ accountName }}"
+                readonly
+                name="accountName"
+                [ngStyle]="{'color': accountName === 'Invalid Account number or bank' ? 'red' : ''}"
+              >
+              </ion-input>
+            </ion-item>
           </div>
 
           <div class="ion-margin-vertical">
@@ -96,7 +94,7 @@
                 errorText="* Amount is required and must be greater than or equal to ₦100."
                 [counterFormatter]="customCounterFormatterE"
                 formControlName="amountx"
-                type="number"
+                type="tel"
               ></ion-input>
             </ion-item>
           </div>
@@ -113,7 +111,6 @@
               ></ion-textarea>
             </ion-item>
           </div>
-         
         </form>
 
         <ion-modal
@@ -132,11 +129,9 @@
               ></ion-searchbar>
               <ion-list *ngIf="banks?.length >= 1">
                 <ng-container *ngFor="let bank of filteredBanks">
-                  <ion-item (click)="onBankSelect(bank)">
-                 
+                  <ion-item class="custom-scroll" (click)="onBankSelect(bank)">
                     <ion-label>
                       <h2>{{bank?.name}}</h2>
-                     
                     </ion-label>
                   </ion-item>
                 </ng-container>
@@ -154,7 +149,6 @@
         ></ion-loading>
 
         <div>
-          
           <ion-button color="light" disabled class="ion-padding tf">
             <ion-text>This transaction has a fee of ₦50 </ion-text>
           </ion-button>
@@ -168,7 +162,6 @@
           shape="round"
           color="warning"
           (click)="submitForm()"
-          
         >
           <ion-text>Review withdrawal</ion-text>
         </ion-button>

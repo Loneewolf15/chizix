@@ -1,0 +1,12 @@
+<ion-content [fullscreen]="true">
+  <ion-button fill="clear" class="ion-margin" (click)="modalCtrl.dismiss()">
+    <ion-icon name="arrow-back" slot="icon-only" color="white"></ion-icon>
+  </ion-button>
+<form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+  <ion-item>
+    <ion-label position="stacked">Enter OTP</ion-label>
+    <ion-input formControlName="otp" type="number" required></ion-input>
+  </ion-item>
+  <ion-button expand="full" type="submit">Submit</ion-button>
+</form>
+</ion-content>

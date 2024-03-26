@@ -1,0 +1,23 @@
+<ion-header  translucent={true}>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="profiles/settings" ></ion-back-button>
+      
+    </ion-buttons>
+    <ion-title mode="ios" >Notification</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="white" >
+<p class="ion-text-center">Push notifications are always active</p>
+<ion-item>
+  <ion-checkbox slot="end"></ion-checkbox>
+  <ion-label>SMS Notifications</ion-label>
+</ion-item>
+<ion-item>
+  <ion-checkbox slot="end"></ion-checkbox>
+  <ion-label>Email</ion-label>
+</ion-item>
+
+<ion-button shape="block" color="medium">Save</ion-button>
+</ion-content>

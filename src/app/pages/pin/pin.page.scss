@@ -1,0 +1,155 @@
+ion-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .box {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 10px;
+      }
+
+
+      .pinL{
+        // bottom: 0;
+        // height: auto;
+        height: 100vh;
+        min-height: max-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      }
+      .buttons{
+            
+        bottom: 0;
+      
+        .pinB{
+          width: 35%;
+      border: none;
+      box-shadow: none;
+      ///height: 75px;
+      //background : var(--ion-color-light);
+      //border-radius: 100%;
+      color: var(--ion-color-light);
+      outline: none;
+      box-shadow: none white;
+      padding: 4px 0px 0px 4px;
+      font-weight: 200;
+        }
+      }
+
+      .numberBox{
+        // background-color: #f2f2f2;
+         display: flex;
+         flex-wrap: nowrap;
+         align-items: center;
+         justify-content: center;
+     
+         div{
+           width: 30px;
+           height: 30px;
+           border-radius: 105%;
+           background-color: #f0f0f0;
+           margin: 20px;
+           align-self: center;
+     
+           ion-input{
+             margin-bottom: 10px;
+             color: var(--ion-color-dark);
+             font-size: 20px;
+             font-weight: 500 !important;
+             align-items: center;
+            // padding-top: none !important ;
+             justify-content: center;
+             text-align: center;
+             
+           }
+         }
+       }
+     
+
+      .pin-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      
+      .pin-input {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+        text-align: center;
+        margin: 0 10px;
+      }
+      
+      
+  }
+  .box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px;
+  }
+
+  .pin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .pin-input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    text-align: center;
+    margin: 0 10px;
+  }
+  
+  
+  
+  ion-input {
+    text-align: center;
+    font-size: 2rem;
+    border: none;
+    border-bottom: 2px solid #000;
+  }
+  ion-input:focus {
+    border-color: #3880ff;
+  }
+  
+  .inputs{
+    ion-inputs{
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      text-align: center;
+    }
+  }
+  .buttons{
+    position: fixed;
+    bottom: 0;
+
+    button{
+width:70px;
+height: 75px;
+background : var(--ion-color-dark);
+border-radius: 100%;
+color: var(--ion-color-light);
+outline: none;
+box-shadow: 0 4px 8px 0 black;
+padding-left: 4px;
+    }
+  }

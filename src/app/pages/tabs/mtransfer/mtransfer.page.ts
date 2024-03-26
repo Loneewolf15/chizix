@@ -14,6 +14,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import { SwiperOptions } from 'swiper/types';
 import { TransactionStatusComponent } from 'src/app/transaction-status/transaction-status.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
+import { BioService } from 'src/app/services/biometric/bio.service';
 
 
 @Component({
@@ -59,6 +60,7 @@ getBalance: any;
   showBalance = false;
   selectedTags: any[] = [];
   formattedPrice: any;
+  bioSe: boolean;
   
 tagName: any[] = [];
 tagNamex: any = [];
@@ -85,6 +87,7 @@ pin1Color: string = '';
   private modalCtrl: ModalController,
   private toastCtrl: ToastController,
   private storage: PreferencesService,
+  private bioService: BioService,
   private authService: AuthService,
   private toastService: ToastService,
   private toastController: ToastController,
@@ -104,6 +107,9 @@ pin1Color: string = '';
   // }
  
   ngOnInit() {
+    this.here();
+  this.bioService.fetchPin();
+
   const userDataString = localStorage.getItem('userData');
   if (userDataString) {
     this.userData = JSON.parse(userDataString);
@@ -111,6 +117,16 @@ pin1Color: string = '';
 this.getImage();
   this.balance();
   this.getTagname();
+}
+
+
+async here() {
+  const isBiometricEnabled = await this.bioService.showB();
+  if (isBiometricEnabled) {
+    this.bioSe = true;
+  } else {
+    this.bioSe = false;
+  }
 }
 
 
@@ -587,185 +603,204 @@ async presentSendAlert(status: string, amount: any, title?: string, subtitle?: s
 }
 
 
+checkPin(pin: any) {
+  this.pin = pin; // Assign the pin value received from BioService
+  //this.presentAlert(pin);
+  setTimeout(() => {
+    this.loadingCtl.dismiss();
 
-checkPin(){
-setTimeout(()=>{
-  this.loadingCtl.dismiss();
- 
-  if (this.pin.length === 4) {
-    console.log(this.pin);
-    const data = {transferPin: this.pin}
-    console.log('I am '+ data)
-    this.authService.checkPin(data).subscribe(
-     async (response : any) => {
-        console.log(response);
-        // if(response.message === "Signature verification failed" || "Session has expired."){
-        //   this.toastController.create()
-        //   this.presentToast('Session Expired.....Logging out', 'danger');
-        //   this.router.navigateByUrl('/auth-screen');
-        // }
-        // else{
-        
-if(response === "correct pin" ){
-const toasty = await this.toastCtrl.create({
-  message: 'Pin is Valid.',
-  duration: 3000,
-  position: 'bottom'
-});
-//toasty.present();
-this.loadingCtl.dismiss();
+    if (this.pin.length === 4) {
+      console.log(this.pin);
+      const data = { transferPin: this.pin };
+      console.log("I am " + data);
+      this.authService.checkPin(data).subscribe(
+        async (response: any) => {
+          console.log(response);
+          // if(response.message === "Signature verification failed" || "Session has expired."){
+          //   this.toastController.create()
+          //   this.presentToast('Session Expired.....Logging out', 'danger');
+          //   this.router.navigateByUrl('/auth-screen');
+          // }
+          // else{
 
+          if (response === "correct pin") {
+            const toasty = await this.toastCtrl.create({
+              message: "Pin is Valid.",
+              duration: 3000,
+              position: "bottom",
+            });
+            //toasty.present();
+            this.loadingCtl.dismiss();
 
-        this.hideLoader();
-    this.modalCtrl.dismiss(response);
-    //this.showToastx(response.status);
-    // this.router.navigateByUrl('/register/verify')
-    ///proceed to buy the data plan
-    this.presentLoading('Processing...', 'circular')
-    this.isModalOpen = false;
+            this.hideLoader();
+            this.modalCtrl.dismiss(response);
+            //this.showToastx(response.status);
+            // this.router.navigateByUrl('/register/verify')
+            ///proceed to buy the data plan
+            this.presentLoading("Processing...", "circular");
+            this.isModalOpen = false;
 
-   const sendData = {
-    amount: this.amount ,
-    tagname: this.selectedTags.map(tag => tag.user_tag),
-    // selectedTags: userTags,
-   }
-   console.log(sendData)
+            const sendData = {
+              amount: this.amount,
+              tagname: this.selectedTag.user_tag,
+            };
 
-const selectedTags = this.selectedTags;
-const amount = this.amount;
+            console.log(sendData);
 
-   const arrayData = selectedTags.map((tag) => {
-    return{
-      amount: amount,
-      tagname: tag.user_tag,
-    };
-   });
+            this.authService.payVeluxite(sendData).subscribe(
+              (data: any) => {
+                console.log(JSON.stringify(data));
+                console.log(data.message);
+                if (
+                  data.message === "Signature verification failed" &&
+                  this.router.url !== "/auth-screen" &&
+                  this.router.url === "/send"
+                ) {
+                  localStorage.removeItem("userData");
+                  localStorage.removeItem("res");
+                  localStorage.removeItem("accessT");
+                  this.toastController.create();
+                  this.presentToast(
+                    "Session Expired.....Logging out",
+                    "danger"
+                  );
+                  this.router.navigateByUrl("/auth-screen");
+                } else {
+                  console.log("here");
+                  if (data.message === "insufficient fund") {
+                    console.log("Hello mate" + data.message);
+                    this.toastController.create();
+                    this.presentToast(
+                      data.message +
+                        "s, Please fund your account and try again",
+                      "danger"
+                    );
+                    // this.router.navigateByUrl('/tabs')
+                    this.presentSendAlert(
+                      data.message,
+                      ` ₦${sendData.amount}`,
+                      "Incomplete Transaction"
+                    );
+                    this.loadingCtrl.dismiss();
+                  } else if (data.message === "the amount is too small ") {
+                    this.toastController.create();
+                    this.presentToast(data.message, "danger");
+                    this.presentSendAlert(
+                      "failed",
+                      ` ₦${sendData.amount}`,
+                      "Transaction Failed"
+                    );
+                    console.log("Cameth hereAmount");
 
-   
-   
-   this.authService.mtr(arrayData).subscribe(
-    (data: any) => {
-      console.log('Hello'+JSON.stringify(data))
-      console.log('Fun Time'+data)
-      if(data.message === "Signature verification failed" && this.router.url !== '/auth-screen' && this.router.url === '/tabs/mt'){
-        localStorage.removeItem('userData');
-        localStorage.removeItem('res');
-        localStorage.removeItem('accessT');
-        this.toastController.create()
-        this.presentToast('Session Expired.....Logging out', 'danger');
-        this.router.navigateByUrl('/auth-screen');
-      }
-    
-      else{
-        console.log('here');
-        if(data.message === 'insufficient fund'){
-          console.log('Hello mate'+ data.message)
-          this.toastController.create()
-          this.presentToast(data.message + 's, Please fund your account and try again', 'danger');
-         // this.router.navigateByUrl('/tabs')
-         this.presentSendAlert(data.message, ` ₦${sendData.amount}`, 'Incomplete Transaction');
-          this.loadingCtrl.dismiss();
-        } else if(data.message === 'some transfers failed'){
-          
-          this.toastController.create()
-          this.presentToast(data.message, 'danger');
-          this.presentSendAlert('failed', ` ₦${sendData.amount}`, 'Transaction Failed');
-          console.log('Cameth hereAmount');
-          
-        //  this.router.navigateByUrl('/tabs')
-          this.loadingCtrl.dismiss(); 
+                    //  this.router.navigateByUrl('/tabs')
+                    this.loadingCtrl.dismiss();
+                  } else if (data.message === "Transaction successful") {
+                    this.toastController.create();
+                    this.presentToast(data.message, "success");
+                    this.presentSendAlert(
+                      "Transaction successful",
+                      ` ₦${sendData.amount}`,
+                      "Transaction Successful"
+                    );
+                    console.log("Cameth here");
+
+                    //  this.router.navigateByUrl('/tabs')
+                    this.loadingCtrl.dismiss();
+                  } else {
+                    this.toastController.create();
+                    this.presentToast(data.message, "danger");
+                    this.router.navigateByUrl("/tabs");
+                    this.loadingCtrl.dismiss();
+                  }
+                  console.log("I reach here");
+                  // this.router.navigateByUrl('/auth-screen')
+                  this.loadingCtrl.dismiss();
+
+                  // console.log(JSON.parse(data))
+                }
+              },
+              (error) => {
+                console.error(error);
+                console.log("Error found here");
+                this.loadingCtl.dismiss();
+                this.isModalOpen = false;
+              }
+            );
+            //this.router.navigateByUrl('/auth-screen')
+            this.loadingCtrl.dismiss();
+          } else {
+            this.isModalOpen = false;
+            const toast = await this.toastCtrl.create({
+              message: "Invalid User Pin. Please try again.",
+              duration: 2000,
+              position: "bottom",
+              color: "danger",
+            });
+            toast.present();
+            //this.router.navigateByUrl('/tabs')
+            console.log("Hello Dickson");
+            //this.router.navigateByUrl('/tabs')
+            this.loadingCtrl.dismiss();
+            this.hideLoader();
+            this.modalCtrl.dismiss(data);
+            console.log("I am here");
+            //this.router.navigateByUrl('/auth-screen')
+            this.loadingCtrl.dismiss();
+            this.isModalOpen = false;
+          }
+        },
+        async (error) => {
+          console.log(error);
+          const toast = await this.toastCtrl.create({
+            message: "Invalid User Pin. Please try again.",
+            duration: 2000,
+            position: "bottom",
+            color: "danger",
+          });
+          toast.present();
+          //this.router.navigateByUrl('/tabs')
+          this.hideLoader();
+          this.modalCtrl.dismiss(data);
+          this.loadingCtl.dismiss();
+          this.isModalOpen = false;
         }
-        
-        else if(data.message === 'All transfers successful'){
-
-          this.toastController.create()
-          this.presentToast(data.message, 'success');
-          this.presentSendAlert('successful', ` ₦${sendData.amount}`, 'Transaction Successful');
-          console.log('Cameth here');
-          
-        //  this.router.navigateByUrl('/tabs')
-          this.loadingCtrl.dismiss();
-        } else{
-          this.toastController.create()
-          this.presentToast(data.message, 'danger');
-          this.router.navigateByUrl('/tabs')
-          this.loadingCtrl.dismiss();
-        }
-        console.log('I reach here')
-       // this.router.navigateByUrl('/auth-screen')
-        this.loadingCtrl.dismiss();
-      
-     // console.log(JSON.parse(data))
-
-       }    
-    },
-    (error) => {
-      console.error(error);
-      console.log('Error found here')
-      this.loadingCtl.dismiss();
-      this.isModalOpen = false;
+      );
     }
-  );
-  //this.router.navigateByUrl('/auth-screen')
-  this.loadingCtrl.dismiss();
-  } else{  
-    this.isModalOpen = false;
-    const toast = await this.toastCtrl.create({
-    
-      message: 'Invalid User Pin. Please try again.',
-      duration: 2000,
-      position: 'bottom',
-      color: 'danger'
-    });
-    toast.present();
-    //this.router.navigateByUrl('/tabs')
-    console.log('Hello Dickson')
-    //this.router.navigateByUrl('/tabs')
-    this.loadingCtrl.dismiss();
-    this.hideLoader();
-    this.modalCtrl.dismiss(data);
-    console.log('I am here')
-    //this.router.navigateByUrl('/auth-screen')
-    this.loadingCtrl.dismiss();
-    this.isModalOpen = false;
-  }
-      },
-    async (error) => {
-        console.log(error);
-        const toast = await this.toastCtrl.create({
-          message: 'Invalid User Pin. Please try again.',
-          duration: 2000,
-          position: 'bottom',
-          color: 'danger'
-        });
-        toast.present();
-        //this.router.navigateByUrl('/tabs')
-        this.hideLoader();
-        this.modalCtrl.dismiss(data);
-        this.loadingCtl.dismiss();
-        this.isModalOpen = false;
-      }
-
-     
-    );
-  }
-
-}, 2000);
-this.loadingCtl.dismiss();
+  }, 2000);
+  this.loadingCtl.dismiss();
 }
 //Set and Check pin if correct
 
-sett(number){
-this.pin += number;
-this.setFocus();
+sett(number) {
+  this.pin += number;
+  this.setFocus();
 
-if(this.pin.length == 4){
-  this.presentLoading('Validating...', 'crescent')
-  this.checkPin()
+  if (this.pin.length == 4) {
+    this.presentLoading("Validating...", "crescent");
+    // Pass the pin value to checkPin() method
+    this.checkPin(this.pin);
+  }
 }
+
+// async initiateT() {
+//   await this.bioService.initiateTransfer();
+//   const pin = this.bioService.getPin();
+//   if (pin) {
+//     this.sett(pin);
+//   } else {
+//     console.error("PIN not available.");
+//   }
+// }
+
+initiateT() {
+  this.bioService.initiateTransfer((pin) => {
+    if (pin) {
+      this.sett(pin); // Call the sett function with the retrieved PIN
+    } else {
+      console.error("PIN not available.");
+    }
+  });
 }
-
-
 
 
 

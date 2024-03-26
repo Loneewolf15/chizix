@@ -3,7 +3,7 @@
   <ion-card-header>
     <ion-buttons>
       <ion-back-button defaultHref="/tabs/home" mode="md"></ion-back-button>
-      <ion-card-title color="medium" class="tit" mode="ios">
+      <ion-card-title class="tit" mode="ios">
         <h3 class="tit" >Deposit</h3>
       </ion-card-title>
     </ion-buttons>
@@ -17,7 +17,7 @@
           <div class="ion-margin-vertical">
             <ion-item lines="none">
               <ion-input
-                label="Amount*"
+                label="Amount"
                 label-placement="floating"
                 minlength="3"
                 errorText="* Amount is required and must be greater than or equal to ₦100."
@@ -55,7 +55,7 @@
               shape="round" 
               color="warning"
               (click)="deposit()" [disabled]="form.invalid">
-              <ion-text>Deposit now</ion-text>
+              <ion-text color="white">Deposit now</ion-text>
             </ion-button>
               <br>
           </div>

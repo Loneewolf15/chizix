@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Withdrawal Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Withdrawal Details</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list lines="full"> 
+          <!-- <ion-list-header class="ion-margin ion-text-center" >
+            <ion-label class="ion-text-center" color="medium"><h2 >Withdrawal Details</h2></ion-label>
+          </ion-list-header> -->
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <ion-item>
+          <ion-label position="floating">Bank Name</ion-label>
+          <ion-input type="text"  debounce="500" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Account Name</ion-label>
+          <ion-input name="accountName"  type="text"  debounce="500" required></ion-input>
+        </ion-item>
+
+        
+        <ion-item>
+          <ion-label position="floating">Account Number</ion-label>
+          <ion-input type="text" debounce="500" required></ion-input>
+        </ion-item>
+
+        <ion-item [class.valid]="form.get('amount').valid" [class.invalid]="form.get('amount').invalid">
+          <ion-label position="floating">Amount</ion-label>
+          <ion-input type="number"
+           name="amount" debounce="500" ></ion-input>
+           <!-- <div class="validation-message" *ngIf="form.get('amount').invalid && (form.get('amount').dirty || form.get('fullname').touched)">
+           Amount is required and must be greater than #400.
+          </div> -->
+        </ion-item>
+
+       
+
+
+      
+
+        <ion-item>
+          <ion-label position="floating">Description</ion-label>
+          <ion-textarea debounce="500" rows="5"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Payment Method</ion-label>
+          <ion-select debounce="500" required>
+            <ion-select-option value="bankTransfer">Bank Transfer</ion-select-option>
+            <ion-select-option value="paypal">PayPal</ion-select-option>
+            <ion-select-option value="stripe">Stripe</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- <ion-item>
+          <ion-label>Notify me by email</ion-label>
+          <ion-toggle></ion-toggle>
+        </ion-item> -->
+      </form>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button type="submit" expand="block" [disabled]="!form.valid">Submit</ion-button>
+  
+</ion-content>

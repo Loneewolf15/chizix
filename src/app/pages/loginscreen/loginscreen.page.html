@@ -1,0 +1,71 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- <ion-title>loginscreen</ion-title> -->
+  </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaulthref="login"></ion-back-button>
+  </ion-buttons>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="ion-no-margin">
+    <ion-img src="assets/images/image.png" class="manage"></ion-img>
+  </ion-card>
+
+  <ion-card-header>
+    <ion-card-title>
+      <h1 class="ion-text-center">Welcome Back </h1>
+
+    </ion-card-title>
+     <!-- -->
+    <div class="switch-btn-wrap">
+      <ion-button shape="block" fill="solid" class="switch-btn ion-no-padding" color="medium">Main Account</ion-button>
+      <ion-button shape="block" fill="solid" class="switchx-btn ion-no-padding" color="secondary">Sub
+        Account</ion-button>
+    </div>
+  </ion-card-header>
+
+  <ion-card-content>
+    
+    <div class="formwrap">
+
+      <ion-item>
+        <ion-icon name="mail-outline"></ion-icon>
+        <!-- <ion-label class="item-text-wrap">Email or Tag:</ion-label> -->
+        <ion-input type="text" name="email" required placeholder="Email or Tag:"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="key-outline"></ion-icon>
+        <ion-input type="password" name="password" required placeholder="velux2dworld"></ion-input>
+      </ion-item>
+    </div>
+    <div>
+      <div class="forgotpass">
+        <ion-button fill="clear" class="ion-no-padding">Forgot Password?</ion-button>
+      </div>
+      <!-- <div class="remember" >
+    <ion-checkbox slot="start"></ion-checkbox>
+    <p>Remember me</p>
+  </div> -->
+    </div>
+    <div class="sign-btn-wrap">
+      <ion-button shape="block" fill="solid" class="sign-btn" color="medium">Login</ion-button>
+    </div>
+    <div class="text-tag">
+      <span>Sign in with</span>
+    </div>
+    <div class="social-btns ion-text-center ion-no-padding">
+      <!-- <ion-button fill="clear" class="googlebtn ion-no-padding"> -->
+        <ion-img src="assets/images/google.png"></ion-img>
+      <!-- </ion-button> -->
+      <!-- <ion-button fill="clear" class="applebtn ion-no-padding"> -->
+        <ion-img src="assets/images/appleLogo.png"></ion-img>
+      <!-- </ion-button> -->
+
+
+  
+    </div>
+
+  </ion-card-content>
+</ion-content>

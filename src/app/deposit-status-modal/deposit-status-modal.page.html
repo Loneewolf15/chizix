@@ -1,0 +1,36 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Deposit Status</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-icon [name]="status === 'Pending' ? 'time' : status === 'Processing' ? 'refresh' : status === 'Completed' ? 'checkmark-circle' : 'alert-circle'" [color]="status === 'Pending' ? 'warning' : status === 'Processing' ? 'tertiary' : status === 'Completed' ? 'success' : 'danger'" slot="start"></ion-icon>
+      <ion-label>
+        <h2>{{status}}</h2>
+        <p>{{status === 'Pending' ? 'Your deposit is currently pending.' : status === 'Processing' ? 'Your deposit is currently being processed.' : status === 'Completed' ? 'Your deposit has been completed.' : 'There was an error processing your deposit.'}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content> -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Deposit Status</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <div class="amount">Deposit Amount: {{ amount | currency:'NGN':'symbol' }}</div> -->
+  <div class="amount">Deposit Amount: {{ amount }}</div>
+  <div class="status">Deposit Status: {{ status }}</div>
+</ion-content>
+

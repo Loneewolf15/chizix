@@ -12,21 +12,18 @@ export class BioService {
   server: string = "pin.api.veluxpay.com";
   UserData: any;
   bioSe: boolean;
-  pin: any;
+  //pin: any;
+  pin: any | null = null;
   constructor(
     private toastCtrl: ToastController,
     private alertController: AlertController
   ) {}
 
   async showB() {
-    const isBiometricEnabled = await Preferences.get({ key: "isBiometricP" });
-    if (isBiometricEnabled && isBiometricEnabled.value === "true") {
-      this.bioSe = true;
-    } else {
-      this.bioSe = false;
-    }
+    const isBiometricEnabledc = await Preferences.get({ key: "isBiometricP" });
+    return isBiometricEnabledc && isBiometricEnabledc.value === "true";
   }
-
+  
   /**
    * Fetches the PIN from local storage.
    */
@@ -59,35 +56,50 @@ export class BioService {
     }
   }
 
+  
   /**
-   * Saves user credentials using biometric authentication.
-   */
-  async saveCredentials(data: { email: string; password: string }) {
-    try {
-      const result = await NativeBiometric.isAvailable();
-      if (!result.isAvailable) return;
+ * Saves user credentials using biometric authentication.
+ */
+async saveCredentials(data: { email: string; password: string }) {
+  try {
+    const result = await NativeBiometric.isAvailable();
+    if (!result.isAvailable) return;
 
-      await NativeBiometric.setCredentials({
-        username: data.email,
-        password: data.password,
+    // Check if credentials already exist for the server
+    const existingCredentials = await NativeBiometric.getCredentials({
+      server: this.server,
+    });
+
+    if (existingCredentials) {
+      // Credentials already exist, delete them first
+      await NativeBiometric.deleteCredentials({
         server: this.server,
       });
-
-      await Preferences.set({
-        key: "isBiometricP",
-        value: "true",
-      });
-
-      this.showToast("Login Successful");
-    } catch (e) {
-      console.error("Error saving credentials:", e);
     }
+
+    // Set new credentials
+    await NativeBiometric.setCredentials({
+      username: data.email,
+      password: data.password,
+      server: this.server,
+    });
+
+    await Preferences.set({
+      key: "isBiometricP",
+      value: "true",
+    });
+
+   // this.showToast("Login Successful");
+  } catch (e) {
+    console.error("Error saving credentials:", e);
   }
+}
+
 
   /**
    * Initiates transfer with biometric verification.
    */
-  async initiateTransfer() {
+  async initiateTransfer(callback: (pin: any) => void) {
     try {
       const result = await NativeBiometric.isAvailable({ useFallback: true });
       if (!result.isAvailable) return;
@@ -103,16 +115,7 @@ export class BioService {
             : BiometryType.TOUCH_ID; // Default to TOUCH_ID for iOS
       }
 
-      // Handle MULTIPLE biometry type
-      // if (biometryType.includes(BiometryType.MULTIPLE)) {
-      //   // Check if the device supports FINGERPRINT authentication
-      //   if (biometryType.includes(BiometryType.FINGERPRINT)) {
-      //     biometryType = BiometryType.FINGERPRINT; // Set default to FINGERPRINT
-      //   } else {
-      //     // If FINGERPRINT is not supported, fallback to the first available biometric type
-      //     biometryType = biometryType[0];
-      //   }
-      // }
+     
 
       const authenticationPrompt = this.getAuthenticationPrompt(biometryType);
 
@@ -136,7 +139,7 @@ export class BioService {
         return;
       }
 
-      this.getCredentials();
+      this.getCredentials(callback);
     } catch (e) {
       console.log(e);
     }
@@ -208,33 +211,31 @@ export class BioService {
   /**
    * Retrieves user credentials.
    */
-  async getCredentials() {
+  private async getCredentials(callback: (pin: any) => void) {
     try {
       const credentials = await NativeBiometric.getCredentials({
-        server: this.server,
+        server: "pin.api.veluxpay.com",
       });
-      console.log(credentials);
-      // this.showToast(
-      //   `Authorised! Credentials: ${credentials.username}, ${credentials.password}`
-      // );
       this.pin = credentials.password;
-      // Check if the checkpin function is defined
-      // Check if the checkpin function is defined and call it with the pin value
-      if (this.checkPinFunction) {
-        this.checkPinFunction(this.pin); // Pass the password as the pin value
-        this.showToast(`Authorised! Pin: ${credentials.password}`);
-      }
-      //  this.presentAlert(credentials.password);
+      callback(this.pin); // Invoke the callback with the retrieved PIN
+      this.getPin()
     } catch (e) {
       console.error("Error fetching credentials:", e);
     }
   }
+
+
+  getPin(): any | null {
+    return this.pin;
+  }
+
   /**
    * References  checkpin function.
    */
   setCheckPinFunction(checkPinFunction: (pin: any) => void) {
-    this.checkPinFunction = checkPinFunction; // Set the checkpin function reference
+    this.checkPinFunction = checkPinFunction;
   }
+  
   /**
    * Presents a toast message.
    * @param message The message to display in the toast.
@@ -247,6 +248,10 @@ export class BioService {
     });
     await toast.present();
   }
+  /**
+   * Deletes all stored credentials.
+   */
+ 
 
   /**
    * Presents an alert message.

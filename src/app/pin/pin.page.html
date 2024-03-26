@@ -1,0 +1,95 @@
+
+  
+  <ion-card class="ion-text-center ion-no-margin" color="medium">
+    <ion-card-header>
+      <ion-buttons>
+        <ion-back-button defaultHref="/tabs/profiles"></ion-back-button>
+        <ion-card-title class="tit" mode="ios" >Enter PIN code</ion-card-title>
+      </ion-buttons>
+   
+        <!-- <ion-card-title mode="ios" >Accounts</ion-card-title> -->
+       
+    
+
+
+    </ion-card-header>
+
+    <ion-card-content>
+
+      
+      <div align="center" >
+        <ion-avatar class="avatar-large">
+          <img src="assets/imgs/img.png" />
+        </ion-avatar>
+        <!-- <ion-label color="primary">Victor Divine</ion-label> -->
+      </div>
+    <div class="numberBox">
+      <div class="ion-text-center">
+        <ion-input type="password" class="text-center" value="{{pin.substring(0,1)}}"></ion-input>
+      </div>
+      <div class="ion-text-center">
+        <ion-input type="password" class="text-center" value="{{pin.substring(1,2)}}"></ion-input>
+      </div>
+      <div class="ion-text-center">
+        <ion-input type="password" class="text-center" value="{{pin.substring(2,3)}}"></ion-input>
+      </div>
+      <div class="ion-text-center">
+        <ion-input type="password" class="text-center" value="{{pin.substring(3,4)}}"></ion-input>
+      </div>
+    </div>
+      
+      <ion-list>
+    
+        <ion-grid class="buttons">
+          <ion-row>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="set('1')">1</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="set('2')">2</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="set('3')">3</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="set('4')">4</ion-button>
+            </ion-col>
+             <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="set('5')">5</ion-button>
+            </ion-col>
+             <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="set('6')">6</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="set('7')">7</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="set('8')">8</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="set('9')">9</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="clear()"><ion-icon color="light" name="finger-print"></ion-icon></ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="set('0')">0</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="back()">
+                <ion-icon color="light" name="backspace"></ion-icon></ion-button>
+            </ion-col>
+          </ion-row>
+        
+         </ion-grid>
+  
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+
+  
+
+
+

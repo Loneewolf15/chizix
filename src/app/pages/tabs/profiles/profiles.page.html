@@ -1,7 +1,7 @@
-<ion-content scroll-y="false" class="profile-header-margin">
-  <ion-header translucent="{true}">
+
+  <ion-header >
     <ion-toolbar>
-      <ion-title mode="ios" class="profile-header">Profile</ion-title>
+      <ion-title mode="ios">Profile</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -137,14 +137,7 @@
         </ion-toggle>
       </ion-item>
       <br />
-      <div
-        style="
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding-bottom: 5rem;
-        "
-      >
+      <div class="container">
         <ion-item
           align="center"
           lines="none"
@@ -152,7 +145,7 @@
           detail="false"
           inset="true"
           (click)="logout()"
-          class="box-shadow"
+          class="box-shadow signout-button"
         >
           <ion-icon slot="start" name="exit" style="color: #ff0000"></ion-icon>
           <ion-label>Sign Out</ion-label>
@@ -160,4 +153,3 @@
       </div>
     </ion-list>
   </ion-content>
-</ion-content>

@@ -1,0 +1,95 @@
+<ion-card class="ion-no-margin">
+
+  <ion-card-content>
+  
+  
+  
+  
+  
+  
+    <ion-list lines="full">
+      <div *ngIf="!showOtpForm">
+      <ion-list-header class="ion-margin ion-text-center" >
+        <ion-buttons>
+          <ion-back-button defaultHref="/subaccount" mode="md"></ion-back-button> 
+        </ion-buttons>
+        
+      </ion-list-header>
+      <p class="ion-text-center">
+          <ion-text class="ion-text-center">Create a Sub-Account for your business</ion-text>
+  
+      </p>
+      
+<form [formGroup]="form" >
+ 
+
+  <ion-item [class.valid]="form.get('tagname').valid" [class.invalid]="form.get('tagname').invalid">
+    <ion-label position="floating" color="medium">User Tag:</ion-label>
+    <ion-input type="text" formControlName="tagname"></ion-input>
+    <div class="validation-message" *ngIf="form.get('tagname').invalid && (form.get('tagname').dirty || form.get('tagname').touched)">
+      Tag name is required.
+    </div>
+  </ion-item>
+
+
+  
+
+  <ion-item [class.valid]="form.get('password').valid" [class.invalid]="form.get('password').invalid">
+    <ion-label position="floating" color="medium">Password:</ion-label>
+    <ion-input type="password" formControlName="password"></ion-input>
+    <div class="validation-message" *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)">
+      Password is required and must be at least 6 characters long.
+    </div>
+  </ion-item>
+  <ion-item [class.valid]="form.get('confirm_password').valid" [class.invalid]="form.get('confirm_password').invalid">
+    <ion-label position="floating" color="medium">Confirm Password:</ion-label>
+    <ion-input type="password" formControlName="confirm_password"></ion-input>
+    <div class="validation-message" *ngIf="form.get('confirm_password').invalid && (form.get('confirm_password').dirty || form.get('confirm_password').touched)">
+      Passwords do not match.
+    </div>
+  </ion-item>
+  
+
+</form>
+
+
+
+
+
+<ion-loading
+[message]="'Please wait...'"
+[duration]="10000"
+[showBackdrop]="true"
+[translucent]="true"
+
+[spinner]="'crescent'"
+
+></ion-loading>
+
+  
+<div class="ion-margin-horizontal">
+  <br><br>
+    <ion-button type="submit"
+     class="ion-margin-horizontal"
+      size="large" 
+      expand="block" 
+      shape="round" 
+      color="medium"
+      (click)="enroll()" [disabled]="form.invalid">
+      <ion-text>Create Account</ion-text>
+    </ion-button>
+     <br>
+  </div>
+ 
+  
+  </div>
+
+
+
+
+    
+    </ion-list>
+  
+  </ion-card-content>
+
+  </ion-card>

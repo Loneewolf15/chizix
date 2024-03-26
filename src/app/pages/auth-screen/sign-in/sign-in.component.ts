@@ -43,7 +43,7 @@ export class SignInComponent implements OnInit {
   type = true;
   showForgotPassForm = false;
   isLoading: Boolean;
-  server = "www.api.veluxpay.com";
+  server = "www.login.api.veluxpay.com";
 
   public postData = {
     email: "",
@@ -251,6 +251,7 @@ export class SignInComponent implements OnInit {
   }
 
   loginfunc() {
+    //this.presentAlertx('Login 1')
     if (this.validateData() && !this.form.valid) {
       this.form.markAllAsTouched();
       return (
@@ -314,11 +315,95 @@ export class SignInComponent implements OnInit {
     return true;
   }
 
+  loginfuncx() {
+    // this.presentAlertx('Login 2')
+    if (this.validateData() && !this.form.valid) {
+      this.form.markAllAsTouched();
+      return (
+        this.postData.email &&
+        this.postData.password &&
+        this.postData.email.length > 0 &&
+        this.postData.password.length > 0
+      );
+    }
+
+    this.presentLoading("Loggin in...", "bubbles");
+    console.log(this.form.value);
+    this.authService
+      .loginfunc(this.form.value)
+      .pipe(
+        finalize(() => {
+          this.loadingCtl.dismiss();
+        })
+      )
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          if (res.status === "true") {
+            const emailFromForm = this.form.get("email").value;
+            // Check if the email matches with the stored user email
+            if (emailFromForm === localStorage.getItem("userData")) {
+              // Save credentials only if the email matches
+              this.saveCredentials(this.form.value);
+            }
+            //  this.setCredential()
+            this.preferences.store(AuthConstants.AUTH, res.data);
+            console.log(this.postData);
+            console.log("Forms Value", this.form.value);
+            //  this.saveCredentials(this.form.value);
+            this.router.navigateByUrl("/tabs", { replaceUrl: true });
+            console.log(res);
+            console.log(res.access_token);
+            localStorage.setItem("accessT", JSON.stringify(res.access_token));
+            localStorage.setItem("userData", JSON.stringify(res.data));
+            this.showToastx(res.message);
+          } else {
+            this.toastService.showToast(res.message);
+            let msg =
+              "Check your internet connection || Network connection failed";
+            if (res.message == "invalid user login detail") {
+              msg = "Email Id could not be found";
+            } else if (res.message == "Invalid password") {
+              msg = "Please enter correct password";
+            }
+            this.showAlert(msg);
+          }
+        },
+        (err: any) => {
+          this.isLoading = false;
+          this.loadingCtl.dismiss();
+          console.log(err);
+          this.toastService.showToast(
+            "Check your internet connection || Network connection failed"
+          );
+          this.presentAlertx(
+            "Failed to establish connection, please check your network connectivity!"
+          );
+          this.loadingCtl.dismiss();
+        }
+      );
+    this.loadingCtl.dismiss();
+    return true;
+  }
+
   async saveCredentials(data: { email: string; password: string }) {
     try {
       const result = await NativeBiometric.isAvailable();
       if (!result.isAvailable) return;
-      //tSave user's credentials
+
+      // Check if credentials already exist for the server
+      const existingCredentials = await NativeBiometric.getCredentials({
+        server: this.server,
+      });
+
+      if (existingCredentials) {
+        // Credentials already exist, delete them first
+        await NativeBiometric.deleteCredentials({
+          server: this.server,
+        });
+      }
+
+      // Set new credentials
       await NativeBiometric.setCredentials({
         username: data.email,
         password: data.password,
@@ -330,10 +415,10 @@ export class SignInComponent implements OnInit {
         value: "true",
       });
 
-      //this.openToast('Login Successful');
-      this.showToastx("Login Successful");
+      // this.showToast("Login Successful");
     } catch (e) {
-      console.log(e);
+      console.error("Error saving credentials:", e);
+      this.presentAlertx(e);
     }
   }
 

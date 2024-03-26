@@ -213,6 +213,10 @@ clear1(){
         message = 'An unknown error occurred!! Please try again later';
         imgSrc = 'assets/imgs/failed.png';
         break;
+        case 'error':
+          message = 'The transfer to the bank account must be under the same name as the registered user\'s full name.';
+          imgSrc = 'assets/imgs/failed.png';
+          break;        
       default:
         message = 'An unknown error occurred!! ${<br>} Please try again later';
         imgSrc = 'assets/imgs/failed.png';
@@ -265,6 +269,7 @@ hideLoader() {
     .pipe(
       finalize(() => {
         this.loadingCtl.dismiss();
+        this.modalCtrl.dismiss();
       })
   ).subscribe(
       (response: any) => {
@@ -284,6 +289,7 @@ hideLoader() {
          this.presentToast(response.message + ', Please fund your account and try again', 'danger');
         this.presentWithdrawalAlert(response.message, ` ₦${FormData.amount}`, 'Incomplete Transaction');
          this.loadingCtl.dismiss();
+         this.modalCtrl.dismiss();
        } else if(response.message === 'the amount is too small '){
          
          this.toastController.create()
@@ -291,8 +297,17 @@ hideLoader() {
          this.presentWithdrawalAlert('failed', ` ₦${FormData.amount}`, 'Transaction Failed');
          console.log('Cameth hereAmount');
          this.loadingCtl.dismiss();
+         this.modalCtrl.dismiss();
        }
-       
+       else if(response.message === "bank name dosn't match"){
+
+        this.toastController.create()
+      //  this.presentToast(response.message, 'success');
+        this.presentWithdrawalAlert('error', ` ₦${FormData.amount}`, 'Bank Name');
+        console.log('Cameth here');
+        this.loadingCtl.dismiss();
+        this.modalCtrl.dismiss();
+      } 
        else if(response.message === "Transaction successful"){
 
          this.toastController.create()
@@ -306,6 +321,7 @@ hideLoader() {
          this.presentToast(response.message, 'danger');
          this.router.navigateByUrl('/tabs')
          this.loadingCtl.dismiss();
+         this.modalCtrl.dismiss();
        }
        console.log('I reach here')
        this.loadingCtl.dismiss();

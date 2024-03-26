@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Deposit Status
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-icon slot="start" [name]="depositSuccess ? 'checkmark-circle' : 'close-circle'"></ion-icon>
+      <ion-label>
+        {{ depositSuccess ? 'Deposit Successful' : 'Deposit Failed' }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

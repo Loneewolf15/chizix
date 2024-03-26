@@ -55,24 +55,10 @@ export class AppComponent {
     });
     // this.initializeApp();
 
-    this.preloadAudio();
+   // this.preloadAudio();
   }
 
   
-  async preloadAudio() {
-    try {
-      let path = 'notification.wav';
-      if(Capacitor.getPlatform() == 'ios') path = 'sounds/' + path;
-      await NativeAudio.preload({
-        assetId: "notification",
-        assetPath: path,
-        audioChannelNum: 1,
-        isUrl: false
-      });
-    } catch(e) {
-      console.log(e);
-    }
-  }
 
 
 exitAppOnAlert() {
@@ -93,8 +79,18 @@ sendTokenToServer(token: string) {
 
 
 exitAppOnAlertx() {
-  if (Capacitor.getPlatform() === 'android') {
+  const platform = Capacitor.getPlatform();
+  
+  if (platform === 'android') {
     this.platform.backButton.subscribeWithPriority(10, async () => {
+      if (this.router.url === '/auth-screen' || this.router.url === '/tabs/home') {
+        this.exit();
+      } else {
+        this.goBack();
+      }
+    });
+  } else if (platform === 'ios') {
+    document.addEventListener('swipeback', () => {
       if (this.router.url === '/auth-screen' || this.router.url === '/tabs/home') {
         this.exit();
       } else {
@@ -103,6 +99,7 @@ exitAppOnAlertx() {
     });
   }
 }
+
 
 goBack() {
   this.location.back();

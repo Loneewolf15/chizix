@@ -24,18 +24,24 @@
   font-weight: bold;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.signout-button {
+  max-width: 300px; /* Adjust the maximum width as needed */
+}
+
+
 ion-header {
   padding-top: 1.3rem; //added code
 
   ion-toolbar {
     --background: var();
-    ion-segment {
-      --background: var(--ion-color-primary);
-      ion-segment-button {
-        --color: var(--ion-color-white);
-        --color-checked: var(--ion-color-primary);
-      }
-    }
+   
     ion-buttons {
       --background: var(--ion-color-tertiary);
     }

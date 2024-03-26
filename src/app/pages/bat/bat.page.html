@@ -34,11 +34,11 @@
   <ion-item lines="none" [inset]="true" class="container">
     <ion-avatar class="user-icon" slot="start">
       <ion-img
-        *ngIf="selectedTag?.image !== '0' && selectedTag?.image !== null && selectedTag?.image !== undefined && selectedTag?.image !== ''"
-        [src]="'https://api.veluxpay.com/' + selectedTag?.image"
+        *ngIf="selectedTag && (selectedTag.image !== '0' && selectedTag.image !== null && selectedTag.image !== undefined && selectedTag.image !== '')"
+        [src]="'https://api.veluxpay.com/' + selectedTag.image"
       ></ion-img>
       <ion-img
-        *ngIf="selectedTag?.image === '0' || selectedTag?.image === null || selectedTag?.image === undefined || selectedTag?.image === ''"
+        *ngIf="selectedTag && (selectedTag.image === '0' || selectedTag.image === null || selectedTag.image === undefined || selectedTag.image === '')"
         src="assets/images/avatar.png"
         alt="Dummy Image"
       ></ion-img>
@@ -185,7 +185,7 @@
           class="ion-text-center ion-no-margin"
           style="box-shadow: none"
         >
-          <ion-card-header>
+          <ion-card-header class="head">
             <ion-toolbar style="box-shadow: none">
               <ion-buttons slot="start">
                 <ion-button (click)="isModalOpen = false">
@@ -310,8 +310,19 @@
                       >9</ion-button
                     >
                   </ion-col>
-                  <ion-col class="digitx" size="4">
-                    <!-- <ion-button fill="clear" class="button" (click)="clear()">Clear</ion-button> -->
+                  <ion-col *ngIf="bioSe" class="digitx" size="4">
+                    <ion-button
+                      expand="block"
+                      size="large"
+                      color="white"
+                      (click)="initiateT()"
+                    >
+                      <ion-icon
+                        slot="icon-only"
+                        name="finger-print"
+                        color="warning"
+                      ></ion-icon>
+                    </ion-button>
                   </ion-col>
                   <ion-col class="digitx" size="4">
                     <ion-button fill="clear" class="button" (click)="sett('0')"
@@ -319,7 +330,12 @@
                     >
                   </ion-col>
                   <ion-col class="digitx" size="4">
-                    <ion-button fill="clear" class="button" (click)="back1()"
+                    <ion-button
+                      fill="clear"
+                      class="button"
+                      expand="block"
+                      size="large"
+                      (click)="back1()"
                       ><ion-icon name="backspace"></ion-icon
                     ></ion-button>
                   </ion-col>

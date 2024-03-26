@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Top Up Wallet
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="topUpForm" (ngSubmit)="onSubmit()">
+    <ion-item class="amount-input">
+      <ion-label position="floating" class="amount-label">Amount (Naira)</ion-label>
+      <ion-input type="number"  class="amount-field"></ion-input>
+    </ion-item>
+    <ion-error *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="error-message">
+      Please enter a valid amount (minimum ₦500)
+    </ion-error>
+
+    <ion-item class="card-number-input">
+      <ion-label position="floating" class="card-number-label">Card Number</ion-label>
+      <ion-input type="tel"  class="card-number-field"></ion-input>
+    </ion-item>
+    <ion-error *ngIf="cardNumber.invalid && (cardNumber.dirty || cardNumber.touched)" class="error-message">
+      Please enter a valid 16-digit card number
+    </ion-error>
+
+    <ion-item class="expiry-input">
+      <ion-row>
+        <ion-col size="6">
+          <ion-label position="floating" class="expiry-label">Expiry Month</ion-label>
+          <ion-input type="number"  class="expiry-field"></ion-input>
+          <ion-error *ngIf="expiryMonth.invalid && (expiryMonth.dirty || expiryMonth.touched)" class="error-message">
+            Please enter a valid expiry month (1-12)
+          </ion-error>
+        </ion-col>
+        <ion-col size="6">
+          <ion-label position="floating" class="expiry-label">Expiry Year</ion-label>
+          <ion-input type="number" class="expiry-field"></ion-input>
+          <ion-error *ngIf="expiryYear.invalid && (expiryYear.dirty || expiryYear.touched)" class="error-message">
+            Please enter a valid expiry year (current year or later)
+          </ion-error>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+
+    <ion-item class="cvv-input">
+      <ion-label position="floating" class="cvv-label">CVV</ion-label>
+      <ion-input type="tel" class="cvv-field"></ion-input>
+    </ion-item>
+    <ion-error *ngIf="cvv.invalid && (cvv.dirty || cvv.touched)" class="error-message">
+      Please enter a valid 3-4 digit CVV code
+    </ion-error>
+
+    <ion-button type="submit" [disabled]="!topUpForm.valid" expand="block" class="submit-button ion-margin-top" [animated]="true">
+      <ion-icon name="card-outline" slot="start" class="submit-icon"></ion-icon>
+      Top Up
+      <ion-spinner slot="end" class="submit-spinner"></ion-spinner>
+    </ion-button>
+  </form>
+</ion-content>

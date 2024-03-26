@@ -1,0 +1,120 @@
+<ion-card class="ion-no-margin">
+
+  <ion-card-content>
+  
+  
+  
+  
+  
+  
+  
+    <ion-list lines="full">
+     
+      <ion-list-header class="ion-margin">
+        <ion-label><h2 class="ion-text-center">Register</h2></ion-label>
+      </ion-list-header>
+      <p class="ion-text-center">
+          <ion-text class="ion-text-center">Create an Account</ion-text>
+  
+      </p>
+    
+      
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <ion-item [class.valid]="form.get('fullname').valid" [class.invalid]="form.get('fullname').invalid">
+    <ion-label position="floating" color="medium">Full Name:</ion-label>
+    <ion-input type="text" formControlName="fullname"></ion-input>
+    <div class="validation-message" *ngIf="form.get('fullname').invalid && (form.get('fullname').dirty || form.get('fullname').touched)">
+      Full Name is required and must be a valid Name.
+    </div>
+  </ion-item>
+
+  <ion-item [class.valid]="form.get('tagname').valid" [class.invalid]="form.get('tagname').invalid">
+    <ion-label position="floating" color="medium">User Tag:</ion-label>
+    <ion-input type="text" formControlName="tagname"></ion-input>
+    <div class="validation-message" *ngIf="form.get('tagname').invalid && (form.get('tagname').dirty || form.get('tagname').touched)">
+      Tag name is required.
+    </div>
+  </ion-item>
+
+  <ion-item [class.valid]="form.get('email').valid" [class.invalid]="form.get('email').invalid">
+    <ion-label position="floating" color="medium">Email:</ion-label>
+    <ion-input type="email" formControlName="email"></ion-input>
+    <div class="validation-message" *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)">
+      Email is required and must be a valid email address.
+    </div>
+  </ion-item>
+
+  
+  <ion-item [class.valid]="form.get('phone').valid" [class.invalid]="form.get('phone').invalid">
+    <ion-label position="floating" color="medium">Phone Number:</ion-label>
+    <ion-input 
+                formControlName="phone" 
+                placeholder="Mobile Number" 
+                type="tel"
+                minlength="11"
+                maxlength="11"
+                name="phone"
+                (ionChange)="changeNumber($event)">
+              </ion-input>
+    <div class="validation-message" *ngIf="form.get('phone').invalid && (form.get('phone').dirty || form.get('phone').touched)">
+      Phone Number is required and must be valid.
+    </div>
+  </ion-item>
+  
+
+  <ion-item [class.valid]="form.get('password').valid" [class.invalid]="form.get('password').invalid">
+    <ion-label position="floating" color="medium">Password:</ion-label>
+    <ion-input type="password" formControlName="password"></ion-input>
+    <div class="validation-message" *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)">
+      Password is required and must be at least 6 characters long.
+    </div>
+  </ion-item>
+
+
+</form>
+
+
+
+
+
+<ion-loading
+[message]="'Please wait...'"
+[duration]="10000"
+[showBackdrop]="true"
+[translucent]="true"
+
+[spinner]="'crescent'"
+
+></ion-loading>
+
+  
+  <div class="ion-margin-horizontal">
+  <br><br>
+    <ion-button type="submit"
+     class="ion-margin-horizontal"
+      size="large" 
+      expand="block" 
+      shape="round" 
+      color="medium"
+      (click)="signup()" [disabled]="form.invalid">
+      <ion-text>Register</ion-text>
+    </ion-button>
+     <br>
+  </div>
+  
+  <div class="ion-footer ion-text-center ion-no-margin ion-padding-horizontal">
+    <span><ion-text color="danger" slot="start">
+      Already have an account?
+    </ion-text> <a href="/auth-screen" color="medium" class="ion-no-padding"><strong>Sign In</strong></a></span>
+    </div>
+
+
+
+
+
+    
+    </ion-list>
+ 
+  </ion-card-content>
+
+  </ion-card>

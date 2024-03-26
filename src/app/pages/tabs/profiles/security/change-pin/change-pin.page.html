@@ -10,7 +10,9 @@
 
 <ion-content  >
   <ion-button expand="block" color="secondary" class="ion-padding">
-    set a new Pin
+    <ion-text>
+      set a new Pin
+    </ion-text>  
   </ion-button> 
 
     <ion-card  class="ion-no-margin" >
@@ -26,7 +28,7 @@
 
   <div class="ion-margin-vertical">
     <ion-item lines="none">
-        <ion-input label="Pin*" label-placement="floating" [counter]="true" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Entry not valid" formControlName="pin" placeholder="Default pin from email" type="password" ></ion-input>
+        <ion-input label="Pin:" label-placement="floating" [counter]="true" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Entry not valid" formControlName="pin" placeholder="Default pin from email" type="password" ></ion-input>
 
   </ion-item>
   </div>
@@ -36,7 +38,7 @@
 
   <div class="ion-margin-vertical">
     <ion-item lines="none">
-    <ion-input label="New Pin*" label-placement="floating"  maxlength="4" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Entry not valid" formControlName="pin2" type="password" ></ion-input>
+    <ion-input label="New Pin:" label-placement="floating"  maxlength="4" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Entry not valid" formControlName="pin2" type="password" ></ion-input>
   
   </ion-item>
   </div>
@@ -45,7 +47,7 @@
 
   <div class="ion-margin-vertical">
     <ion-item lines="none">
-      <ion-input label="Confirm Pin*" label-placement="floating" maxlength="4" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Entry do not match" formControlName="confirm_pin2" type="password" ></ion-input>
+      <ion-input label="Confirm Pin:" label-placement="floating" maxlength="4" minlength="4" [counterFormatter]="customCounterFormatterE" errorText="* Entry do not match" formControlName="confirm_pin2" type="password" ></ion-input>
 
   </ion-item>
   </div>

@@ -9,10 +9,14 @@
 
 <ion-content class="ion-padding"  *ngIf="!isTawkChatLoaded">
   
+  <ion-text>
+    <b><a href="{{ chat }}" class="email-link">Chat with customer service:</a></b>
+  </ion-text>
+
   <ion-grid>
     <ion-row>
       <ion-col size="6">
-        <h1>Welcome,</h1>
+        <h3>Welcome,</h3>
   <!-- <h6>To the help page</h6> -->
 </ion-col>
       <ion-col size="6" class="signout">
@@ -20,11 +24,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <p>We understand that using a fintech app can sometimes be overwhelming, but do not worry. We are here to provide you with all information you will need to make the most out of the app. Below, you will find a detailed guide on <b>VELUXPAY</b>, including sub-accounts, scan to-go, airtime and data recharge.</p>
+  <p>We understand that using a mobile wallet app can sometimes be overwhelming, but do not worry. We are here to provide you with all information you will need to make the most out of the app. Below, you will find a detailed guide on <b>VELUXPAY</b>, including sub-accounts, scan to-go, airtime and data recharge.</p>
 <!-- <br> -->
-  <h3>Sending and Receiving:</h3>
-  <div>
-  <p><big><strong>Money are received</strong></big> in two ways in <b>VELUXPAY</b>, using the <b>Scan-to-go</b> or <b>Tag Name</b> features.
+  <h4>Sending and Receiving:</h4>
+  <div class="mrt">
+  <p><strong>Money are received</strong> in two ways in <b>VELUXPAY</b>, using the <b>Scan-to-go</b> or <b>Tag Name</b> features.
     <ion-list>
       <ion-item class="bullet-point" lines="none">
         <ion-icon name="ellipse" slot="start"></ion-icon>
@@ -39,7 +43,7 @@
         <ion-text>Sent money is received immediately</ion-text>
       </ion-item>
     </ion-list>
-    <big><strong>To send money</strong></big>
+    <strong>To send money</strong>
     <ion-list>
       <ion-item class="bullet-point" lines="none">
         <ion-icon name="ellipse" slot="start"></ion-icon>
@@ -67,7 +71,7 @@
 
   <h3>Sub-Account:</h3>
   <div>
-  <p>Sub-accounts are convenient feature that allow you to create and manage multiple accounts within your main account. You can use sub-account to separate your income just to help know the total money coming from an angle. <big><strong>To create a sub-account: </strong></big>
+  <p>Sub-accounts are convenient feature that allow you to create and manage multiple accounts within your main account. You can use sub-account to separate your income just to help know the total money coming from an angle. <strong>To create a sub-account: </strong>
     <ion-list>
       <ion-item class="bullet-point" lines="none">
         <ion-icon name="ellipse" slot="start"></ion-icon>
@@ -92,10 +96,7 @@
     </ion-list>
   </p>
 </div>
-<ion-text>
-  For more assistance, 
-  <b><a href="{{ chat }}" class="email-link">Chat with customer service:</a></b>
-</ion-text>
+
 
 
   

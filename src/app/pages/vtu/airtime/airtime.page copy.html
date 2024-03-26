@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/vtu"></ion-back-button>
+
+    </ion-buttons>
+    <ion-title>Airtime Top-up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="showContent1">
+  <!-- Content 1 to be shown/hidden goes here -->
+  <ion-row>
+
+    
+
+    <ion-col>
+ 
+  <ion-card value="MTN" color="secondary" (click)="showContent1 = !showContent1; showContent2 = !showContent2(MTN)">
+    <ion-card-header>
+      <!-- <ion-card-title style="align-items: center;">
+        <ion-icon name="wifi-outline"></ion-icon>
+      </ion-card-title> -->
+      
+    </ion-card-header>
+  
+    <ion-card-content>
+      <img alt="Silhouette of mountains" src="assets/imgs/mtn.png" />
+    </ion-card-content>
+  </ion-card>
+
+    </ion-col>
+
+    <ion-col>
+ 
+      <ion-card value="Airtel" color="secondary" (click)="showContent1 = !showContent1; showContent2 = !showContent2(Airtel)">
+        <ion-card-header>
+          <!-- <ion-card-title style="align-items: center;">
+            <ion-icon name="wifi-outline"></ion-icon>
+          </ion-card-title> -->
+          
+        </ion-card-header>
+      
+        <ion-card-content>
+          <img alt="Silhouette of mountains" src="assets/imgs/airtel.png" />
+        </ion-card-content>
+      </ion-card>
+    
+        </ion-col>
+
+  </ion-row>
+
+  <ion-row>
+
+    
+
+    <ion-col>
+ 
+  <ion-card value="GLO" color="secondary" (click)="showContent1 = !showContent1; showContent2 = !showContent2">
+    <ion-card-header>
+      <!-- <ion-card-title style="align-items: center;">
+        <ion-icon name="wifi-outline"></ion-icon>
+      </ion-card-title> -->
+      
+    </ion-card-header>
+  
+    <ion-card-content>
+      <img alt="Silhouette of mountains" src="assets/imgs/glo.jpg" />
+    </ion-card-content>
+  </ion-card>
+
+    </ion-col>
+
+    <ion-col>
+ 
+      <ion-card value="9mobile" color="secondary" (click)="showContent1 = !showContent1; showContent2 = !showContent2">
+        <ion-card-header>
+          <!-- <ion-card-title style="align-items: center;">
+            <ion-icon name="wifi-outline"></ion-icon>
+          </ion-card-title> -->
+          
+        </ion-card-header>
+      
+        <ion-card-content>
+          <img alt="Silhouette of mountains" src="assets/imgs/9.jpg" />
+        </ion-card-content>
+      </ion-card>
+    
+        </ion-col>
+
+  </ion-row>
+
+</ion-content>
+
+<ion-content *ngIf="showContent2">
+  <ion-list>
+    <!-- <ion-item>
+      <ion-label>Network Provider</ion-label>
+      <ion-select [(ngModel)]="provider">
+        <ion-select-option value="MTN">MTN</ion-select-option>
+        <ion-select-option value="Glo">Glo</ion-select-option>
+        <ion-select-option value="Airtel">Airtel</ion-select-option>
+        <ion-select-option value="9mobile">9mobile</ion-select-option>
+      </ion-select>
+    </ion-item> -->
+    <ion-item>
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input type="tel" [(ngModel)]="phoneNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Amount</ion-label>
+      <ion-input type="number" [(ngModel)]="amount"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block" width="50%" color="medium" (click)="topUp()">Top Up</ion-button>
+</ion-content>
+
+<!-- <ion-content *ngIf="showContent">
+  <ion-card (click)="logCardValue('Card Value'); showContent = false">
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      This is the card content.
+    </ion-card-content>
+  </ion-card>
+</ion-content> -->
+
+<ion-content *ngIf="!showContent">
+  <h1>New Content</h1>
+  <p>The value of the card was {{ cardValue }}</p>
+  <button ion-button (click)="showContent = true">Show Previous Content</button>
+</ion-content>
+
+<ion-content *ngIf="!showContent" class="airt">
+  <ion-list>
+    
+    <ion-item>
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input type="tel" [(ngModel)]="formData.phone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Amount</ion-label>
+      <ion-input type="tel" [(ngModel)]="formData.amount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Pin</ion-label>
+      <ion-input type="tel" [(ngModel)]="formData.pin"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block" width="50%" color="medium" (click)="topUp()">Top Up</ion-button>
+</ion-content>

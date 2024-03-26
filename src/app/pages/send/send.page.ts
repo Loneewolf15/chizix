@@ -94,6 +94,7 @@ export class SendPage implements OnInit, OnDestroy {
     private toastController: ToastController,
     private modalController: ModalController
   ) {
+    this.here()
     setInterval(() => {
       console.log("fetching users.....huurraay");
       this.getTagname();
@@ -117,11 +118,15 @@ export class SendPage implements OnInit, OnDestroy {
     this.getRecentReceiver();
   }
 
-  here() {
-    if (this.bioService.showB()) {
+  async here() {
+    const isBiometricEnabled = await this.bioService.showB();
+    if (isBiometricEnabled) {
       this.bioSe = true;
+    } else {
+      this.bioSe = false;
     }
   }
+  
 
   async presentToaxt(message: string, color: string) {
     const toast = await this.toastController.create({
@@ -383,17 +388,6 @@ export class SendPage implements OnInit, OnDestroy {
     this.stopScan();
   }
 
-  // //change style of current input
-  // setFocused(){
-  //   for (let i = 1; i < 3; i++){
-  //     if((this.amount.length + 1) == i){
-  //       document.getElementById("amount" + i).style.background = "var(--ion-color-base)"
-  //     }
-  //   else {
-  //     document.getElementById("amount" + i).style.background = "var(--ion-color-base)"
-  //   }
-  // }
-  // }
 
   set(value: any) {
     console.log(value);
@@ -582,7 +576,7 @@ export class SendPage implements OnInit, OnDestroy {
 
   checkPin(pin: any) {
     this.pin = pin; // Assign the pin value received from BioService
-    this.presentAlert(pin);
+  //  this.presentAlert(pin);
     setTimeout(() => {
       this.loadingCtl.dismiss();
 
@@ -759,9 +753,29 @@ export class SendPage implements OnInit, OnDestroy {
     }
   }
 
+  //  initiateT() {
+  //   if(this.bioService.initiateTransfer()){
+  //     const pin = this.bioService.getPin();
+  //     if (pin) {
+  //       this.sett(pin);
+  //     } else {
+  //       console.error("PIN not available.");
+  //     }
+  //   }
+  
+  // }
+
   initiateT() {
-    this.bioService.initiateTransfer();
+    this.bioService.initiateTransfer((pin) => {
+      if (pin) {
+        this.sett(pin); // Call the sett function with the retrieved PIN
+      } else {
+        console.error("PIN not available.");
+      }
+    });
   }
+
+  
 
   book() {
     this.router.navigateByUrl("/bat");

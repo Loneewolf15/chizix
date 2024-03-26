@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="/tabs"></ion-back-button> 
+    </ion-buttons>
+    <ion-title>Selfie</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content *ngIf="images.length >= 1">
+
+
+	
+  <ion-item *ngFor="let file of images; let i = index">
+    <div class="container">
+      <ion-thumbnail class="thumbnail" slot="start">
+        <ion-img [src]="file.data"></ion-img>
+      </ion-thumbnail>
+      <ion-button class="upLoad" color="medium" expand="block" (click)="startUpload(file)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>Upload Image
+      </ion-button>
+      <ion-button class="reT" fill="clear" color="dark" expand="block" (click)="deleteImage(file)">
+     Retake
+      </ion-button>
+    </div>
+  </ion-item>
+  <!-- <ion-button color="medium" expand="block" (click)="deleteImage(file)">
+    <ion-icon slot="icon-only" name="trash"></ion-icon>
+  </ion-button> -->
+
+
+</ion-content>
+
+
+<ion-content *ngIf="images.length == 0">
+
+
+	
+	<ion-button fill="clear" expand="full" color="medium" (click)="selectImage()">
+			<ion-icon slot="start" name="camera"></ion-icon>
+			Capture Image
+		</ion-button>
+
+</ion-content>

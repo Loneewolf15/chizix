@@ -1,33 +1,36 @@
 ion-card {
   box-shadow: none !important;
   padding-top: 3vh;
- // padding-bottom: 45vh;
+  // padding-bottom: 45vh;
   /* CSS for placing ion-back-button and title on the same line within ion-card-header */
 
-// ion-card-header ion-toolbar {
-//   display: flex;
-//   align-items: center; /* Align items vertically center */
-//   justify-content: space-between; /* Space items evenly on the main axis */
-// }
+  // ion-card-header ion-toolbar {
+  //   display: flex;
+  //   align-items: center; /* Align items vertically center */
+  //   justify-content: space-between; /* Space items evenly on the main axis */
+  // }
 
-// ion-back-button {
-//   margin-right: 8px; /* Adjust margin as needed */
-// }
- 
-.tit{
-  font-style: normal;
- // margin-left: 20%;
-  font-weight: 500;
-  font-size:20px;
-}
+  // ion-back-button {
+  //   margin-right: 8px; /* Adjust margin as needed */
+  // }
+
+  .tit {
+    font-style: normal;
+    // margin-left: 20%;
+    font-weight: 500;
+    font-size: 20px;
+  }
   ion-input {
     font-size: 0.9rem;
-   
   }
   ion-textarea {
     font-size: 0.97rem;
-   
   }
+  .custom-scroll {
+    overflow-y: auto;
+    max-height: calc(100vh - 200px); /* Adjust 200px to your preference */
+  }
+
   .balx {
     margin-top: 5%;
   }
@@ -60,7 +63,6 @@ ion-card {
       font-style: normal;
       font-weight: 700;
       font-size: 24px;
-      
 
       color: #9f27ca;
     }
@@ -169,7 +171,7 @@ ion-footer {
           ion-col {
             ion-input {
               font-size: 1.5em;
-              
+
               display: inline-block;
               width: 8vh;
               height: 8vh;
@@ -220,7 +222,6 @@ ion-footer {
   --height: auto;
   color: black;
 }
-
 
 // @media screen and (max-width: 375px) {
 //   ion-card {

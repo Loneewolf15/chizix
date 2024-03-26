@@ -17,6 +17,29 @@ ion-toolbar{
     border-radius: 5px;
     
   }
+  .head {
+    margin-top: 3%;
+    padding-top: 1.5rem;
+  }
+
+  ion-header {
+    padding-top: 1.5rem; //added code
+
+    ion-toolbar {
+      --background: var();
+      ion-segment {
+        --background: var(--ion-color-primary);
+        ion-segment-button {
+          --color: var(--ion-color-white);
+          --color-checked: var(--ion-color-primary);
+        }
+      }
+      ion-buttons {
+        --background: var(--ion-color-tertiary);
+      }
+    }
+  }
+  
   ion-input:focus {
     outline: none;
     // border-color: #8c6bff;

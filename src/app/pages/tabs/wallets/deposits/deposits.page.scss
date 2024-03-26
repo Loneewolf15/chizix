@@ -1,0 +1,80 @@
+ion-header {
+    ion-toolbar {
+      --background: #1a1a1a;
+    }
+    ion-title {
+      color: #fff;
+      font-size: 1.5rem;
+    }
+  }
+  
+  ion-content {
+    --background: #fff;
+    --ion-color-primary: #1a1a1a;
+  }
+  
+  .amount-input,
+  .card-number-input,
+  .expiry-input,
+  .cvv-input {
+    --padding-start: 10px;
+    --padding-end: 10px;
+  }
+  
+  .amount-field,
+  .card-number-field,
+  .expiry-field,
+  .cvv-field {
+    --background: #f2f2f2;
+    --border-radius: 10px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    border: none;
+  }
+  
+  .amount-field {
+    font-size: 1.5rem;
+  }
+  
+  .card-number-field {
+    font-size: 1.2rem;
+  }
+  
+  .expiry-field,
+  .cvv-field {
+    font-size: 1.1rem;
+  }
+  
+  .submit-button {
+    --background: #1a1a1a;
+    --border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-transform: uppercase;
+    width: 100%;
+  }
+  
+  .submit-button ion-icon {
+    margin-left: 8px;
+  }
+  
+  .submit-spinner {
+    --color: #ffffff; /* set the spinner color */
+  }
+  
+.error-message {
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+  
+  .success-message {
+    color: #2ecc71;
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }

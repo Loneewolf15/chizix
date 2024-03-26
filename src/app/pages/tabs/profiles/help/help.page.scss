@@ -7,11 +7,14 @@ ion-content {ion-checkbox {
     border-radius: 6px;
     border: 2px solid #7E219E;
   }
+  .mrt{
+    font-size: 10px;
+  }
 
     p{
         display: transparent;
             font-weight: 70;
-            font-size: 15px;
+            font-size: 12px;
             // margin-bottom: 1rem;
             // margin-top: 0.6rem;
     }
@@ -93,6 +96,7 @@ font-weight: bolder;
        ion-img{
         padding-bottom:2px;
        }
+
     }
 
     margin-bottom: 10vh;

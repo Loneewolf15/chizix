@@ -1,25 +1,38 @@
-<ion-header translucent={true} class="ion-no-header" >
-  <ion-toolbar >
+<ion-header translucent="{true}" class="ion-no-header">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/profiles"></ion-back-button>
-
     </ion-buttons>
     <ion-title mode="ios">Security</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <ion-list [inset]="true">
-    <ion-text class="ion-no-margin ion-padding-horizontal">Signing into Velux</ion-text>
-    <ion-item  lines="none" (click)="changePin()" detail="false" text-wrap>
+    <ion-text class="ion-no-margin ion-padding-horizontal"
+      >Accessing your account</ion-text
+    >
+    <ion-item lines="none" (click)="changePin()" detail="false" text-wrap>
       <ion-icon name="mail-unread" slot="start"></ion-icon>
-      <ion-label> <h2>
-        Pin
-      </h2>
-      <ion-text text-wrap>Set A New Transaction Pin </ion-text></ion-label>
+      <ion-label>
+        <h2>Pin</h2>
+        <ion-text text-wrap>Set A New Transaction Pin </ion-text></ion-label
+      >
       <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
     </ion-item>
 
+    <ion-item lines="none" detail="false" text-wrap>
+      <ion-icon name="finger-print" color="warning" slot="start"></ion-icon>
+      <ion-toggle
+        [enableOnOffLabels]="true"
+        justify="space-between"
+        color="warning"
+        [checked]="true"
+        mode="ios"
+        [checked]="darkMode"
+        (ionChange)="toggleDarkMode()"
+        >Biometric Authentication
+      </ion-toggle>
+    </ion-item>
   </ion-list>
-
 </ion-content>

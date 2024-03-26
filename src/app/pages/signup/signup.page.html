@@ -1,0 +1,238 @@
+<ion-content [fullscreen]="true" mode="md">
+  <ion-card class="ion-no-margin">
+    <!-- <ion-img src="assets/images/image.png" class="manage" ></ion-img>
+  -->
+  <!-- <div align="center">
+    <img src="assets/imgs/logo.png" />
+  </div> --> 
+
+  <ion-card-header>
+    <ion-card-title>
+     
+
+    </ion-card-title>
+</ion-card-header>  
+
+<ion-card-content>
+  
+  
+<!-- <p class="ion-text-center ion-margin-horizontal">
+  <ion-text color="">Sign in to continue</ion-text>
+</p>
+<ion-content>
+
+  
+-->
+
+  <ion-row> 
+   <!-- <ion-fab vertical="top" horizontal="end">
+      <ion-fab-button color="danger" (click)="signUp()">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>  -->
+
+    <ion-list lines="full">
+      <ion-list-header class="ion-margin">
+        <ion-label><h2 class="ion-text-center">Register</h2></ion-label>
+      </ion-list-header>
+      <ion-text class="ion-text-center">Create an Account</ion-text>
+      <ion-item-group class="ion-margin-horizontal ion-margin-bottom">
+        <form [formGroup]="form">
+
+          <div class="ion-margin-vertical">
+            <ion-item>
+              <ion-input 
+                formControlName="name" 
+                placeholder="Full Name" 
+                name="fullname"  [(ngModel)]="postData.fullname"
+                type="text">
+              </ion-input>
+            </ion-item>
+            <ion-text *ngIf="!form.get('name').valid && form.get('name').touched">
+              <ion-text class="error" 
+                *ngIf="form.get('name').hasError('required')" 
+                color="danger">
+                * Please enter your Name
+              </ion-text>
+            </ion-text>
+          </div>
+
+
+          <div class="ion-margin-vertical">
+            <ion-item>
+              <ion-input 
+                formControlName="tag" 
+                placeholder="User Tag" 
+                name="tagname"  [(ngModel)]="postData.tagname"
+                type="text">
+              </ion-input>
+            </ion-item>
+            <ion-text *ngIf="!form.get('name').valid && form.get('name').touched">
+              <ion-text class="error" 
+                *ngIf="form.get('name').hasError('required')" 
+                color="danger">
+                * Please enter user tag
+              </ion-text>
+            </ion-text>
+          </div>
+          
+          
+          
+
+          <div class="ion-margin-vertical">
+            <ion-item>
+              <ion-button 
+                *ngIf="!verified"
+                slot="end" 
+                fill="clear" 
+                color="primary"
+                (click)="verifyViaOtp()">VERIFY
+              </ion-button>
+              <ion-button
+                *ngIf="verified" 
+                slot="end" 
+                fill="clear" 
+                color="success">VERIFIED
+              </ion-button>
+              <ion-input 
+                formControlName="phone" 
+                placeholder="Mobile Number" 
+                type="tel"
+                minlength="11"
+                maxlength="11"
+                name="phone"  [(ngModel)]="postData.phone"
+                (ionChange)="changeNumber($event)">
+              </ion-input>
+            </ion-item>
+            <ion-text *ngIf="!form.get('phone').valid && form.get('phone').touched">
+              <ion-text class="error" *ngIf="form.get('phone').hasError('required')" color="danger">
+                * Please enter the Mobile Number
+              </ion-text>
+              <ion-text class="error" *ngIf="form.get('phone').hasError('minlength') 
+                && !form.get('phone').hasError('required')" color="danger">
+                * Please enter a valid Mobile Number
+              </ion-text>
+            </ion-text>
+          </div>
+
+          <div class="ion-margin-vertical">
+            <ion-item>
+              <ion-input 
+                formControlName="email" 
+                placeholder="Email Address" 
+                name="email"  [(ngModel)]="postData.email"
+                type="email">
+              </ion-input>
+            </ion-item>
+            <ion-text *ngIf="!form.get('email').valid && form.get('email').touched">
+              <ion-text class="error" 
+                *ngIf="form.get('email').hasError('required')" 
+                color="danger">
+                * Please enter your Email Address
+              </ion-text>
+              <ion-text class="error" *ngIf="form.get('email').hasError('email') 
+                && !form.get('email').hasError('required')" color="danger">
+                * Please enter a proper Email Address
+              </ion-text>
+            </ion-text>
+          </div>
+
+          <div class="ion-margin-vertical">
+            <ion-item>
+              <!-- <ion-icon 
+                [name]="type ? 'eye-outline' : 'eye-off-outline'" 
+                slot="end" 
+                color="medium"
+                (click)="changeType()">
+              </ion-icon> -->
+              <ion-input 
+                formControlName="password" 
+                placeholder="Password"  name="password"  [(ngModel)]="postData.password"
+                [type]="type ? 'password' : 'text'">
+              </ion-input>
+            </ion-item>
+            <ion-text *ngIf="!form.get('password').valid && form.get('password').touched">
+              <ion-text class="error" *ngIf="form.get('password').hasError('required')" color="danger">
+                * Please enter the Password
+              </ion-text>
+              <ion-text class="error" *ngIf="form.get('password').hasError('minlength') 
+                && !form.get('password').hasError('required')" color="danger">
+                * Password must of minimum 8 characters long
+              </ion-text>
+            </ion-text>
+          </div>
+
+          <div class="ion-margin-vertical">
+            <ion-item>
+              <!-- <ion-icon 
+                [name]="type ? 'eye-outline' : 'eye-off-outline'" 
+                slot="end" 
+                color="medium"
+                (click)="changeType()">
+              </ion-icon> -->
+              <ion-input 
+                formControlName="confirm_password" 
+                placeholder="Confirm Password"  name="confirm_password"  [(ngModel)]="postData.confirm_password"
+                [type]="type ? 'password' : 'text'">
+              </ion-input>
+            </ion-item>
+            <ion-text *ngIf="!form.get('confirm_password').valid && form.get('password').touched">
+              <ion-text class="error" *ngIf="form.get('password').hasError('required')" color="danger">
+                Please confirm the Password
+              </ion-text>
+              <ion-text class="error" *ngIf="form.get('confirm_password').errors?.mustMatch
+                && !form.get('password').hasError('required')" color="danger">
+               Passwords do not match
+              </ion-text>
+            </ion-text>
+          </div>
+
+        </form>
+        <div class="ion-margin-horizontal">
+          <ion-grid>
+            
+                <ion-button
+                class="ion-margin-horizontal"
+                 size="large" 
+                 expand="block" 
+                 shape="round" 
+                 color="medium"
+                 (click)="signUp()">
+                 <ion-text>Register</ion-text>
+               </ion-button>
+             
+          
+           
+          </ion-grid>
+          
+        
+        
+        </div>
+
+        <div class="ion-footer ion-text-center ion-no-margin ion-padding-horizontal">
+          <span><ion-text color="danger" slot="start">
+            Already have an account?
+          </ion-text> <a href="/auth-screen" color="medium" class="ion-no-padding"><strong>Sign In</strong></a></span>
+          </div> 
+<!-- 
+        <ion-item lines="none" class="ion-padding-top">
+          <ion-text color="danger" slot="start">
+            Already have an account?
+          </ion-text>
+          <ion-text color="dark" class="ion-text-center" 
+            routerLink="/auth-screen">
+            <strong>Sign In</strong>
+          </ion-text>
+        </ion-item> -->
+
+
+      </ion-item-group>
+    </ion-list>
+  </ion-row>
+
+
+
+
+</ion-card-content>
+</ion-card>
+</ion-content>

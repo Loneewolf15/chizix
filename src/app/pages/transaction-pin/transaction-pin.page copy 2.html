@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Set Transaction Pin
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="pin-container">
+    <!-- <ion-input type="number" inputmode="numeric"  maxlength="1" autofocus="true" class="pin-input" [(ngModel)]="digit1" (ionInput)="focusNext($event, digit2Input)"></ion-input>  -->
+
+    <ion-input type="number" inputmode="numeric" maxlength="1" autofocus="true" class="pin-input" [(ngModel)]="digit1" (ionInput)="focusNext($event, digit2Input)" #digit1Input></ion-input>
+
+
+    <ion-input type="number" inputmode="numeric"  maxlength="1" class="pin-input" [(ngModel)]="digit2" (ionInput)="focusNext($event, digit3Input)" #digit2Input></ion-input>
+    <ion-input type="number" inputmode="numeric"  maxlength="1" class="pin-input" [(ngModel)]="digit3" (ionInput)="focusNext($event, digit4Input)" #digit3Input></ion-input>
+    <ion-input type="number" inputmode="numeric"  maxlength="1" class="pin-input" [(ngModel)]="digit4" #digit4Input></ion-input>
+  </div>
+</ion-content>
+
+
+
+<ion-footer>
+  <ion-toolbar>
+    <!-- <ion-button expand="block" (click)="setPin()">Set Pin</ion-button> -->
+    <ion-button expand="block" color="primary" [disabled]="!pinInput1.value || !pinInput2.value || !pinInput3.value">Set Pin</ion-button>
+
+  </ion-toolbar>
+</ion-footer>

@@ -17,6 +17,11 @@ ion-content {
     width: 300px;
   }
 
+  .custom-scroll {
+    overflow-y: auto;
+    max-height: calc(100vh - 200px); /* Adjust 200px to your preference */
+  }
+
   height: max-content;
   ion-card {
     --box-shadow: none;

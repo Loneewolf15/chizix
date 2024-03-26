@@ -1,0 +1,78 @@
+<div class="page-container">
+  <ion-card class="ion-text-center ion-no-margin" color="dark">
+    <ion-card-header>
+      <ion-card-title class="tit" mode="ios">Use PIN to Login</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div align="center">
+        <ion-avatar class="avatar-large">
+          <img *ngIf="userImage" [src]="'https://api.veluxpay.com/' + userImage" alt="" />
+          <img *ngIf="!userImage" src="assets/images/avatar.png" alt="Dummy Image" />
+        </ion-avatar>
+      </div>
+      <div class="numberBox">
+        <div class="ion-text-center ion-padding" id="pin1">
+          <ion-input type="password" id="pin1" (input)="onPinChange(0)" readonly autocomplete="off"
+            class="ion-text-center ion-padding" value="{{pin.substring(0,1)}}"></ion-input>
+        </div>
+        <div class="ion-text-center ion-padding" id="pin2">
+          <ion-input type="password" id="pin2" readonly autocomplete="off"
+            class="ion-text-center ion-padding" value="{{pin.substring(1,2)}}"></ion-input>
+        </div>
+        <div class="ion-text-center ion-padding" id="pin3">
+          <ion-input type="password" id="pin3" readonly autocomplete="off"
+            class="ion-text-center ion-padding" value="{{pin.substring(2,3)}}"></ion-input>
+        </div>
+        <div class="ion-text-center ion-padding" id="pin4">
+          <ion-input type="password" id="pin4" readonly autocomplete="off"
+            class="ion-text-center ion-padding" value="{{pin.substring(3,4)}}"></ion-input>
+        </div>
+      </div>
+
+     
+      <ion-list class="pinL">
+        
+        <ion-grid class="buttons">
+          <ion-row>
+            <ion-col size="4">
+              <ion-button fill="clear" class="pinB" (click)="sett('1')">1</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="pinB" (click)="sett('2')">2</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="pinB" (click)="sett('3')">3</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="pinB" (click)="sett('4')">4</ion-button>
+            </ion-col>
+             <ion-col size="4">
+              <ion-button fill="clear" class="pinB" (click)="sett('5')">5</ion-button>
+            </ion-col>
+             <ion-col size="4">
+              <ion-button fill="clear" class="pinB" (click)="sett('6')">6</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="pinB" (click)="sett('7')">7</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="pinB" (click)="sett('8')">8</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="pinB" (click)="sett('9')">9</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="pinB" (click)="sett('0')">0</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button fill="clear" class="button" (click)="back1()"><ion-icon color="light" name="backspace"></ion-icon></ion-button>
+             </ion-col>
+          </ion-row>
+        
+         </ion-grid>
+  
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</div>
